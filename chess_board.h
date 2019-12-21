@@ -1,3 +1,7 @@
+#ifndef CHESS_BOARD_H
+#define CHESS_BOARD_H
+
+
 #include <iostream>
 #include "board_space.h"
 #include "colors.h"
@@ -27,7 +31,11 @@ private:
 
 space chess_board::get_space_at(int x, int y)
 {
+  space temp;
 
+  //todo
+
+  return temp;
 }
 
 chess_board::chess_board()
@@ -71,6 +79,11 @@ void chess_board::init_colors()
 
 void chess_board::populate_with_pieces()
 {
+  //other ways to populate a board like this:
+  //->    run a cellular automata with as many states as you have types of pieces to place - after some number of iterations, map states to pieces and play from that board
+ //   ->   std::random functions, just straight up random generation of the board based on integers 0-14, excluding 1 (invalid)
+//      ->  keeping things fair(er), by giving sides random pieces that add up to some point total that is either equal or close to equal
+
 //get the black pawns
   for(int i = 8; i < 16; i++)
   {
@@ -128,6 +141,7 @@ void chess_board::populate_with_pieces()
 void chess_board::dump()
 { //prints the board
   int counter = 0;
+  cout << endl << endl  << "3DChess copyright WEAPON OF DURGASOFT, LLC    2004" << endl << endl;
   for(int i = 0; i < 64; i++)
   {
     // cout << board[i].get_contents()<<"  "<< board[i].get_color()<<"  "<< board[i].is_empty()<<"        ";
@@ -195,3 +209,5 @@ void chess_board::terminal_output(contents c)
       break;
   }
 }
+
+#endif

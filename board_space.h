@@ -1,3 +1,6 @@
+#ifndef BOARD_SPACE_H
+#define BOARD_SPACE_H
+
 typedef enum contents_t{
 
     empty,                          //0
@@ -62,3 +65,6 @@ void space::set_color(bool input_color){
 
     color = input_color;
 }
+
+
+#endif
