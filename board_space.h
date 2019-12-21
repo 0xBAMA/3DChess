@@ -15,7 +15,8 @@ typedef enum contents_t{
 
 
 
-class space{
+class space
+{
 public:
 
     space();
@@ -24,7 +25,7 @@ public:
 
     bool is_empty();
     bool get_color();
-    void set_color(bool color);
+    void set_color(bool input_color);
 
 private:
     contents my_contents;
@@ -57,7 +58,7 @@ bool space::get_color()
     return color;
 }
 
-void space::set_color(bool color){
+void space::set_color(bool input_color){
 
-    this->color = color;
+    color = input_color;
 }

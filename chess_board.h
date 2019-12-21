@@ -125,12 +125,15 @@ void chess_board::populate_with_pieces()
 
 void chess_board::dump()
 { //prints the board
-  int counter = 1;
+  int counter = 0;
   for(int i = 0; i < 64; i++)
   {
     // cout << board[i].get_contents()<<"  "<< board[i].get_color()<<"  "<< board[i].is_empty()<<"        ";
 
-    if(board[i].get_color())
+    space temp = board[i];
+
+
+    if(temp.get_color())
     {
       cout << B_WHITE;
     }
@@ -141,53 +144,66 @@ void chess_board::dump()
 
 
 
-    if(board[i].is_empty())
+    if(temp.is_empty())
     {
       cout << "   " << RESET;
     }
     else
     {
-      cout << " p " << RESET;
+      bool set = false;
+
+      switch(temp.get_contents())
+      { //group by piece
+
+        whitepawn:
+            cout << T_BLUE;
+            set = true;
+        blackpawn:
+            if(!set)  cout << T_BLACK;
+            cout << " p ";
+            break;
+
+        whiteknight:
+            cout << T_BLUE;
+            set = true;
+        blackknight:
+            if(!set)  cout << T_BLACK;
+            cout << " k ";
+            break;
+
+        whitebishop:
+            cout << T_BLUE;
+            set = true;
+        blackbishop:
+            if(!set)  cout << T_BLACK;
+            cout << " b ";
+            break;
+
+        whiterook:
+            cout << T_BLUE;
+            set = true;
+        blackrook:
+            if(!set)  cout << T_BLACK;
+            cout << " r ";
+            break;
+
+        whitequeen:
+            cout << T_BLUE;
+            set = true;
+        blackqueen:
+            if(!set)  cout << T_BLACK;
+            cout << " q ";
+            break;
+
+        whiteking:
+            cout << T_BLUE;
+            set = true;
+        blackking:
+            if(!set)  cout << T_BLACK;
+            cout << " K ";
+            break;
+      }
     }
-
-
-
-    bool set = false;
-
-    switch(board[i].get_contents())
-    { //group by piece
-      whitepawn:    cout << T_BLUE;   set = true;
-      blackpawn:
-          if(!set)  cout << T_BLACK;
-          cout << " p ";
-          break;
-      whiteknight:    cout << T_BLUE;   set = true;
-      blackknight:
-          if(!set)  cout << T_BLACK;
-          cout << " k ";
-          break;
-      whitebishop:    cout << T_BLUE;   set = true;
-      blackbishop:
-          if(!set)  cout << T_BLACK;
-          cout << " b ";
-          break;
-      whiterook:    cout << T_BLUE;   set = true;
-      blackrook:
-          if(!set)  cout << T_BLACK;
-          cout << " r ";
-          break;
-      whitequeen:   cout << T_BLUE;   set = true;
-      blackqueen:
-          if(!set)  cout << T_BLACK;
-          cout << " q ";
-          break;
-      whiteking:    cout << T_BLUE;   set = true;
-      blackking:
-          if(!set)  cout << T_BLACK;
-          cout << " K ";
-          break;
-    }
-
 
     counter++;
 
