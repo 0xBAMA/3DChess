@@ -1,5 +1,6 @@
 #include <iostream>
 #include "board_space.h"
+#include "colors.h"
 
 using namespace std;
 
@@ -38,7 +39,7 @@ void chess_board::init_colors()
   for(int i = 0; i < 64; i++)
   {
     int x = i % 8;
-    int y = i / 8;
+    int y = (int) i / 8;
 
     if(y % 2 == 0)
     {
@@ -62,6 +63,7 @@ void chess_board::init_colors()
           board[i].set_color(false);
       }
     }
+    board[i].set_contents(empty);
   }
 }
 
@@ -123,14 +125,78 @@ void chess_board::populate_with_pieces()
 
 void chess_board::dump()
 { //prints the board
+  int counter = 1;
   for(int i = 0; i < 64; i++)
   {
-    cout << board[i].get_contents()<<"  "<< board[i].get_color()<<"  "<< board[i].is_empty();
-    if(i % 8 == 0)
+    // cout << board[i].get_contents()<<"  "<< board[i].get_color()<<"  "<< board[i].is_empty()<<"        ";
+
+    if(board[i].get_color())
     {
-      cout << endl;
+      cout << B_WHITE;
+    }
+    else
+    {
+      cout << B_BLUE;
+    }
+
+
+
+    if(board[i].is_empty())
+    {
+      cout << "   " << RESET;
+    }
+    else
+    {
+      cout << " p " << RESET;
+    }
+
+
+
+    bool set = false;
+
+    switch(board[i].get_contents())
+    { //group by piece
+      whitepawn:    cout << T_BLUE;   set = true;
+      blackpawn:
+          if(!set)  cout << T_BLACK;
+          cout << " p ";
+          break;
+      whiteknight:    cout << T_BLUE;   set = true;
+      blackknight:
+          if(!set)  cout << T_BLACK;
+          cout << " k ";
+          break;
+      whitebishop:    cout << T_BLUE;   set = true;
+      blackbishop:
+          if(!set)  cout << T_BLACK;
+          cout << " b ";
+          break;
+      whiterook:    cout << T_BLUE;   set = true;
+      blackrook:
+          if(!set)  cout << T_BLACK;
+          cout << " r ";
+          break;
+      whitequeen:   cout << T_BLUE;   set = true;
+      blackqueen:
+          if(!set)  cout << T_BLACK;
+          cout << " q ";
+          break;
+      whiteking:    cout << T_BLUE;   set = true;
+      blackking:
+          if(!set)  cout << T_BLACK;
+          cout << " K ";
+          break;
+    }
+
+
+    counter++;
+
+    if(counter == 8)
+    {
+      cout << RESET << endl;
+      counter = 0;
     }
   }
 
-  // cout << end << endl <<" the board " << endl << endl;
+  cout << endl << endl;
 }
