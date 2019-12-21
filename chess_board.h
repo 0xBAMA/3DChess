@@ -141,7 +141,7 @@ void chess_board::dump()
     }
     else
     {
-      cout << B_BLUE;
+      cout << B_BLACK;
     }
 
 
@@ -153,6 +153,7 @@ void chess_board::dump()
     else
     {
       terminal_output(temp.get_contents());
+      cout << RESET;
     }
 
     counter++;
@@ -171,26 +172,26 @@ void chess_board::dump()
 void chess_board::terminal_output(contents c)
 {
   switch(c)
-  { //group by piece
+  {
+    case whitepawn:    cout << T_CYAN << " p ";    break;
+    case blackpawn:    cout << T_BLUE << " p ";   break;
 
-    case whitepawn:    cout << T_BLUE << " p ";    break;
-    case blackpawn:    cout << T_BLACK << " p ";   break;
+    case whiteknight:  cout << T_CYAN << " k ";    break;
+    case blackknight:  cout << T_BLUE << " k ";   break;
 
-    case whiteknight:  cout << T_BLUE << " k ";    break;
-    case blackknight:  cout << T_BLACK << " k ";   break;
+    case whitebishop:  cout << T_CYAN << " b ";    break;
+    case blackbishop:  cout << T_BLUE << " b ";   break;
 
-    case whitebishop:  cout << T_BLUE << " b ";    break;
-    case blackbishop:  cout << T_BLACK << " b ";   break;
+    case whiterook:    cout << T_CYAN << " r ";    break;
+    case blackrook:    cout << T_BLUE << " r ";   break;
 
-    case whiterook:    cout << T_BLUE << " r ";    break;
-    case blackrook:    cout << T_BLACK << " r ";   break;
+    case whitequeen:   cout << T_CYAN << " Q ";    break;
+    case blackqueen:   cout << T_BLUE << " Q ";   break;
 
-    case whitequeen:   cout << T_BLUE << " Q ";    break;
-    case blackqueen:   cout << T_BLACK << " Q ";   break;
+    case whiteking:    cout << T_CYAN << " K ";    break;
+    case blackking:    cout << T_BLUE << " K ";   break;
 
-    case whiteking:    cout << T_BLUE << " K ";    break;
-    case blackking:    cout << T_BLACK << " K ";   break;
-
-    default:      cout << " " << c << " ";    break;
+    default:           //cout << " " << c << " ";
+      break;
   }
 }
