@@ -40,14 +40,7 @@ using std::endl;
 #include "resources/perlin.h"
 //perlin noise generation
 
-
 // #include "resources/shaders/Shader.h"  //including this seg faults - I'm going to have to rewrite it
-
-
-
-
-
-
 
 
 #include <SDL.h>
@@ -247,6 +240,11 @@ int main( int argc, char * argv[] )
                 case SDL_KEYUP:
                     if( event.key.keysym.sym == SDLK_ESCAPE )
                         return 0;
+                    break;
+
+                case SDL_QUIT: 
+                    cout << endl << "Quiting at: " << event.key.timestamp << endl;
+                    return 0;
                     break;
             }
         }
