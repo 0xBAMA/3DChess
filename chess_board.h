@@ -18,6 +18,8 @@ private:
   void init_colors();
   void populate_with_pieces();
 
+  void terminal_output(contents c);
+
   space board[64];
 
 };
@@ -125,7 +127,7 @@ void chess_board::populate_with_pieces()
 
 void chess_board::dump()
 { //prints the board
-  int counter = 0;
+  int counter;
   for(int i = 0; i < 64; i++)
   {
     // cout << board[i].get_contents()<<"  "<< board[i].get_color()<<"  "<< board[i].is_empty()<<"        ";
@@ -150,59 +152,7 @@ void chess_board::dump()
     }
     else
     {
-      bool set = false;
-
-      switch(temp.get_contents())
-      { //group by piece
-
-        whitepawn:
-            cout << T_BLUE;
-            set = true;
-        blackpawn:
-            if(!set)  cout << T_BLACK;
-            cout << " p ";
-            break;
-
-        whiteknight:
-            cout << T_BLUE;
-            set = true;
-        blackknight:
-            if(!set)  cout << T_BLACK;
-            cout << " k ";
-            break;
-
-        whitebishop:
-            cout << T_BLUE;
-            set = true;
-        blackbishop:
-            if(!set)  cout << T_BLACK;
-            cout << " b ";
-            break;
-
-        whiterook:
-            cout << T_BLUE;
-            set = true;
-        blackrook:
-            if(!set)  cout << T_BLACK;
-            cout << " r ";
-            break;
-
-        whitequeen:
-            cout << T_BLUE;
-            set = true;
-        blackqueen:
-            if(!set)  cout << T_BLACK;
-            cout << " q ";
-            break;
-
-        whiteking:
-            cout << T_BLUE;
-            set = true;
-        blackking:
-            if(!set)  cout << T_BLACK;
-            cout << " K ";
-            break;
-      }
+      terminal_output(temp.get_contents());
     }
 
     counter++;
@@ -215,4 +165,32 @@ void chess_board::dump()
   }
 
   cout << endl << endl;
+}
+
+
+void chess_board::terminal_output(contents c)
+{
+  switch(c)
+  { //group by piece
+
+    whitepawn:    cout << T_BLUE << " p ";    break;
+    blackpawn:    cout << T_BLACK << " p ";   break;
+
+    whiteknight:  cout << T_BLUE << " k ";    break;
+    blackknight:  cout << T_BLACK << " k ";   break;
+
+    whitebishop:  cout << T_BLUE << " b ";    break;
+    blackbishop:  cout << T_BLACK << " b ";   break;
+
+    whiterook:    cout << T_BLUE << " r ";    break;
+    blackrook:    cout << T_BLACK << " r ";   break;
+
+    whitequeen:   cout << T_BLUE << " Q ";    break;
+    blackqueen:   cout << T_BLACK << " Q ";   break;
+
+    whiteking:    cout << T_BLUE << " K ";    break;
+    blackking:    cout << T_BLACK << " K ";   break;
+
+    default:      cout << "AAAAH" << c << endl;    break;
+  }
 }
