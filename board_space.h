@@ -22,6 +22,7 @@ public:
 
     bool is_empty();
     bool get_color();
+    void set_color(bool color);
 
 private:
     contents my_contents;
@@ -49,4 +50,9 @@ bool space::is_empty()
 bool space::get_color()
 {
 
+}
+
+void space::set_color(bool color){
+
+    this->color = color;
 }
