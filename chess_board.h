@@ -121,13 +121,16 @@ void chess_board::populate_with_pieces()
 }
 
 
-void chess_board::dump(){ //prints the board
-
-  for(int i = 0; i < 64; i++){
-
-    cout<< endl << board[i].get_contents();
-    cout<<"   "<< board[i].get_color();
-    cout<<"   "<< board[i].is_empty();
+void chess_board::dump()
+{ //prints the board
+  for(int i = 0; i < 64; i++)
+  {
+    cout << board[i].get_contents()<<" "<< board[i].get_color()<<" "<< board[i].is_empty();
+    if(i % 8 == 0)
+    {
+      cout << endl;
+    }
   }
 
+  // cout << end << endl <<" the board " << endl << endl;
 }
