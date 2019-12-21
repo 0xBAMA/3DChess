@@ -41,7 +41,7 @@ using std::endl;
 //perlin noise generation
 
 
-#include "chess_board.h"
+#include "game.h"
 
 // #include "resources/shaders/Shader.h"  //including this seg faults - I'm going to have to rewrite it
 
@@ -232,10 +232,7 @@ int main( int argc, char * argv[] )
 
 
 
-
-    chess_board c;
-
-    c.dump();
+    game g;
 
 
 

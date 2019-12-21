@@ -29,8 +29,10 @@ public:
     bool is_empty();
     bool get_color();
     void set_color(bool input_color);
+    void set_coordinates(int input_x, int input_y);
 
 private:
+    int x, y;
     contents my_contents;
     bool color;
 };
@@ -64,6 +66,12 @@ bool space::get_color()
 void space::set_color(bool input_color){
 
     color = input_color;
+}
+
+void space::set_coordinates(int input_x, int input_y){
+
+    x = input_x;
+    y = input_y;
 }
 
 
