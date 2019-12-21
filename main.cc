@@ -40,6 +40,9 @@ using std::endl;
 #include "resources/perlin.h"
 //perlin noise generation
 
+
+#include "chess_board.h"
+
 // #include "resources/shaders/Shader.h"  //including this seg faults - I'm going to have to rewrite it
 
 
