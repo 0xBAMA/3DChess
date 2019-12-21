@@ -1,14 +1,14 @@
 typedef enum contents_t{
 
-    empty,
-    invalid,
+    empty,                          //0
+    invalid,                        //1
 
-    whitepawn,    blackpawn,
-    whiteknight,  blackknight,
-    whitebishop,  blackbishop,
-    whiterook,    blackrook,
-    whitequeen,   blackqueen,
-    whiteking,    blackking
+    whitepawn,    blackpawn,        //2, 3
+    whiteknight,  blackknight,      //4, 5
+    whitebishop,  blackbishop,      //6, 7
+    whiterook,    blackrook,        //8, 9
+    whitequeen,   blackqueen,       //10, 11
+    whiteking,    blackking         //12, 13
 
 } contents;
 

@@ -127,7 +127,7 @@ void chess_board::populate_with_pieces()
 
 void chess_board::dump()
 { //prints the board
-  int counter;
+  int counter = 0;
   for(int i = 0; i < 64; i++)
   {
     // cout << board[i].get_contents()<<"  "<< board[i].get_color()<<"  "<< board[i].is_empty()<<"        ";
@@ -173,24 +173,24 @@ void chess_board::terminal_output(contents c)
   switch(c)
   { //group by piece
 
-    whitepawn:    cout << T_BLUE << " p ";    break;
-    blackpawn:    cout << T_BLACK << " p ";   break;
+    case whitepawn:    cout << T_BLUE << " p ";    break;
+    case blackpawn:    cout << T_BLACK << " p ";   break;
 
-    whiteknight:  cout << T_BLUE << " k ";    break;
-    blackknight:  cout << T_BLACK << " k ";   break;
+    case whiteknight:  cout << T_BLUE << " k ";    break;
+    case blackknight:  cout << T_BLACK << " k ";   break;
 
-    whitebishop:  cout << T_BLUE << " b ";    break;
-    blackbishop:  cout << T_BLACK << " b ";   break;
+    case whitebishop:  cout << T_BLUE << " b ";    break;
+    case blackbishop:  cout << T_BLACK << " b ";   break;
 
-    whiterook:    cout << T_BLUE << " r ";    break;
-    blackrook:    cout << T_BLACK << " r ";   break;
+    case whiterook:    cout << T_BLUE << " r ";    break;
+    case blackrook:    cout << T_BLACK << " r ";   break;
 
-    whitequeen:   cout << T_BLUE << " Q ";    break;
-    blackqueen:   cout << T_BLACK << " Q ";   break;
+    case whitequeen:   cout << T_BLUE << " Q ";    break;
+    case blackqueen:   cout << T_BLACK << " Q ";   break;
 
-    whiteking:    cout << T_BLUE << " K ";    break;
-    blackking:    cout << T_BLACK << " K ";   break;
+    case whiteking:    cout << T_BLUE << " K ";    break;
+    case blackking:    cout << T_BLACK << " K ";   break;
 
-    default:      cout << "AAAAH" << c << endl;    break;
+    default:      cout << " " << c << " ";    break;
   }
 }
