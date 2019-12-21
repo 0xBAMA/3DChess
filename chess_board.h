@@ -10,6 +10,8 @@ public:
 
   space get_space_at(int x, int y);
 
+  void dump();
+
 
 private:
   void init_colors();
@@ -42,22 +44,22 @@ void chess_board::init_colors()
     {
       if(x % 2 == 0)
       {
-          chess_board.space[i].set_color(false); //set to black
+          board[i].set_color(false); //set to black
       }
       else
       {
-          chess_board.speace[i].set_color(true); //set to white
+          board[i].set_color(true); //set to white
       }
     }
     else
     {
       if(x % 2 == 0)
       {
-          chess_board.space[i].set_color(true);
+          board[i].set_color(true);
       }
       else
       {
-          chess_board.space[i].set_color(false);
+          board[i].set_color(false);
       }
     }
   }
@@ -116,4 +118,16 @@ void chess_board::populate_with_pieces()
 
   //queen
   board[59].set_contents(whitequeen);
+}
+
+
+void chess_board::dump(){ //prints the board
+
+  for(int i = 0; i < 64; i++){
+
+    cout<< endl << board[i].get_contents();
+    cout<<"   "<< board[i].get_color();
+    cout<<"   "<< board[i].is_empty();
+  }
+
 }

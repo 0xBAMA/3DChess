@@ -235,7 +235,7 @@ int main( int argc, char * argv[] )
 
     chess_board c;
 
-
+    c.dump();
 
 
 
