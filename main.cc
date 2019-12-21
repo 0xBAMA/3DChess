@@ -231,6 +231,14 @@ int main( int argc, char * argv[] )
     glBindVertexArray( vao );
 
 
+
+
+    chess_board c;
+
+
+
+
+
     for( ;; ) //same as while(true){}
     {
         glClear( GL_COLOR_BUFFER_BIT );
@@ -245,7 +253,7 @@ int main( int argc, char * argv[] )
                         return 0;
                     break;
 
-                case SDL_QUIT: 
+                case SDL_QUIT:
                     cout << endl << "Quiting at: " << event.key.timestamp << endl;
                     return 0;
                     break;
