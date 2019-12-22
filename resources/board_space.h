@@ -1,7 +1,8 @@
 #ifndef BOARD_SPACE_H
 #define BOARD_SPACE_H
 
-typedef enum contents_t{
+typedef enum contents_t
+{
 
     empty,                          //0
     invalid,                        //1
@@ -37,7 +38,8 @@ private:
     bool color;
 };
 
-space::space(){
+space::space()
+{
 
     my_contents = empty;
 }
@@ -63,13 +65,14 @@ bool space::get_color()
     return color;
 }
 
-void space::set_color(bool input_color){
+void space::set_color(bool input_color)
+{
 
     color = input_color;
 }
 
-void space::set_coordinates(int input_x, int input_y){
-
+void space::set_coordinates(int input_x, int input_y)
+{
     x = input_x;
     y = input_y;
 }

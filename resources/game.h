@@ -12,17 +12,19 @@ typedef enum result
     STALEMATE
 } result;
 
-class game{
+class game
+{
 
 public:
+
     game();
 
     result play();
-    void make_move(chess_move m);
 
 private:
-    chess_board c;
 
+    void make_move(chess_move m);
+    chess_board c;
 
 };
 
@@ -37,7 +39,8 @@ game::game()
 
 }
 
-void game::make_move(chess_move m){
+void game::make_move(chess_move m)
+{
 
 
 }
