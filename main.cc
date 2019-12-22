@@ -44,9 +44,11 @@ using std::endl;
 //perlin noise generation
 
 
-#include "game.h"
+#include "resources/game.h"
+//this is our chess game code
 
-// #include "resources/shaders/Shader.h"  //including this seg faults - I'm going to have to rewrite it
+
+
 
 
 #include <SDL.h>
