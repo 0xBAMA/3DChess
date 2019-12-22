@@ -174,6 +174,8 @@ private:
 opengl_container::opengl_container()
 {
   // my_game.dump();
+
+  
 }
 
 

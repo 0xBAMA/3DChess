@@ -141,12 +141,25 @@ void chess_board::populate_with_pieces()
 void chess_board::dump()
 { //prints the board
   int counter = 0;
-  cout << endl << endl  << "3DChess copyright WEAPON OF DURGASOFT, LLC 2004" << endl << endl << "      ";
+
+  cout << "       ";
+
+  for(int i = 0; i < 8; i++)
+  {
+    cout << "   " << i;
+  }
+
+  cout << endl << "      ";
+
   for(int i = 0; i < 64; i++)
   {
-    // cout << board[i].get_contents()<<"  "<< board[i].get_color()<<"  "<< board[i].is_empty()<<"        ";
 
     space temp = board[i];
+
+    if(counter == 0)
+    {
+      cout  << i/8;
+    }
 
 
     if(temp.get_color())
@@ -162,7 +175,7 @@ void chess_board::dump()
 
     if(temp.is_empty())
     {
-      cout << "    " << RESET;
+      cout << "    "  << RESET;
     }
     else
     {

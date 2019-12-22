@@ -12,7 +12,7 @@ typedef enum result
     STALEMATE
 } result;
 
-class game{ 
+class game{
 
 public:
     game();
@@ -29,6 +29,9 @@ private:
 
 game::game()
 {
+    cout << endl << "3DChess copyright WEAPON OF DURGASOFT, LLC 2004" << endl;
+
+    cout << "GAME BEGINS:" << endl << endl;
 
     c.dump();
 
