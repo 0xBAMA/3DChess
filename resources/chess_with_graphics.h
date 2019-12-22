@@ -168,12 +168,12 @@ public:
 
 private:
   game my_game;
-}
+};
 
 
 opengl_container::opengl_container()
 {
-  my_game.dump();
+  // my_game.dump();
 }
 
 
