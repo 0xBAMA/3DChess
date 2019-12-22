@@ -169,7 +169,6 @@ public:
 
 
 private:
-  void mat4x4_ortho( glm::mat4 &out, float left, float right, float bottom, float top, float znear, float zfar );
   game my_game;
 };
 
@@ -214,10 +213,6 @@ opengl_container::opengl_container()
 
   glBufferData( GL_ARRAY_BUFFER, sizeof( g_vertex_buffer_data ), g_vertex_buffer_data, GL_STATIC_DRAW );
 
-  // glm::mat4 projection_matrix;
-  // mat4x4_ortho( projection_matrix, 0.0f, (float)width, (float)height, 0.0f, 0.0f, 100.0f );
-  // glUniformMatrix4fv( glGetUniformLocation( program, "u_projection_matrix" ), 1, GL_FALSE, glm::value_ptr(projection_matrix) );
-
 
   GLfloat left = -1.366f;
   GLfloat right = 1.366f;
@@ -236,42 +231,6 @@ opengl_container::opengl_container()
   // my_game.dump();
 
 }
-
-
-
-
-
-
-void opengl_container::mat4x4_ortho( glm::mat4 &out, float left, float right, float bottom, float top, float znear, float zfar )
-{
-
-    out[0][0] = 2.0f / (right - left);
-    out[0][1] = 0.0f;
-    out[0][2] = 0.0f;
-    out[0][3] = 0.0f;
-
-    out[1][1] = 2.0f / (top - bottom);
-    out[1][0] = 0.0f;
-    out[1][2] = 0.0f;
-    out[1][3] = 0.0f;
-
-    out[2][2] = -2.0f / (zfar - znear);
-    out[2][0] = 0.0f;
-    out[2][1] = 0.0f;
-    out[2][3] = 0.0f;
-
-    out[3][0] = -(right + left) / (right - left);
-    out[3][1] = -(top + bottom) / (top - bottom);
-    out[3][2] = -(zfar + znear) / (zfar - znear);
-    out[3][3] = 1.0f;
-
-}
-
-
-
-
-
-
 
 
 #endif
