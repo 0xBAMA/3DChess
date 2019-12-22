@@ -18,7 +18,7 @@ msg:
 ### -lSDL2_image -lSDL2_ttf
 ### ${CXX} ${CXXFLAGS} main.cc `sdl2-config --libs --cflags` -lGL -Wall
 
-main: main.cc board_space.h chess_board.h
+main: main.cc resources/*.h
 	${CXX} ${CXXFLAGS} ${GL_FLAGS} -O3 -lSDL2  -o $@ $< ${SDL2FLAGS} $(LODEPNG_FLAGS)
 
 
