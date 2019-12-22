@@ -141,7 +141,7 @@ void chess_board::populate_with_pieces()
 void chess_board::dump()
 { //prints the board
   int counter = 0;
-  cout << endl << endl  << "3DChess copyright WEAPON OF DURGASOFT, LLC 2004" << endl << endl;
+  cout << endl << endl  << "3DChess copyright WEAPON OF DURGASOFT, LLC 2004" << endl << endl << "      ";
   for(int i = 0; i < 64; i++)
   {
     // cout << board[i].get_contents()<<"  "<< board[i].get_color()<<"  "<< board[i].is_empty()<<"        ";
@@ -162,7 +162,7 @@ void chess_board::dump()
 
     if(temp.is_empty())
     {
-      cout << "   " << RESET;
+      cout << "    " << RESET;
     }
     else
     {
@@ -174,7 +174,7 @@ void chess_board::dump()
 
     if(counter == 8)
     {
-      cout << RESET << endl;
+      cout << RESET << endl << "      ";
       counter = 0;
     }
   }
@@ -187,23 +187,23 @@ void chess_board::terminal_output(contents c)
 {
   switch(c)
   {
-    case whitepawn:    cout << T_CYAN << " p ";    break;
-    case blackpawn:    cout << T_BLUE << " p ";   break;
+    case whitepawn:    cout << T_CYAN << " pa ";    break;
+    case blackpawn:    cout << T_BLUE << " pa ";   break;
 
-    case whiteknight:  cout << T_CYAN << " k ";    break;
-    case blackknight:  cout << T_BLUE << " k ";   break;
+    case whiteknight:  cout << T_CYAN << " kn ";    break;
+    case blackknight:  cout << T_BLUE << " kn ";   break;
 
-    case whitebishop:  cout << T_CYAN << " b ";    break;
-    case blackbishop:  cout << T_BLUE << " b ";   break;
+    case whitebishop:  cout << T_CYAN << " bi ";    break;
+    case blackbishop:  cout << T_BLUE << " bi ";   break;
 
-    case whiterook:    cout << T_CYAN << " r ";    break;
-    case blackrook:    cout << T_BLUE << " r ";   break;
+    case whiterook:    cout << T_CYAN << " ro ";    break;
+    case blackrook:    cout << T_BLUE << " ro ";   break;
 
-    case whitequeen:   cout << T_CYAN << " Q ";    break;
-    case blackqueen:   cout << T_BLUE << " Q ";   break;
+    case whitequeen:   cout << T_CYAN << " Qu ";    break;
+    case blackqueen:   cout << T_BLUE << " Qu ";   break;
 
-    case whiteking:    cout << T_CYAN << " K ";    break;
-    case blackking:    cout << T_BLUE << " K ";   break;
+    case whiteking:    cout << T_CYAN << " Ki ";    break;
+    case blackking:    cout << T_BLUE << " Ki ";   break;
 
     default:           //cout << " " << c << " ";
       break;
