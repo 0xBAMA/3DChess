@@ -3,7 +3,6 @@
 
 
 
-// #include "resources/chess.h"  //this is where we'll include the 3d chess logic - I'll have access to it from everywhere
 
 
 
@@ -14,6 +13,9 @@
 #include <vector>
 #include <stdio.h>
 #include <iostream>
+#include <string>
+#include <fstream>
+#include <sstream>
 
 using std::cin;
 using std::cerr;

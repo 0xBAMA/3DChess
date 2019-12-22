@@ -1,12 +1,9 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
+#include "../common.h"
 
-#include <GL/glew.h>
+// #include <GL/glew.h>
 
 class Shader
 {

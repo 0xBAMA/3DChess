@@ -141,7 +141,7 @@ void chess_board::populate_with_pieces()
 void chess_board::dump()
 { //prints the board
   int counter = 0;
-  cout << endl << endl  << "3DChess copyright WEAPON OF DURGASOFT, LLC    2004" << endl << endl;
+  cout << endl << endl  << "3DChess copyright WEAPON OF DURGASOFT, LLC 2004" << endl << endl;
   for(int i = 0; i < 64; i++)
   {
     // cout << board[i].get_contents()<<"  "<< board[i].get_color()<<"  "<< board[i].is_empty()<<"        ";
