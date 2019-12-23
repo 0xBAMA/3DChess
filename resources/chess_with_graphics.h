@@ -169,49 +169,75 @@ public:
 
 
 private:
-  game my_game;
+  game my_game;  //This is where the game is
+
+  GLuint vao;
+  GLuint vbo;
+
+  GLuint shader_program;
+
+  int num_pts_board;
+  //indexes for pieces?
+
+  std::vector<glm::vec3> points;
+
 };
 
 
 opengl_container::opengl_container()
 {
 
-  static const int width = 1200;
-  static const int height = 700;
+  // static const int width = 1200;
+  // static const int height = 700;
 
-  GLuint program = Shader("resources/shaders/vs.glsl", "resources/shaders/fs.glsl").Program;
+  shader_program = Shader("resources/shaders/point_sprite_vs.glsl", "resources/shaders/point_sprite_fs.glsl").Program;
 
-  glUseProgram( program );
+  glUseProgram( shader_program );
 
-  glDisable( GL_DEPTH_TEST );
+  glEnable( GL_DEPTH_TEST );
   glClearColor( 0.5, 0.0, 0.0, 0.0 );
-  glViewport( 0, 0, width, height );
-
-  GLuint vao, vbo;
+  // glViewport( 0, 0, width, height );
 
   glGenVertexArrays( 1, &vao );
   glGenBuffers( 1, &vbo );
   glBindVertexArray( vao );
   glBindBuffer( GL_ARRAY_BUFFER, vbo );
 
-  glEnableVertexAttribArray( glGetAttribLocation(program, "i_position"));
-  glEnableVertexAttribArray( glGetAttribLocation(program, "i_color"));
+  // glEnableVertexAttribArray( glGetAttribLocation(shader_program, "i_position"));
+  // glEnableVertexAttribArray( glGetAttribLocation(shader_program, "i_color"));
+  //
+  // glVertexAttribPointer( glGetAttribLocation(shader_program, "i_position"), 4, GL_FLOAT, GL_FALSE, sizeof( float ) * 6, 0 );
+  // glVertexAttribPointer( glGetAttribLocation(shader_program, "i_color"), 2, GL_FLOAT, GL_FALSE, sizeof( float ) * 6, ( void * )(4 * sizeof(float)) );
 
-  glVertexAttribPointer( glGetAttribLocation(program, "i_position"), 4, GL_FLOAT, GL_FALSE, sizeof( float ) * 6, 0 );
-  glVertexAttribPointer( glGetAttribLocation(program, "i_color"), 2, GL_FLOAT, GL_FALSE, sizeof( float ) * 6, ( void * )(4 * sizeof(float)) );
+  // const GLfloat g_vertex_buffer_data[] = {
+  // /*  R, G, B, A, X, Y  */
+  //     1, 0, 0, 1, 0, 0,
+  //     0, 1, 0, 1, width, 0,
+  //     0, 0, 1, 1, width, height,
+  //
+  //     1, 0, 0, 1, 0, 0,
+  //     0, 0, 1, 1, width, height,
+  //     1, 1, 1, 1, 0, height
+  // };
 
-  const GLfloat g_vertex_buffer_data[] = {
-  /*  R, G, B, A, X, Y  */
-      1, 0, 0, 1, 0, 0,
-      0, 1, 0, 1, width, 0,
-      0, 0, 1, 1, width, height,
+  // glBufferData( GL_ARRAY_BUFFER, sizeof( g_vertex_buffer_data ), g_vertex_buffer_data, GL_STATIC_DRAW );
 
-      1, 0, 0, 1, 0, 0,
-      0, 0, 1, 1, width, height,
-      1, 1, 1, 1, 0, height
-  };
 
-  glBufferData( GL_ARRAY_BUFFER, sizeof( g_vertex_buffer_data ), g_vertex_buffer_data, GL_STATIC_DRAW );
+
+//Generate points
+
+  // std::random_device rd;
+  // std::mt19937 mt(rd());
+  //
+	// std::uniform_real_distribution<float> dist1(0.3f,9.8f); //input values
+	// std::uniform_int_distribution<int> dist2(0,nodes.size()-1);  //nodes
+  //
+  //
+
+
+
+
+
 
 
   GLfloat left = -1.366f;
@@ -221,7 +247,7 @@ opengl_container::opengl_container()
   GLfloat zNear = 1.2f;
   GLfloat zFar = -1.0f;
   glm::mat4 proj = glm::ortho(left, right, top, bottom, zNear, zFar);
-  glUniformMatrix4fv( glGetUniformLocation( program, "u_projection_matrix" ), 1, GL_FALSE, glm::value_ptr(proj) );
+  glUniformMatrix4fv( glGetUniformLocation( shader_program, "u_projection_matrix" ), 1, GL_FALSE, glm::value_ptr(proj) );
 
 
 
