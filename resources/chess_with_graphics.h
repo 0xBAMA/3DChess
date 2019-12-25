@@ -209,7 +209,7 @@ public:
   opengl_container();
 
   void update_rotation();
-
+  void draw_board();
 
 
 
@@ -229,6 +229,8 @@ private:
 
   float rotation_of_board;
 
+  int num_pts_white_spaces;
+  int num_pts_black_spaces;
 };
 
 
@@ -294,6 +296,17 @@ opengl_container::opengl_container()
     normals.push_back(glm::normalize(glm::vec3(dist1(mt),dist1(mt),dist1(mt))));
   }
 
+  num_pts_white_spaces = points.size();
+
+  for(int i = 0; i < 1000; i++)
+  {
+    points.push_back(glm::vec3(dist1(mt),dist1(mt),dist1(mt)));
+    normals.push_back(glm::normalize(glm::vec3(dist1(mt),dist1(mt),dist1(mt))));
+  }
+
+  num_pts_black_spaces = points.size();
+
+
 
 
   const GLuint num_bytes_points = sizeof(glm::vec3) * points.size();
@@ -327,6 +340,7 @@ opengl_container::opengl_container()
   // GLfloat zFar = -1.0f;
   // glm::mat4 proj = glm::ortho(left, right, top, bottom, zNear, zFar);
 
+
   //convert to perspective
   glm::mat4 proj = glm::perspective(glm::radians(65.0f), 1366.0f / 768.0f, 0.25f, 6.0f);
   glUniformMatrix4fv( glGetUniformLocation( shader_program, "u_projection_matrix" ), 1, GL_FALSE, glm::value_ptr(proj) );
@@ -338,11 +352,13 @@ opengl_container::opengl_container()
       glm::vec3(0.0f, 1.0f, 0.0f)
   );
 
+
   glUniformMatrix4fv( glGetUniformLocation( shader_program, "u_view_matrix" ), 1, GL_FALSE, glm::value_ptr(view) );
 
 
   float rotation_of_board = 0.1*SDL_GetTicks();
   glUniform1fv(glGetUniformLocation(shader_program, "rot"), 1, &rotation_of_board);
+
 
   glm::vec4 color = glm::vec4(1,0.4,0,1);
   glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(color));
@@ -353,6 +369,19 @@ void opengl_container::update_rotation()
 {
   rotation_of_board = 0.1*SDL_GetTicks();
   glUniform1fv(glGetUniformLocation(shader_program, "rot"), 1, &rotation_of_board);
+}
+
+void opengl_container::draw_board()
+{
+  glm::vec4 color = glm::vec4(1,0.4,0,1);
+  glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(color));
+
+  glDrawArrays( GL_TRIANGLES, 0, num_pts_white_spaces );
+
+  color = glm::vec4(0,0.4,1,1);
+  glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(color));
+
+  glDrawArrays( GL_TRIANGLES, num_pts_white_spaces, num_pts_black_spaces );
 }
 
 

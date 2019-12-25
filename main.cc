@@ -58,8 +58,7 @@ int main( int argc, char * argv[] )
             }
         }
 
-        glDrawArrays( GL_TRIANGLES, 0, 1000 );
-        // glDrawArrays( GL_POINTS, 0, 1000 );
+        g.draw_board();
 
         g.update_rotation();
 
