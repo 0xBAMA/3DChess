@@ -58,13 +58,9 @@ int main( int argc, char * argv[] )
             }
         }
 
-        glDrawArrays( GL_TRIANGLES, 0, 3 );
+        // glDrawArrays( GL_TRIANGLES, 0, 1000 );
+        glDrawArrays( GL_POINTS, 0, 1000 );
 
-        SDL_GL_SwapWindow( window );
-
-        SDL_Delay( 200 );
-
-        glDrawArrays( GL_TRIANGLES, 3, 3 );
         SDL_GL_SwapWindow( window );
 
         SDL_Delay( 100 );

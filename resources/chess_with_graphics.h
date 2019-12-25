@@ -239,13 +239,28 @@ opengl_container::opengl_container()
   // static const int width = 1200;
   // static const int height = 700;
 
-  shader_program = Shader("resources/shaders/point_sprite_vs.glsl", "resources/shaders/point_sprite_fs.glsl").Program;
+  Shader s("resources/shaders/phong_vs.glsl", "resources/shaders/phong_fs.glsl");
+  shader_program = s.Program;
+
+  cout << endl << endl << glGetAttribLocation(shader_program, "i_position");
+  cout << endl << glGetAttribLocation(shader_program, "i_normal") << endl << endl;
+
+  cout << endl << glGetUniformLocation( shader_program, "u_projection_matrix" ) << endl << endl;
+
 
   glUseProgram( shader_program );
 
-  glEnable( GL_DEPTH_TEST );
+  cout << endl << endl << glGetAttribLocation(shader_program, "i_position");
+  cout << endl << glGetAttribLocation(shader_program, "i_normal") << endl << endl;
+
+  cout << endl << glGetUniformLocation( shader_program, "u_projection_matrix" ) << endl << endl;
+
+
+  // glEnable( GL_DEPTH_TEST );
+  glPointSize(16.0f);
+
   glClearColor( 0.5, 0.0, 0.0, 0.0 );
-  // glViewport( 0, 0, width, height );
+  // glViewport( -1, -1, 2, 2 );
 
   glGenVertexArrays( 1, &vao );
   glBindVertexArray( vao );
@@ -253,21 +268,27 @@ opengl_container::opengl_container()
   glGenBuffers( 1, &vbo );
   glBindBuffer( GL_ARRAY_BUFFER, vbo );
 
+
+
 //clear out any data
   points.clear();
   normals.clear();
 
 
 
-//Then generate points
+//Then generate points/normals
 
-  // std::random_device rd;
-  // std::mt19937 mt(rd());
-  //
-	// std::uniform_real_distribution<float> dist1(0.3f,9.8f); //input values
+  std::random_device rd;
+  std::mt19937 mt(rd());
+
+	std::uniform_real_distribution<float> dist1(-1.0f, 1.0f); //input values
 	// std::uniform_int_distribution<int> dist2(0,nodes.size()-1);  //nodes
 
-
+  for(int i = 0; i < 1000; i++)
+  {
+    points.push_back(glm::vec3(dist1(mt),dist1(mt),dist1(mt)));
+    normals.push_back(glm::normalize(glm::vec3(dist1(mt),dist1(mt),dist1(mt))));
+  }
 
 
 
@@ -281,13 +302,14 @@ opengl_container::opengl_container()
   glBufferSubData(GL_ARRAY_BUFFER, 0, num_bytes_points, &points[0]);
   glBufferSubData(GL_ARRAY_BUFFER, num_bytes_points, num_bytes_normals, &normals[0]);
 
+
   glEnableVertexAttribArray(glGetAttribLocation(shader_program, "i_position"));
   glEnableVertexAttribArray(glGetAttribLocation(shader_program, "i_normal"));
 
-  cout << "setting up points attrib" << endl;
-  glVertexAttribPointer(glGetAttribLocation(shader_program, "i_position"), 3, GL_FLOAT, false, 0, (static_cast<const char*>(0) + (0)));
+  cout << "setting up points attrib" << endl << std::flush;
+  glVertexAttribPointer(glGetAttribLocation(shader_program, "i_position"), 3, GL_FLOAT, false, 0, (static_cast<const char*>(0)));
 
-  cout << "setting up normals attrib" << endl;
+  cout << "setting up normals attrib" << endl << std::flush;
   glVertexAttribPointer(glGetAttribLocation(shader_program, "i_normal"), 3, GL_FLOAT, false, 0, (static_cast<const char*>(0) + (num_bytes_points)));
 
 
