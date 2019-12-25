@@ -203,6 +203,9 @@ opengl_container::opengl_container()
   glBindVertexArray( vao );
   glBindBuffer( GL_ARRAY_BUFFER, vbo );
 
+
+
+//THIS IS ALL GETTING REMOVED
   // glEnableVertexAttribArray( glGetAttribLocation(shader_program, "i_position"));
   // glEnableVertexAttribArray( glGetAttribLocation(shader_program, "i_color"));
   //
