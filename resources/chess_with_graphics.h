@@ -315,22 +315,33 @@ opengl_container::opengl_container()
 
 
 
-  GLfloat left = -1.366f;
-  GLfloat right = 1.366f;
-  GLfloat top = -0.768f;
-  GLfloat bottom = 0.768f;
-  GLfloat zNear = 1.2f;
-  GLfloat zFar = -1.0f;
-  glm::mat4 proj = glm::ortho(left, right, top, bottom, zNear, zFar);
+  // GLfloat left = -1.366f;
+  // GLfloat right = 1.366f;
+  // GLfloat top = -0.768f;
+  // GLfloat bottom = 0.768f;
+  // GLfloat zNear = 1.2f;
+  // GLfloat zFar = -1.0f;
+  // glm::mat4 proj = glm::ortho(left, right, top, bottom, zNear, zFar);
+
+  //convert to perspective
+  glm::mat4 proj = glm::perspective(glm::radians(65.0f), 1366.0f / 768.0f, 0.25f, 6.0f);
   glUniformMatrix4fv( glGetUniformLocation( shader_program, "u_projection_matrix" ), 1, GL_FALSE, glm::value_ptr(proj) );
 
 
+  glm::mat4 view = glm::lookAt(
+      glm::vec3(-1.3f, 0.7f, -1.7f),
+      glm::vec3(0.0f, 0.0f, 0.0f),
+      glm::vec3(0.0f, 1.0f, 0.0f)
+  );
+
+  glUniformMatrix4fv( glGetUniformLocation( shader_program, "u_view_matrix" ), 1, GL_FALSE, glm::value_ptr(view) );
 
 
+  // scale = 1.0;
+  // glUniform1fv(scale_loc, 1, &scale);
 
-
-
-  // my_game.dump();
+  glm::vec4 color = glm::vec4(1,0.4,0,1);
+  glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(color));
 
 }
 
