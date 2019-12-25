@@ -253,22 +253,22 @@ void chess_board::terminal_output(contents c)
 
 
     case whitepawn:    cout << T_MAGENTA << " pa ";    break;
-    case blackpawn:    cout << T_BLUE << " pa ";   break;
+    case blackpawn:    cout << T_GREEN << " pa ";   break;
 
     case whiteknight:  cout << T_MAGENTA << " kn ";    break;
-    case blackknight:  cout << T_BLUE << " kn ";   break;
+    case blackknight:  cout << T_GREEN << " kn ";   break;
 
     case whitebishop:  cout << T_MAGENTA << " bi ";    break;
-    case blackbishop:  cout << T_BLUE << " bi ";   break;
+    case blackbishop:  cout << T_GREEN << " bi ";   break;
 
     case whiterook:    cout << T_MAGENTA << " ro ";    break;
-    case blackrook:    cout << T_BLUE << " ro ";   break;
+    case blackrook:    cout << T_GREEN << " ro ";   break;
 
     case whitequeen:   cout << T_MAGENTA << " Qu ";    break;
-    case blackqueen:   cout << T_BLUE << " Qu ";   break;
+    case blackqueen:   cout << T_GREEN << " Qu ";   break;
 
     case whiteking:    cout << T_MAGENTA << " Ki ";    break;
-    case blackking:    cout << T_BLUE << " Ki ";   break;
+    case blackking:    cout << T_GREEN << " Ki ";   break;
 
     default:           //cout << " " << c << " ";
       break;
