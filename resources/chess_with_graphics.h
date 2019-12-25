@@ -208,6 +208,8 @@ class opengl_container
 public:
   opengl_container();
 
+  void update_rotation();
+
 
 
 
@@ -224,6 +226,8 @@ private:
 
   std::vector<glm::vec3> points;    //add the 1.0 w value in the shader
   std::vector<glm::vec3> normals;   //represents surface orientation
+
+  float rotation_of_board;
 
 };
 
@@ -256,7 +260,7 @@ opengl_container::opengl_container()
   cout << endl << glGetUniformLocation( shader_program, "u_projection_matrix" ) << endl << endl;
 
 
-  // glEnable( GL_DEPTH_TEST );
+  glEnable( GL_DEPTH_TEST );
   glPointSize(16.0f);
 
   glClearColor( 0.5, 0.0, 0.0, 0.0 );
@@ -337,12 +341,18 @@ opengl_container::opengl_container()
   glUniformMatrix4fv( glGetUniformLocation( shader_program, "u_view_matrix" ), 1, GL_FALSE, glm::value_ptr(view) );
 
 
-  // scale = 1.0;
-  // glUniform1fv(scale_loc, 1, &scale);
+  float rotation_of_board = 0.1*SDL_GetTicks();
+  glUniform1fv(glGetUniformLocation(shader_program, "rot"), 1, &rotation_of_board);
 
   glm::vec4 color = glm::vec4(1,0.4,0,1);
   glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(color));
 
+}
+
+void opengl_container::update_rotation()
+{
+  rotation_of_board = 0.1*SDL_GetTicks();
+  glUniform1fv(glGetUniformLocation(shader_program, "rot"), 1, &rotation_of_board);
 }
 
 

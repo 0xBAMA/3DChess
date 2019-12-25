@@ -39,7 +39,7 @@ int main( int argc, char * argv[] )
 
     for( ;; ) //same as while(true){}
     {
-        glClear( GL_COLOR_BUFFER_BIT );
+        glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         SDL_Event event;
         while( SDL_PollEvent( &event ) )
@@ -60,6 +60,8 @@ int main( int argc, char * argv[] )
 
         glDrawArrays( GL_TRIANGLES, 0, 1000 );
         // glDrawArrays( GL_POINTS, 0, 1000 );
+
+        g.update_rotation();
 
         SDL_GL_SwapWindow( window );
 
