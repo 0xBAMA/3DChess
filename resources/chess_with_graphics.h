@@ -179,7 +179,10 @@ private:
   int num_pts_board;
   //indexes for pieces?
 
-  std::vector<glm::vec3> points;
+  std::vector<glm::vec3> points;    //add the 1.0 w value in the shader
+  // std::vector<glm::vec2> texcoords; //texture coordinates
+  std::vector<glm::vec3> normals;   //represents surface orientation
+  // std::vector<glm::vec4> colors;    //support alpha
 
 };
 
@@ -199,31 +202,10 @@ opengl_container::opengl_container()
   // glViewport( 0, 0, width, height );
 
   glGenVertexArrays( 1, &vao );
-  glGenBuffers( 1, &vbo );
   glBindVertexArray( vao );
+
+  glGenBuffers( 1, &vbo );
   glBindBuffer( GL_ARRAY_BUFFER, vbo );
-
-
-
-//THIS IS ALL GETTING REMOVED
-  // glEnableVertexAttribArray( glGetAttribLocation(shader_program, "i_position"));
-  // glEnableVertexAttribArray( glGetAttribLocation(shader_program, "i_color"));
-  //
-  // glVertexAttribPointer( glGetAttribLocation(shader_program, "i_position"), 4, GL_FLOAT, GL_FALSE, sizeof( float ) * 6, 0 );
-  // glVertexAttribPointer( glGetAttribLocation(shader_program, "i_color"), 2, GL_FLOAT, GL_FALSE, sizeof( float ) * 6, ( void * )(4 * sizeof(float)) );
-
-  // const GLfloat g_vertex_buffer_data[] = {
-  // /*  R, G, B, A, X, Y  */
-  //     1, 0, 0, 1, 0, 0,
-  //     0, 1, 0, 1, width, 0,
-  //     0, 0, 1, 1, width, height,
-  //
-  //     1, 0, 0, 1, 0, 0,
-  //     0, 0, 1, 1, width, height,
-  //     1, 1, 1, 1, 0, height
-  // };
-
-  // glBufferData( GL_ARRAY_BUFFER, sizeof( g_vertex_buffer_data ), g_vertex_buffer_data, GL_STATIC_DRAW );
 
 
 
@@ -234,8 +216,6 @@ opengl_container::opengl_container()
   //
 	// std::uniform_real_distribution<float> dist1(0.3f,9.8f); //input values
 	// std::uniform_int_distribution<int> dist2(0,nodes.size()-1);  //nodes
-  //
-  //
 
 
 
