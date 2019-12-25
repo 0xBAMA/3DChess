@@ -36,5 +36,5 @@ void main()
     v_normal = (u_projection_matrix*u_view_matrix*rotation(vec3(0,1,0),0.01*rot)*vec4(i_normal,1.0)).xyz;
 
     //have to add the offset, before model(rotation),view,projection
-    gl_Position = u_projection_matrix*u_view_matrix*rotation(vec3(0,1,0),0.01*rot)*vec4( i_position, 1.0 );
+    gl_Position = u_projection_matrix*u_view_matrix*rotation(vec3(0,1,0),0.001*rot)*vec4( i_position, 1.0 );
 }

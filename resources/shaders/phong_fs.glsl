@@ -21,12 +21,12 @@ void main()
     }
     else
     {
-      int fcxmod = int(gl_FragCoord.x) % 2;
-      int fcymod = int(gl_FragCoord.y) % 2;
+      //int fcxmod = int(gl_FragCoord.x) % 2;
+      //int fcymod = int(gl_FragCoord.y) % 2;
 
-      if((fcymod == 0) || (fcxmod == 0))
-      {
-        discard;
-      }
+      //if((fcymod == 0) || (fcxmod == 0))
+      //{
+      //  discard;
+      //}
     }
 }
