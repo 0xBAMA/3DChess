@@ -47,6 +47,49 @@ using std::endl;
 
 
 
+//DEBUG STUFF
+
+void GLAPIENTRY
+MessageCallback( GLenum source,
+                 GLenum type,
+                 GLuint id,
+                 GLenum severity,
+                 GLsizei length,
+                 const GLchar* message,
+                 const void* userParam )
+{
+
+  bool show_high_severity         = true;
+  bool show_medium_severity       = true;
+  bool show_low_severity          = true;
+  bool show_notification_severity = true;
+
+  if(severity == GL_DEBUG_SEVERITY_HIGH && show_high_severity)
+    fprintf( stderr, "        GL CALLBACK: %s type = 0x%x, severity = GL_DEBUG_SEVERITY_HIGH, message = %s\n",
+           ( type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : "" ),
+            type, message );
+
+  if(severity == GL_DEBUG_SEVERITY_MEDIUM && show_medium_severity)
+    fprintf( stderr, "        GL CALLBACK: %s type = 0x%x, severity = GL_DEBUG_SEVERITY_MEDIUM, message = %s\n",
+           ( type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : "" ),
+            type, message );
+
+  if(severity == GL_DEBUG_SEVERITY_LOW && show_low_severity)
+    fprintf( stderr, "        GL CALLBACK: %s type = 0x%x, severity = GL_DEBUG_SEVERITY_LOW, message = %s\n",
+           ( type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : "" ),
+            type, message );
+
+  if(severity == GL_DEBUG_SEVERITY_NOTIFICATION && show_notification_severity)
+    fprintf( stderr, "        GL CALLBACK: %s type = 0x%x, severity = GL_DEBUG_SEVERITY_NOTIFICATION, message = %s\n",
+           ( type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : "" ),
+            type, message );
+}
+
+
+
+
+
+
 
 
 
@@ -180,15 +223,18 @@ private:
   //indexes for pieces?
 
   std::vector<glm::vec3> points;    //add the 1.0 w value in the shader
-  // std::vector<glm::vec2> texcoords; //texture coordinates
   std::vector<glm::vec3> normals;   //represents surface orientation
-  // std::vector<glm::vec4> colors;    //support alpha
 
 };
 
 
 opengl_container::opengl_container()
 {
+
+  //DEBUG
+  glEnable              ( GL_DEBUG_OUTPUT );
+  glDebugMessageCallback( MessageCallback, 0 );
+
 
   // static const int width = 1200;
   // static const int height = 700;
@@ -207,9 +253,13 @@ opengl_container::opengl_container()
   glGenBuffers( 1, &vbo );
   glBindBuffer( GL_ARRAY_BUFFER, vbo );
 
+//clear out any data
+  points.clear();
+  normals.clear();
 
 
-//Generate points
+
+//Then generate points
 
   // std::random_device rd;
   // std::mt19937 mt(rd());
@@ -219,6 +269,26 @@ opengl_container::opengl_container()
 
 
 
+
+
+  const GLuint num_bytes_points = sizeof(glm::vec3) * points.size();
+  const GLuint num_bytes_normals = sizeof(glm::vec3) * normals.size();
+
+  GLint num_bytes = num_bytes_points + num_bytes_normals;
+
+  glBufferData(GL_ARRAY_BUFFER, num_bytes, NULL, GL_STATIC_DRAW);
+
+  glBufferSubData(GL_ARRAY_BUFFER, 0, num_bytes_points, &points[0]);
+  glBufferSubData(GL_ARRAY_BUFFER, num_bytes_points, num_bytes_normals, &normals[0]);
+
+  glEnableVertexAttribArray(glGetAttribLocation(shader_program, "i_position"));
+  glEnableVertexAttribArray(glGetAttribLocation(shader_program, "i_normal"));
+
+  cout << "setting up points attrib" << endl;
+  glVertexAttribPointer(glGetAttribLocation(shader_program, "i_position"), 3, GL_FLOAT, false, 0, (static_cast<const char*>(0) + (0)));
+
+  cout << "setting up normals attrib" << endl;
+  glVertexAttribPointer(glGetAttribLocation(shader_program, "i_normal"), 3, GL_FLOAT, false, 0, (static_cast<const char*>(0) + (num_bytes_points)));
 
 
 
@@ -234,7 +304,8 @@ opengl_container::opengl_container()
 
 
 
-  glBindVertexArray( vao );
+
+
 
 
   // my_game.dump();
