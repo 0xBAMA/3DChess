@@ -528,7 +528,7 @@ opengl_container::opengl_container()
 
 
   //convert to perspective
-  glm::mat4 proj = glm::perspective(glm::radians(65.0f), 1366.0f / 768.0f, 0.25f, 6.0f);
+  glm::mat4 proj = glm::perspective(glm::radians(45.0f), 1366.0f / 768.0f, 0.25f, 6.0f);
   glUniformMatrix4fv( glGetUniformLocation( shader_program, "u_projection_matrix" ), 1, GL_FALSE, glm::value_ptr(proj) );
 
 
@@ -582,7 +582,7 @@ void opengl_container::draw_board()
   glUniform1i(glGetUniformLocation( shader_program, "mode" ), 0);
   glDrawArrays(GL_TRIANGLES, board_start, board_num);
   SDL_GL_SwapWindow( window );
-  SDL_Delay(1000);
+  SDL_Delay(150);
 
   glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -590,7 +590,7 @@ void opengl_container::draw_board()
   glDrawArrays(GL_TRIANGLES, board_start, board_num);
   // glDrawArrays(GL_TRIANGLES, sel_board_start, sel_board_num);
   SDL_GL_SwapWindow( window );
-  SDL_Delay(1000);
+  SDL_Delay(150);
 
 }
 
