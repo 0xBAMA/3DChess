@@ -67,7 +67,7 @@ int main( int argc, char * argv[] )
 
         SDL_GL_SwapWindow( window );
 
-        SDL_Delay( 100 );
+        SDL_Delay( 15 );
     }
 
     SDL_GL_DeleteContext( context );
