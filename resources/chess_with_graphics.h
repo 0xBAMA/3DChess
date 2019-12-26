@@ -211,8 +211,11 @@ public:
 
   void update_rotation();
   void draw_board();
+  void draw_selection_board();
 
-  void display();
+  // void display();
+
+  void main_loop();
 
 
 
@@ -227,6 +230,9 @@ private:
   int num_pts_board;
   //indexes for pieces?
 
+  bool handle_input();
+
+
   std::vector<glm::vec3> points;    //add the 1.0 w value in the shader
   std::vector<glm::vec3> normals;   //represents surface orientation
   std::vector<glm::vec3> colors;   //represents surface color
@@ -237,7 +243,6 @@ private:
   // int white_space_start, white_space_num;
   // int black_space_start, black_space_num;
   int board_start, board_num;
-  int sel_board_start, sel_board_num;
 
   glm::vec3 white = glm::vec3(1,0.9,0.76);
   glm::vec3 black = glm::vec3(0.1,0.1,0);
@@ -249,6 +254,9 @@ private:
 
   SDL_Window * window;
   SDL_GLContext context;
+
+
+  bool selection_mode = false;
 
 
 };
@@ -398,10 +406,10 @@ opengl_container::opengl_container()
     //C : (n,n,-0.3);
     //D : (n+1,n,-0.3);
 
-    glm::vec3 A = glm::vec3(-0.8+1.6*((float)(x)/8.0),-0.3,-0.8+1.6*((float)(y+1)/8.0));
-    glm::vec3 B = glm::vec3(-0.8+1.6*((float)(x+1)/8.0),-0.3,-0.8+1.6*((float)(y+1)/8.0));
-    glm::vec3 C = glm::vec3(-0.8+1.6*((float)(x)/8.0),-0.3,-0.8+1.6*((float)(y)/8.0));
-    glm::vec3 D = glm::vec3(-0.8+1.6*((float)(x+1)/8.0),-0.3,-0.8+1.6*((float)(y)/8.0));
+    glm::vec3 A = glm::vec3(-0.8+1.6*((float)(x)/8.0),-0.1,-0.8+1.6*((float)(y+1)/8.0));
+    glm::vec3 B = glm::vec3(-0.8+1.6*((float)(x+1)/8.0),-0.1,-0.8+1.6*((float)(y+1)/8.0));
+    glm::vec3 C = glm::vec3(-0.8+1.6*((float)(x)/8.0),-0.1,-0.8+1.6*((float)(y)/8.0));
+    glm::vec3 D = glm::vec3(-0.8+1.6*((float)(x+1)/8.0),-0.1,-0.8+1.6*((float)(y)/8.0));
 
     offsets[x][y] = (A+B+C+D)/4.0f;
 
@@ -414,58 +422,120 @@ opengl_container::opengl_container()
     points.push_back(D);
   }
 
+
+
+
+
+
+  //  triangle 1 is ABC
+  // A       B
+  //  +-----+
+  //  | 1 / |
+  //  |  /  |
+  //  | / 2 |
+  //  +-----+
+  // C       D
+  //  triangle 2 is CBD
+
+  glm::vec3 A = glm::vec3(-0.8, -0.1, 0.8);
+  glm::vec3 B = glm::vec3( 0.8, -0.1, 0.8);
+  glm::vec3 C = glm::vec3(-0.9618, -0.2, 0.9618);
+  glm::vec3 D = glm::vec3(0.9618, -0.2, 0.9618);
+
+  points.push_back(A);  points.push_back(B);  points.push_back(C);
+  points.push_back(C);  points.push_back(B);  points.push_back(D);
+
+
+  glm::vec3 gold = glm::vec3(0.8, 0.3, 0.05);
+  for(int i = 0; i < 6; i++) colors.push_back(gold);
+
+
+  glm::vec3 norm = glm::cross(A-B, B-C);
+  for(int i = 0; i < 6; i++) normals.push_back(norm);
+
+
+  glm::vec3 blue = glm::vec3(0.4, 0.5, 0.9);
+  for(int i = 0; i < 6; i++) selection_colors.push_back(blue);
+
+
+
+
+
+
+
+
+
+  A = glm::vec3(-0.8, -0.1, -0.8);
+  B = glm::vec3(-0.8, -0.1, 0.8);
+  C = glm::vec3(-0.9618, -0.2, -0.9618);
+  D = glm::vec3(-0.9618, -0.2, 0.9618);
+
+  points.push_back(A);  points.push_back(B);  points.push_back(C);
+  points.push_back(C);  points.push_back(B);  points.push_back(D);
+
+  for(int i = 0; i < 6; i++) colors.push_back(gold);
+
+  norm = glm::cross(A-B, B-C);
+  for(int i = 0; i < 6; i++) normals.push_back(norm);
+
+  for(int i = 0; i < 6; i++) selection_colors.push_back(blue);
+
+
+
+
+
+
+
+
+  A = glm::vec3(0.8, -0.1, 0.8);
+  B = glm::vec3(0.8, -0.1, -0.8);
+  C = glm::vec3(0.9618, -0.2, 0.9618);
+  D = glm::vec3(0.9618, -0.2, -0.9618);
+
+  points.push_back(A);  points.push_back(B);  points.push_back(C);
+  points.push_back(C);  points.push_back(B);  points.push_back(D);
+
+  for(int i = 0; i < 6; i++) colors.push_back(gold);
+
+  norm = glm::cross(A-B, B-C);
+  for(int i = 0; i < 6; i++) normals.push_back(norm);
+
+  for(int i = 0; i < 6; i++) selection_colors.push_back(blue);
+
+
+
+
+
+
+
+
+
+
+
+
+  A = glm::vec3(0.8, -0.1, -0.8);
+  B = glm::vec3(-0.8, -0.1, -0.8);
+  C = glm::vec3(0.9618, -0.2, -0.9618);
+  D = glm::vec3(-0.9618, -0.2, -0.9618);
+
+  points.push_back(A);  points.push_back(B);  points.push_back(C);
+  points.push_back(C);  points.push_back(B);  points.push_back(D);
+
+  for(int i = 0; i < 6; i++) colors.push_back(gold);
+
+  norm = glm::cross(A-B, B-C);
+  for(int i = 0; i < 6; i++) normals.push_back(norm);
+
+  for(int i = 0; i < 6; i++) selection_colors.push_back(blue);
+
+
+
+
+
+
+
   board_num = points.size() - board_start;
 
-  sel_board_start = points.size();
-
-  // for(int i = 0; i < 64; i++)
-  // {
-  //   int x = i % 8;
-  //   int y = i / 8;
-  //
-  //   for(int i = 0; i < 6; i++) colors.push_back(glm::vec3(0.125*x, 0.125*y, 0));
-  //
-  //
-  // //normals + selection colors
-  //   for(int i = 0; i < 6; i++)
-  //   {
-  //     normals.push_back(up);
-  //   }
-  //
-  //
-  //   //  triangle 1 is ABC
-  //   // A       B
-  //   //  +-----+
-  //   //  | 1 / |
-  //   //  |  /  |
-  //   //  | / 2 |
-  //   //  +-----+
-  //   // C       D
-  //   //  triangle 2 is CBD
-  //
-  //
-  //   //A : (n,n+1,-0.3);
-  //   //B : (n+1,n+1,-0.3);
-  //   //C : (n,n,-0.3);
-  //   //D : (n+1,n,-0.3);
-  //
-  //   glm::vec3 A = glm::vec3(-0.8+1.6*((float)(x)/8.0),-0.3,-0.8+1.6*((float)(y+1)/8.0));
-  //   glm::vec3 B = glm::vec3(-0.8+1.6*((float)(x+1)/8.0),-0.3,-0.8+1.6*((float)(y+1)/8.0));
-  //   glm::vec3 C = glm::vec3(-0.8+1.6*((float)(x)/8.0),-0.3,-0.8+1.6*((float)(y)/8.0));
-  //   glm::vec3 D = glm::vec3(-0.8+1.6*((float)(x+1)/8.0),-0.3,-0.8+1.6*((float)(y)/8.0));
-  //
-  //   offsets[x][y] = (A+B+C+D)/4.0f;
-  //
-  //   points.push_back(A);
-  //   points.push_back(B);
-  //   points.push_back(C);
-  //
-  //   points.push_back(C);
-  //   points.push_back(B);
-  //   points.push_back(D);
-  // }
-
-  sel_board_num = points.size() - sel_board_start;
 
 
 
@@ -533,7 +603,7 @@ opengl_container::opengl_container()
 
 
   glm::mat4 view = glm::lookAt(
-      glm::vec3(-1.3f, 0.7f, -1.7f),
+      glm::vec3(-1.3f, 1.0f, -1.7f),
       glm::vec3(0.0f, 0.0f, 0.0f),
       glm::vec3(0.0f, 1.0f, 0.0f)
   );
@@ -571,63 +641,164 @@ void opengl_container::update_rotation()
   glUniform1fv(glGetUniformLocation(shader_program, "rot"), 1, &rotation_of_board);
 }
 
+bool opengl_container::handle_input()
+{
+  SDL_Event e;
+  bool quit = false;
+
+  while( SDL_PollEvent( &e ) )
+  {
+    //User requests quit - this is through the x or keyboard shortcut
+    if( e.type == SDL_QUIT )
+    {//this type means you got a message to quit
+      // ┌─┐┬ ┬┌─┐┌┬┐┌─┐┌┬┐  ┌─┐─┐ ┬┬┌┬┐
+      // └─┐└┬┘└─┐ │ ├┤ │││  ├┤ ┌┴┬┘│ │
+      // └─┘ ┴ └─┘ ┴ └─┘┴ ┴  └─┘┴ └─┴ ┴
+
+      cout << "quitting via kill";  //this is called when exiting via key combo/window x button
+      quit = true;  //this will be seen from main
+    }
+    else if( e.type == SDL_KEYDOWN )
+    {// this type means you pressed a key
+      //  ┬┌─┌─┐┬ ┬  ┌─┐┬─┐┌─┐┌─┐┌─┐
+      //  ├┴┐├┤ └┬┘  ├─┘├┬┘├┤ └─┐└─┐
+      //  ┴ ┴└─┘ ┴   ┴  ┴└─└─┘└─┘└─┘
+
+      //INFO:
+      // https://wiki.libsdl.org/SDL_KeyboardEvent
+
+      //switch based on key press
+      switch( e.key.keysym.sym )
+      {
+        case SDLK_UP:
+          cout << "  up  key pressed";
+          selection_mode = true;
+          break;
+
+        // case SDLK_DOWN:
+        //   cout << "  down  key pressed";
+        //   break;
+        //
+        // case SDLK_LEFT:
+        //   cout << "  left  key pressed";
+        //   break;
+        //
+        // case SDLK_RIGHT:
+        //   cout << "  right  key pressed";
+        //   break;
+
+        case SDLK_ESCAPE:
+          cout << " exiting (quitting via escape)";   // this is called when the escape button is hit
+          quit = true;  //this will be seen in main
+          break;
+
+        case SDLK_f:
+          cout << " going fullscreen";
+          SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+          break;
+
+        default:
+          // cout << " some other key pressed - ";
+          // cout << "scancode is: " << SDL_GetScancodeName(e.key.keysym.scancode);
+          // cout <<" with name: " <<  SDL_GetKeyName(e.key.keysym.sym);
+          cout << SDL_GetKeyName(e.key.keysym.sym) << " down at ";
+          break;
+      }
+      if(e.key.repeat)
+        cout << " is being held ";
+    }
+    else if(e.type == SDL_KEYUP)
+    { //this type means that you released a key
+      //  ┬┌─┌─┐┬ ┬  ┬─┐┌─┐┬  ┌─┐┌─┐┌─┐┌─┐
+      //  ├┴┐├┤ └┬┘  ├┬┘├┤ │  ├┤ ├─┤└─┐├┤
+      //  ┴ ┴└─┘ ┴   ┴└─└─┘┴─┘└─┘┴ ┴└─┘└─┘
+
+      switch( e.key.keysym.sym )
+      {
+        case SDLK_UP:
+          cout << "  up  key let go";
+          selection_mode = false;
+          break;
+        default:
+          cout << SDL_GetKeyName(e.key.keysym.sym) << " up at ";
+          break;
+      }
+    }
+    else if(e.type == SDL_MOUSEBUTTONDOWN)
+    {//you clicked the mouse button down, at some xy - note that y goes from 0 at the top to whatever value at the bottom
+      //  ┌┬┐┌─┐┬ ┬┌─┐┌─┐  ┌─┐┬─┐┌─┐┌─┐┌─┐
+      //  ││││ ││ │└─┐├┤   ├─┘├┬┘├┤ └─┐└─┐
+      //  ┴ ┴└─┘└─┘└─┘└─┘  ┴  ┴└─└─┘└─┘└─┘
+      switch(e.button.button) //this is stupid notation
+      {
+        case SDL_BUTTON_LEFT:
+          cout << "left click at x:" << e.button.x << " y:" << e.button.y;
+          break;
+
+        case SDL_BUTTON_MIDDLE:
+          cout << "middle click at x:" << e.button.x << " y:" << e.button.y;
+          break;
+
+        case SDL_BUTTON_RIGHT:
+          cout << "right click at x:" << e.button.x << " y:" << e.button.y;
+          break;
+      }
+    }
+    else if(e.type == SDL_MOUSEBUTTONUP)
+    {//you let go of a mouse button, at some xy - again, same deal with y being inverted
+      //  ┌┬┐┌─┐┬ ┬┌─┐┌─┐  ┬─┐┌─┐┬  ┌─┐┌─┐┌─┐┌─┐
+      //  ││││ ││ │└─┐├┤   ├┬┘├┤ │  ├┤ ├─┤└─┐├┤
+      //  ┴ ┴└─┘└─┘└─┘└─┘  ┴└─└─┘┴─┘└─┘┴ ┴└─┘└─┘
+      switch(e.button.button)
+      {
+        case SDL_BUTTON_LEFT:
+          cout << "left click released at x:" << e.button.x << " y:" << e.button.y;
+          break;
+
+        case SDL_BUTTON_MIDDLE:
+          cout << "middle click released at x:" << e.button.x << " y:" << e.button.y;
+          break;
+
+        case SDL_BUTTON_RIGHT:
+          cout << "right click released at x:" << e.button.x << " y:" << e.button.y;
+          break;
+      }
+    }
+    cout << " at time " << e.key.timestamp << endl;
+  }
+  return quit;
+}
+
 
 void opengl_container::draw_board()
 {
-  // glm::vec4 color = glm::vec4(1,0.9,0.76,1);
-  // glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(color));
-
-  glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
   glUniform1i(glGetUniformLocation( shader_program, "mode" ), 0);
   glDrawArrays(GL_TRIANGLES, board_start, board_num);
-  SDL_GL_SwapWindow( window );
-  SDL_Delay(150);
+}
 
-  glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+void opengl_container::draw_selection_board()
+{
   glUniform1i(glGetUniformLocation( shader_program, "mode" ), 4);
   glDrawArrays(GL_TRIANGLES, board_start, board_num);
-  // glDrawArrays(GL_TRIANGLES, sel_board_start, sel_board_num);
-  SDL_GL_SwapWindow( window );
-  SDL_Delay(150);
-
 }
 
-
-void opengl_container::display()
+void opengl_container::main_loop()
 {
-  glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  SDL_Event event;
-  while( SDL_PollEvent( &event ) )
+  while(!handle_input())
   {
-      switch( event.type )
-      {
-          case SDL_KEYUP:
-              if( event.key.keysym.sym == SDLK_ESCAPE )
-              {
-                SDL_GL_DeleteContext( context );
-                SDL_DestroyWindow( window );
-                SDL_Quit();
-              }
-                  // return 0;
-              break;
-          //
-          // case SDL_QUIT:
-          //     cout << endl << "Quiting at: " << event.key.timestamp << endl;
-          //     return 0;
-          //     break;
-      }
+    glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    update_rotation();
+
+    if(selection_mode)
+      draw_selection_board();
+    else
+      draw_board();
+
+    SDL_GL_SwapWindow( window );
+    SDL_Delay(20);
   }
-
-  draw_board();
-
-  update_rotation();
-
-  SDL_GL_SwapWindow( window );
-
-  SDL_Delay( 15 );
 }
+
 
 #endif

@@ -2,13 +2,9 @@
 
 int main( int argc, char * argv[] )
 {
-
     opengl_container g;
 
-    for( ;; ) //same as while(true){}
-    {
-      g.display();
-    }
+    g.main_loop();
 
     return 0;
 }
