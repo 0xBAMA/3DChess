@@ -43,12 +43,26 @@ void main()
 {
   switch(mode)
   {
-    case 0:
+    case 0://standard display of board
       v_color = vec4(i_color,1.0);
       break;
 
-    case 4:
+    case 1://displaying white pieces
+      v_color = vec4(1,0.9,0.76,1);
+      break;
+
+    case 2://displaying black pieces
+      v_color = vec4(0.1,0.1,0,1);
+      break;
+
+
+
+    case 4://selection mode
       v_color = vec4(i_sel_color,1);
+      break;
+
+    case 5://piece selection mode
+      v_color = u_sel_color;
       break;
   }
 

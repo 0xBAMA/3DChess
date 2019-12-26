@@ -212,6 +212,7 @@ public:
   void update_rotation();
   void draw_board();
   void draw_selection_board();
+  void draw_pieces();
 
   // void display();
 
@@ -244,6 +245,7 @@ private:
   // int white_space_start, white_space_num;
   // int black_space_start, black_space_num;
   int board_start, board_num;
+  int pawn_start, pawn_num;
 
   glm::vec3 white = glm::vec3(1,0.9,0.76);
   glm::vec3 black = glm::vec3(0.1,0.1,0);
@@ -412,7 +414,7 @@ opengl_container::opengl_container()
     glm::vec3 C = glm::vec3(-0.8+1.6*((float)(x)/8.0),-0.1,-0.8+1.6*((float)(y)/8.0));
     glm::vec3 D = glm::vec3(-0.8+1.6*((float)(x+1)/8.0),-0.1,-0.8+1.6*((float)(y)/8.0));
 
-    offsets[x][y] = (A+B+C+D)/4.0f;
+    offsets[x][y] = (A+B+C+D)/4.0f+glm::vec3(0,0.01,0);
 
     points.push_back(A);
     points.push_back(B);
@@ -555,13 +557,18 @@ opengl_container::opengl_container()
   for(int i = 0; i < 6; i++) selection_colors.push_back(blue);
 
 
-
-
-
-
-
   board_num = points.size() - board_start;
 
+
+  pawn_start = points.size();
+
+
+
+  points.push_back(glm::vec3(0,0,0));
+
+
+
+  pawn_num = points.size() - pawn_start;
 
 
 
@@ -672,6 +679,8 @@ void opengl_container::update_rotation()
   glUniform1fv(glGetUniformLocation(shader_program, "light_rotation"), 1, &rotation_of_light);
 
 }
+
+
 
 bool opengl_container::handle_input()
 {
@@ -814,6 +823,67 @@ void opengl_container::draw_selection_board()
   glDrawArrays(GL_TRIANGLES, board_start, board_num);
 }
 
+void opengl_container::draw_pieces()
+{
+
+
+
+
+
+
+  std::random_device rd;
+  std::mt19937 mt(rd());
+  std::uniform_int_distribution<int> dist(0,6);
+
+
+
+
+
+
+
+  for(int x = 0; x < 8; x++)
+  {
+    for(int y = 0; y < 8; y++)
+    {
+      if(dist(mt) == 1)
+      {
+        glm::vec3 offset = offsets[x][y];
+        glUniform3fv(glGetUniformLocation( shader_program, "u_offset" ),1, glm::value_ptr(offset) );
+
+
+        glm::vec4 selection_color = glm::vec4(0.125*x, 0.125*y, 0, 1);
+        glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(selection_color));
+
+
+        glUniform1i(glGetUniformLocation( shader_program, "mode" ), 1);
+
+        glDrawArrays(GL_POINTS, pawn_start, pawn_num);
+      }
+
+
+      if(dist(mt) == 2)
+      {
+        glm::vec3 offset = offsets[x][y];
+        glUniform3fv(glGetUniformLocation( shader_program, "u_offset" ),1, glm::value_ptr(offset) );
+
+
+        glm::vec4 selection_color = glm::vec4(0.125*x, 0.125*y, 0, 1);
+        glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(selection_color));
+
+
+        glUniform1i(glGetUniformLocation( shader_program, "mode" ), 2);
+
+        glDrawArrays(GL_POINTS, pawn_start, pawn_num);
+      }
+    }
+  }
+
+  glUniform1i(glGetUniformLocation( shader_program, "mode" ), 0);
+
+  glm::vec3 default_offset = glm::vec3(0,0,0);
+  glUniform3fv(glGetUniformLocation( shader_program, "u_offset" ),1, glm::value_ptr(default_offset) );
+}
+
 void opengl_container::main_loop()
 {
 
@@ -826,6 +896,8 @@ void opengl_container::main_loop()
       draw_selection_board();
     else
       draw_board();
+
+    draw_pieces();
 
     SDL_GL_SwapWindow( window );
     SDL_Delay(20);

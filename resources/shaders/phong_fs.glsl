@@ -29,13 +29,13 @@ uniform float light_rotation;
 
 void main()
 {
-  vec3 light = (rotation(vec3(0,1,0),0.001*light_rotation)*vec4(0.3, 0.4, 0.25, 1)).xyz;
+  vec3 light = (rotation(vec3(0,1,0),-0.001*light_rotation)*vec4(0.3, 0.4+0.1*sin(0.01*light_rotation), 0.25, 1)).xyz;
 
   o_color = v_color;
 
 
 
-  if(mode == 4 && v_color.b > 0.5)
+  if((mode == 4||mode == 2||mode == 3) && v_color.b > 0.5)
   {
     discard;
   }
@@ -57,7 +57,7 @@ void main()
     //ambient
     float a = -0.4;
     //diffuse
-    float d = (1/(pow(0.25*distance(v_position,light),2))) * 0.5 * max(dot(n, l),-0.4);
+    float d = (1/(pow(0.25*distance(v_position,light),2))) * 0.7 * max(dot(n, l),-0.4);
     //specular
     float s = (1/(pow(0.25*distance(v_position,light),2))) * 1.6 * pow(max(dot(r,v),0),10);
 
