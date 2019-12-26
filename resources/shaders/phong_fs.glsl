@@ -72,11 +72,12 @@ void main()
     if(!gl_FrontFacing)
     {
       if(dot(n,l) > 0)
+      {
         o_color += s * vec4(1,0.3,0,1);
-
-        // o_color = vec4(1,0,0,1);
-
+      }
     }
+
+    o_color.xyz *= 0.5/gl_FragCoord.z;
   }
 
 

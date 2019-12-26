@@ -254,7 +254,6 @@ private:
   glm::vec3 offsets[8][8];  //used to place pieces more simply
 
 
-
   SDL_Window * window;
   SDL_GLContext context;
 
@@ -565,7 +564,7 @@ opengl_container::opengl_container()
 
 
   points.push_back(glm::vec3(0,0,0));
-  points.push_back(glm::vec3(0,0.2,0));
+  points.push_back(glm::vec3(0,0.3,0));
 
 
 
@@ -651,9 +650,9 @@ opengl_container::opengl_container()
 
 
 
-  float rotation_of_board = 0.1*SDL_GetTicks();
+  rotation_of_board = 0.1*SDL_GetTicks();
   glUniform1fv(glGetUniformLocation(shader_program, "rot"), 1, &rotation_of_board);
-  float rotation_of_light = 0.1*SDL_GetTicks();
+  rotation_of_light = 0.1*SDL_GetTicks();
   glUniform1fv(glGetUniformLocation(shader_program, "light_rotation"), 1, &rotation_of_light);
 
 
@@ -723,15 +722,37 @@ bool opengl_container::handle_input()
           cout << "  left  key pressed";
           rotation_of_board+=30;
           glUniform1fv(glGetUniformLocation(shader_program, "rot"), 1, &rotation_of_board);
-          glUniform1fv(glGetUniformLocation(shader_program, "light_rotation"), 1, &rotation_of_board);
           break;
 
         case SDLK_RIGHT:
           cout << "  right  key pressed";
           rotation_of_board-=30;
           glUniform1fv(glGetUniformLocation(shader_program, "rot"), 1, &rotation_of_board);
-          glUniform1fv(glGetUniformLocation(shader_program, "light_rotation"), 1, &rotation_of_board);
           break;
+
+
+
+
+
+        case SDLK_a:
+          rotation_of_light+=30;
+          glUniform1fv(glGetUniformLocation(shader_program, "light_rotation"), 1, &rotation_of_light);
+
+          break;
+
+
+
+
+        case SDLK_s:
+          rotation_of_light-=30;
+          glUniform1fv(glGetUniformLocation(shader_program, "light_rotation"), 1, &rotation_of_light);
+
+          break;
+
+
+
+
+
 
         case SDLK_ESCAPE:
           cout << " exiting (quitting via escape)";   // this is called when the escape button is hit
