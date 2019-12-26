@@ -19,6 +19,7 @@ uniform vec3 u_offset;             //allows for placement of pieces
 //1 is black piece
 //2 is white piece
 //3 is highlight square
+//4 is selection mode
 // ... ?
 uniform int mode;
 
@@ -39,11 +40,14 @@ mat4 rotation(vec3 a, float angle)
 
 void main()
 {
-  switch(mode)
+  if(mode == 0)
   {
-    case 0:
-      v_color = vec4(i_color,1.0);
-      break;
+    v_color = vec4(i_color,1.0);
+  }
+
+  if(mode == 4)
+  {
+    v_color = vec4(i_sel_color,1.0);
   }
 
     //v_normal = i_normal;            //passthrough, CURRENTLY

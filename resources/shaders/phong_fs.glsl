@@ -7,6 +7,11 @@ out vec4 o_color;     //output pixel color
 
 void main()
 {
+    if(v_color.a == 0.0)
+    {
+      discard;
+    }
+
     o_color = v_color;
 
 //    if(gl_FrontFacing)

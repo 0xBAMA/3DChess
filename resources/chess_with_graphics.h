@@ -207,9 +207,12 @@ class opengl_container
 {
 public:
   opengl_container();
+  ~opengl_container();
 
   void update_rotation();
   void draw_board();
+
+  void display();
 
 
 
@@ -226,7 +229,8 @@ private:
 
   std::vector<glm::vec3> points;    //add the 1.0 w value in the shader
   std::vector<glm::vec3> normals;   //represents surface orientation
-  std::vector<glm::vec3> colors;   //represents surface orientation
+  std::vector<glm::vec3> colors;   //represents surface color
+  std::vector<glm::vec3> selection_colors; //represents surface for selection
 
   float rotation_of_board;
 
@@ -238,12 +242,45 @@ private:
   glm::vec3 black = glm::vec3(0.1,0.1,0);
 
 
+  glm::vec3 offsets[8][8];  //used to place pieces more simply
+
+
+
+  SDL_Window * window;
+  SDL_GLContext context;
+
+
 };
 
 
 
 opengl_container::opengl_container()
 {
+
+  SDL_Init( SDL_INIT_VIDEO );
+  SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+  SDL_GL_SetAttribute( SDL_GL_ACCELERATED_VISUAL, 1 );
+  SDL_GL_SetAttribute( SDL_GL_RED_SIZE, 8 );
+  SDL_GL_SetAttribute( SDL_GL_GREEN_SIZE, 8 );
+  SDL_GL_SetAttribute( SDL_GL_BLUE_SIZE, 8 );
+  SDL_GL_SetAttribute( SDL_GL_ALPHA_SIZE, 8 );
+
+  SDL_GL_SetAttribute( SDL_GL_MULTISAMPLEBUFFERS, 1);
+  SDL_GL_SetAttribute( SDL_GL_MULTISAMPLESAMPLES, 8);
+
+  SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 4 );
+  SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 5 );
+  SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
+
+  static const int width = 1200;
+  static const int height = 700;
+
+  window = SDL_CreateWindow( "OpenGL Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN );
+  context = SDL_GL_CreateContext( window );
+
+
+
+
 
   //DEBUG
   glEnable              ( GL_DEBUG_OUTPUT );
@@ -266,7 +303,6 @@ opengl_container::opengl_container()
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-  // glEnable(GL_MULTISAMPLE);
 
   glEnable(GL_LINE_SMOOTH);
   glEnable(GL_POLYGON_SMOOTH);
@@ -293,6 +329,7 @@ opengl_container::opengl_container()
   points.clear();
   normals.clear();
   colors.clear();
+  selection_colors.clear();
 
 
 
@@ -336,8 +373,13 @@ opengl_container::opengl_container()
       }
     }
 
-//normals
-    for(int i = 0; i < 6; i++) normals.push_back(up);
+//normals + selection colors
+    for(int i = 0; i < 6; i++)
+    {
+      selection_colors.push_back(glm::vec3(x*0.125, y*0.125, 0));
+      normals.push_back(up);
+    }
+
 
     //  triangle 1 is ABC
     // A       B
@@ -360,6 +402,7 @@ opengl_container::opengl_container()
     glm::vec3 C = glm::vec3(-0.8+1.6*((float)(x)/8.0),-0.3,-0.8+1.6*((float)(y)/8.0));
     glm::vec3 D = glm::vec3(-0.8+1.6*((float)(x+1)/8.0),-0.3,-0.8+1.6*((float)(y)/8.0));
 
+    offsets[x][y] = (A+B+C+D)/4.0f;
 
     points.push_back(A);
     points.push_back(B);
@@ -372,37 +415,60 @@ opengl_container::opengl_container()
 
   board_num = points.size() - board_start;
 
+  // points_start = points.size();
+  //
+  //
+  //
+  // points_num = points.size() - points_start;
+  //
 
 
 
 
 
-  const GLuint num_bytes_points = sizeof(glm::vec3) * points.size();
-  const GLuint num_bytes_normals = sizeof(glm::vec3) * normals.size();
-  const GLuint num_bytes_colors = sizeof(glm::vec3) * colors.size();
 
-  GLint num_bytes = num_bytes_points + num_bytes_normals + num_bytes_colors;
+
+  const GLuint num_bytes_points           = sizeof(glm::vec3) * points.size();
+  cout << endl << num_bytes_points << endl;
+
+  const GLuint num_bytes_normals          = sizeof(glm::vec3) * normals.size();
+  cout << num_bytes_normals << endl;
+
+  const GLuint num_bytes_colors           = sizeof(glm::vec3) * colors.size();
+  cout << num_bytes_colors << endl;
+
+  const GLuint num_bytes_selection_colors = sizeof(glm::vec3) * selection_colors.size();
+  cout << num_bytes_selection_colors << endl;
+
+
+
+  GLint num_bytes = num_bytes_points + num_bytes_normals + num_bytes_colors + num_bytes_selection_colors;
+  cout << endl << " " << num_bytes << endl << endl;
 
   glBufferData(GL_ARRAY_BUFFER, num_bytes, NULL, GL_STATIC_DRAW);
 
-  glBufferSubData(GL_ARRAY_BUFFER, 0, num_bytes_points, &points[0]);
-  glBufferSubData(GL_ARRAY_BUFFER, num_bytes_points, num_bytes_normals, &normals[0]);
-  glBufferSubData(GL_ARRAY_BUFFER, num_bytes_points+num_bytes_normals, num_bytes_colors, &colors[0]);
 
 
-  glEnableVertexAttribArray(glGetAttribLocation(shader_program, "i_position"));
-  glEnableVertexAttribArray(glGetAttribLocation(shader_program, "i_normal"));
-  glEnableVertexAttribArray(glGetAttribLocation(shader_program, "i_color"));
 
   cout << "setting up points attrib" << endl << std::flush;
+  glBufferSubData(GL_ARRAY_BUFFER, 0, num_bytes_points, &points[0]);
+  glEnableVertexAttribArray(glGetAttribLocation(shader_program, "i_position"));
   glVertexAttribPointer(glGetAttribLocation(shader_program, "i_position"), 3, GL_FLOAT, false, 0, (static_cast<const char*>(0)));
 
   cout << "setting up normals attrib" << endl << std::flush;
+  glBufferSubData(GL_ARRAY_BUFFER, num_bytes_points, num_bytes_normals, &normals[0]);
+  glEnableVertexAttribArray(glGetAttribLocation(shader_program, "i_normal"));
   glVertexAttribPointer(glGetAttribLocation(shader_program, "i_normal"), 3, GL_FLOAT, false, 0, (static_cast<const char*>(0) + (num_bytes_points)));
 
   cout << "setting up colors attrib" << endl << std::flush;
+  glBufferSubData(GL_ARRAY_BUFFER, num_bytes_points+num_bytes_normals, num_bytes_colors, &colors[0]);
+  glEnableVertexAttribArray(glGetAttribLocation(shader_program, "i_color"));
   glVertexAttribPointer(glGetAttribLocation(shader_program, "i_color"), 3, GL_FLOAT, false, 0, (static_cast<const char*>(0) + (num_bytes_points+num_bytes_normals)));
 
+  cout << "setting up selection colors attrib" << endl << std::flush;
+  glBufferSubData(GL_ARRAY_BUFFER, num_bytes_points+num_bytes_normals+num_bytes_colors, num_bytes_selection_colors, &selection_colors[0]);
+  glEnableVertexAttribArray(glGetAttribLocation(shader_program, "i_sel_color"));
+  glVertexAttribPointer(glGetAttribLocation(shader_program, "i_sel_color"), 3, GL_FLOAT, false, 0, (static_cast<const char*>(0) + (num_bytes_points+num_bytes_normals+num_bytes_colors)));
 
 
 
@@ -445,6 +511,13 @@ opengl_container::opengl_container()
 
 }
 
+opengl_container::~opengl_container()
+{
+  SDL_GL_DeleteContext( context );
+  SDL_DestroyWindow( window );
+  SDL_Quit();
+}
+
 
 void opengl_container::update_rotation()
 {
@@ -458,12 +531,54 @@ void opengl_container::draw_board()
   // glm::vec4 color = glm::vec4(1,0.9,0.76,1);
   // glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(color));
 
-
-
   glUniform1i(glGetUniformLocation( shader_program, "mode" ), 0);
-
   glDrawArrays(GL_TRIANGLES, board_start, board_num);
+  SDL_GL_SwapWindow( window );
+  SDL_Delay(1000);
+
+
+
+  glUniform1i(glGetUniformLocation( shader_program, "mode" ), 4);
+  glDrawArrays(GL_TRIANGLES, board_start, board_num);
+  SDL_GL_SwapWindow( window );
+  SDL_Delay(1000);
+
 }
 
+
+void opengl_container::display()
+{
+  glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  SDL_Event event;
+  while( SDL_PollEvent( &event ) )
+  {
+      switch( event.type )
+      {
+          case SDL_KEYUP:
+              if( event.key.keysym.sym == SDLK_ESCAPE )
+              {
+                SDL_GL_DeleteContext( context );
+                SDL_DestroyWindow( window );
+                SDL_Quit();
+              }
+                  // return 0;
+              break;
+          //
+          // case SDL_QUIT:
+          //     cout << endl << "Quiting at: " << event.key.timestamp << endl;
+          //     return 0;
+          //     break;
+      }
+  }
+
+  draw_board();
+
+  update_rotation();
+
+  SDL_GL_SwapWindow( window );
+
+  SDL_Delay( 15 );
+}
 
 #endif
