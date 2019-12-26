@@ -624,7 +624,7 @@ opengl_container::opengl_container()
 
 
   //convert to perspective
-  glm::mat4 proj = glm::perspective(glm::radians(45.0f), 1366.0f / 768.0f, 0.25f, 6.0f);
+  glm::mat4 proj = glm::perspective(glm::radians(50.0f), 1366.0f / 768.0f, 0.25f, 6.0f);
   glUniformMatrix4fv( glGetUniformLocation( shader_program, "u_projection_matrix" ), 1, GL_FALSE, glm::value_ptr(proj) );
 
 

@@ -29,7 +29,7 @@ uniform float light_rotation;
 
 void main()
 {
-  vec3 light = (rotation(vec3(0,1,0),0.001*light_rotation)*vec4(1.8, 1.6, -1.9, 1)).xyz;
+  vec3 light = (rotation(vec3(0,1,0),0.001*light_rotation)*vec4(0.3, 0.4, 0.25, 1)).xyz;
 
   o_color = v_color;
 
@@ -39,7 +39,8 @@ void main()
   {
     discard;
   }
-  else
+
+  if(mode == 0)
   {
     //phong lighting model
 
@@ -54,16 +55,16 @@ void main()
     vec3 r = normalize(reflect(l, n));
 
     //ambient
-    float a = 0.4;
+    float a = -0.4;
     //diffuse
     float d = (1/(pow(0.25*distance(v_position,light),2))) * 0.5 * max(dot(n, l),-0.4);
     //specular
-    float s = (1/(pow(0.25*distance(v_position,light),2))) * 4.6 * pow(max(dot(r,v),0),19);
+    float s = (1/(pow(0.25*distance(v_position,light),2))) * 1.6 * pow(max(dot(r,v),0),10);
 
-    o_color += a * vec4(0.1,0.1,0.1,1);
+    o_color += a * vec4(0.4,0.4,0.4,1);
     o_color += d * vec4(0.56, 0.3,0.1, 1);
 
-    if(gl_FrontFacing)
+    if(!gl_FrontFacing)
     {
       if(dot(n,l) > 0)
         o_color += s * vec4(1,0.3,0,1);
@@ -73,12 +74,6 @@ void main()
     }
   }
 
-  // if(mode == 0)
-  // { //board
-  //
-  //
-  //
-  // }
 
   o_color.a = 1;
 
