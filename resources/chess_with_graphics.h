@@ -209,7 +209,7 @@ public:
   opengl_container();
   ~opengl_container();
 
-  void update_rotation();
+  // void update_rotation();
   void draw_board();
   void draw_selection_board();
   void draw_pieces();
@@ -327,7 +327,7 @@ opengl_container::opengl_container()
 
   glPointSize(16.0f);
 
-  glClearColor( 0.5, 0.0, 0.0, 0.0 );
+  glClearColor( 0.2, 0.1, 0.0, 0.0 );
 
   glGenVertexArrays( 1, &vao );
   glBindVertexArray( vao );
@@ -671,15 +671,13 @@ opengl_container::~opengl_container()
 }
 
 
-void opengl_container::update_rotation()
-{
-  rotation_of_board = 0.1*SDL_GetTicks();
-  glUniform1fv(glGetUniformLocation(shader_program, "rot"), 1, &rotation_of_board);
-
-  rotation_of_light = 0.1*SDL_GetTicks();
-  glUniform1fv(glGetUniformLocation(shader_program, "light_rotation"), 1, &rotation_of_light);
-
-}
+// void opengl_container::update_rotation()
+// {
+//   rotation_of_board = 0.1*SDL_GetTicks();
+//   glUniform1fv(glGetUniformLocation(shader_program, "rot"), 1, &rotation_of_board);
+//   glUniform1fv(glGetUniformLocation(shader_program, "light_rotation"), 1, &rotation_of_board);
+//
+// }
 
 
 
@@ -721,13 +719,19 @@ bool opengl_container::handle_input()
         //   cout << "  down  key pressed";
         //   break;
         //
-        // case SDLK_LEFT:
-        //   cout << "  left  key pressed";
-        //   break;
-        //
-        // case SDLK_RIGHT:
-        //   cout << "  right  key pressed";
-        //   break;
+        case SDLK_LEFT:
+          cout << "  left  key pressed";
+          rotation_of_board+=30;
+          glUniform1fv(glGetUniformLocation(shader_program, "rot"), 1, &rotation_of_board);
+          glUniform1fv(glGetUniformLocation(shader_program, "light_rotation"), 1, &rotation_of_board);
+          break;
+
+        case SDLK_RIGHT:
+          cout << "  right  key pressed";
+          rotation_of_board-=30;
+          glUniform1fv(glGetUniformLocation(shader_program, "rot"), 1, &rotation_of_board);
+          glUniform1fv(glGetUniformLocation(shader_program, "light_rotation"), 1, &rotation_of_board);
+          break;
 
         case SDLK_ESCAPE:
           cout << " exiting (quitting via escape)";   // this is called when the escape button is hit
@@ -941,7 +945,7 @@ void opengl_container::main_loop()
   while(!handle_input())
   {
     glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    update_rotation();
+    // update_rotation();
 
     if(selection_mode)
       draw_selection_board();
