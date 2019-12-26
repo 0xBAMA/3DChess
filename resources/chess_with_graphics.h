@@ -226,12 +226,20 @@ private:
 
   std::vector<glm::vec3> points;    //add the 1.0 w value in the shader
   std::vector<glm::vec3> normals;   //represents surface orientation
+  std::vector<glm::vec3> colors;   //represents surface orientation
 
   float rotation_of_board;
 
-  int num_pts_white_spaces;
-  int num_pts_black_spaces;
+  // int white_space_start, white_space_num;
+  // int black_space_start, black_space_num;
+  int board_start, board_num;
+
+  glm::vec3 white = glm::vec3(1,0.9,0.76);
+  glm::vec3 black = glm::vec3(0.1,0.1,0);
+
+
 };
+
 
 
 opengl_container::opengl_container()
@@ -248,25 +256,30 @@ opengl_container::opengl_container()
   Shader s("resources/shaders/phong_vs.glsl", "resources/shaders/phong_fs.glsl");
   shader_program = s.Program;
 
-  cout << endl << endl << glGetAttribLocation(shader_program, "i_position");
-  cout << endl << glGetAttribLocation(shader_program, "i_normal") << endl << endl;
-
-  cout << endl << glGetUniformLocation( shader_program, "u_projection_matrix" ) << endl << endl;
-
 
   glUseProgram( shader_program );
 
-  cout << endl << endl << glGetAttribLocation(shader_program, "i_position");
-  cout << endl << glGetAttribLocation(shader_program, "i_normal") << endl << endl;
-
-  cout << endl << glGetUniformLocation( shader_program, "u_projection_matrix" ) << endl << endl;
 
 
   glEnable( GL_DEPTH_TEST );
+
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+  // glEnable(GL_MULTISAMPLE);
+
+  glEnable(GL_LINE_SMOOTH);
+  glEnable(GL_POLYGON_SMOOTH);
+
+
+
+
+
+
+
   glPointSize(16.0f);
 
   glClearColor( 0.5, 0.0, 0.0, 0.0 );
-  // glViewport( -1, -1, 2, 2 );
 
   glGenVertexArrays( 1, &vao );
   glBindVertexArray( vao );
@@ -279,6 +292,7 @@ opengl_container::opengl_container()
 //clear out any data
   points.clear();
   normals.clear();
+  colors.clear();
 
 
 
@@ -288,46 +302,106 @@ opengl_container::opengl_container()
   std::mt19937 mt(rd());
 
 	std::uniform_real_distribution<float> dist1(-1.0f, 1.0f); //input values
-	// std::uniform_int_distribution<int> dist2(0,nodes.size()-1);  //nodes
+	// std::uniform_int_distribution<int> dist2(0,nodes.size()-1);
 
-  for(int i = 0; i < 1000; i++)
+  board_start = points.size();
+
+  glm::vec3 up = glm::vec3(0,1,0);
+
+  for(int i = 0; i < 64; i++)
   {
-    points.push_back(glm::vec3(dist1(mt),dist1(mt),dist1(mt)));
-    normals.push_back(glm::normalize(glm::vec3(dist1(mt),dist1(mt),dist1(mt))));
+    int x = i % 8;
+    int y = i / 8;
+
+    if(y % 2 == 0)
+    {
+      if(x % 2 == 0)
+      {
+        for(int i = 0; i < 6; i++) colors.push_back(black);
+      }
+      else
+      {
+        for(int i = 0; i < 6; i++) colors.push_back(white);
+      }
+    }
+    else
+    {
+      if(x % 2 == 0)
+      {
+        for(int i = 0; i < 6; i++) colors.push_back(white);
+      }
+      else
+      {
+        for(int i = 0; i < 6; i++) colors.push_back(black);
+      }
+    }
+
+//normals
+    for(int i = 0; i < 6; i++) normals.push_back(up);
+
+    //  triangle 1 is ABC
+    // A       B
+    //  +-----+
+    //  | 1 / |
+    //  |  /  |
+    //  | / 2 |
+    //  +-----+
+    // C       D
+    //  triangle 2 is CBD
+
+
+    //A : (n,n+1,-0.3);
+    //B : (n+1,n+1,-0.3);
+    //C : (n,n,-0.3);
+    //D : (n+1,n,-0.3);
+
+    glm::vec3 A = glm::vec3(-0.8+1.6*((float)(x)/8.0),-0.3,-0.8+1.6*((float)(y+1)/8.0));
+    glm::vec3 B = glm::vec3(-0.8+1.6*((float)(x+1)/8.0),-0.3,-0.8+1.6*((float)(y+1)/8.0));
+    glm::vec3 C = glm::vec3(-0.8+1.6*((float)(x)/8.0),-0.3,-0.8+1.6*((float)(y)/8.0));
+    glm::vec3 D = glm::vec3(-0.8+1.6*((float)(x+1)/8.0),-0.3,-0.8+1.6*((float)(y)/8.0));
+
+
+    points.push_back(A);
+    points.push_back(B);
+    points.push_back(C);
+
+    points.push_back(C);
+    points.push_back(B);
+    points.push_back(D);
   }
 
-  num_pts_white_spaces = points.size();
+  board_num = points.size() - board_start;
 
-  for(int i = 0; i < 1000; i++)
-  {
-    points.push_back(glm::vec3(dist1(mt),dist1(mt),dist1(mt)));
-    normals.push_back(glm::normalize(glm::vec3(dist1(mt),dist1(mt),dist1(mt))));
-  }
 
-  num_pts_black_spaces = points.size();
 
 
 
 
   const GLuint num_bytes_points = sizeof(glm::vec3) * points.size();
   const GLuint num_bytes_normals = sizeof(glm::vec3) * normals.size();
+  const GLuint num_bytes_colors = sizeof(glm::vec3) * colors.size();
 
-  GLint num_bytes = num_bytes_points + num_bytes_normals;
+  GLint num_bytes = num_bytes_points + num_bytes_normals + num_bytes_colors;
 
   glBufferData(GL_ARRAY_BUFFER, num_bytes, NULL, GL_STATIC_DRAW);
 
   glBufferSubData(GL_ARRAY_BUFFER, 0, num_bytes_points, &points[0]);
   glBufferSubData(GL_ARRAY_BUFFER, num_bytes_points, num_bytes_normals, &normals[0]);
+  glBufferSubData(GL_ARRAY_BUFFER, num_bytes_points+num_bytes_normals, num_bytes_colors, &colors[0]);
 
 
   glEnableVertexAttribArray(glGetAttribLocation(shader_program, "i_position"));
   glEnableVertexAttribArray(glGetAttribLocation(shader_program, "i_normal"));
+  glEnableVertexAttribArray(glGetAttribLocation(shader_program, "i_color"));
 
   cout << "setting up points attrib" << endl << std::flush;
   glVertexAttribPointer(glGetAttribLocation(shader_program, "i_position"), 3, GL_FLOAT, false, 0, (static_cast<const char*>(0)));
 
   cout << "setting up normals attrib" << endl << std::flush;
   glVertexAttribPointer(glGetAttribLocation(shader_program, "i_normal"), 3, GL_FLOAT, false, 0, (static_cast<const char*>(0) + (num_bytes_points)));
+
+  cout << "setting up colors attrib" << endl << std::flush;
+  glVertexAttribPointer(glGetAttribLocation(shader_program, "i_color"), 3, GL_FLOAT, false, 0, (static_cast<const char*>(0) + (num_bytes_points+num_bytes_normals)));
 
 
 
@@ -351,19 +425,26 @@ opengl_container::opengl_container()
       glm::vec3(0.0f, 0.0f, 0.0f),
       glm::vec3(0.0f, 1.0f, 0.0f)
   );
-
-
   glUniformMatrix4fv( glGetUniformLocation( shader_program, "u_view_matrix" ), 1, GL_FALSE, glm::value_ptr(view) );
+
+
+
+
+  glUniform1i(glGetUniformLocation( shader_program, "mode" ), 0);
+
+
 
 
   float rotation_of_board = 0.1*SDL_GetTicks();
   glUniform1fv(glGetUniformLocation(shader_program, "rot"), 1, &rotation_of_board);
 
 
-  glm::vec4 color = glm::vec4(1,0.4,0,1);
+
+  glm::vec4 color = glm::vec4(0,0,0,1);
   glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(color));
 
 }
+
 
 void opengl_container::update_rotation()
 {
@@ -371,17 +452,17 @@ void opengl_container::update_rotation()
   glUniform1fv(glGetUniformLocation(shader_program, "rot"), 1, &rotation_of_board);
 }
 
+
 void opengl_container::draw_board()
 {
-  glm::vec4 color = glm::vec4(1,0.4,0,1);
-  glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(color));
+  // glm::vec4 color = glm::vec4(1,0.9,0.76,1);
+  // glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(color));
 
-  glDrawArrays( GL_TRIANGLES, 0, num_pts_white_spaces );
 
-  color = glm::vec4(0,0.4,1,1);
-  glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(color));
 
-  glDrawArrays( GL_TRIANGLES, num_pts_white_spaces, num_pts_black_spaces );
+  glUniform1i(glGetUniformLocation( shader_program, "mode" ), 0);
+
+  glDrawArrays(GL_TRIANGLES, board_start, board_num);
 }
 
 

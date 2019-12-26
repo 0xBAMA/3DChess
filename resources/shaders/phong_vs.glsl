@@ -2,6 +2,8 @@
 
 in vec3 i_position;               //input position
 in vec3 i_normal;                 //input normal
+in vec3 i_color;                  //input color
+in vec3 i_sel_color;              //input selection color
 
 out vec3 v_normal;                //normal with any rotations applied
 out vec4 v_color;                 //output color (will be interpolated across primitive)
@@ -10,7 +12,15 @@ uniform mat4 u_projection_matrix; //perspective projection matrix
 uniform mat4 u_view_matrix;       //made with glm::lookat()
 
 uniform vec4 u_color;              //allows separate colors per piece
+uniform vec4 u_sel_color;          //allows separate selection colors per piece
 uniform vec3 u_offset;             //allows for placement of pieces
+
+//0 is board state
+//1 is black piece
+//2 is white piece
+//3 is highlight square
+// ... ?
+uniform int mode;
 
 uniform float rot;            //allows the user to rotate the board
 
@@ -29,7 +39,12 @@ mat4 rotation(vec3 a, float angle)
 
 void main()
 {
-    v_color = u_color*(i_position.y+1); //passthrough
+  switch(mode)
+  {
+    case 0:
+      v_color = vec4(i_color,1.0);
+      break;
+  }
 
     //v_normal = i_normal;            //passthrough, CURRENTLY
     //make sure to transform normal along with the point, when we get there
