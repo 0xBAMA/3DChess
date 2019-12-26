@@ -849,47 +849,82 @@ void opengl_container::draw_pieces()
     {
 
 
-      switch(dist(mt))
+      // switch(dist(mt))
+      // {
+      //   case blackpawn:
+      //   case blackknight:
+      //   case blackbishop:
+      //   case blackrook:
+      //   case blackqueen:
+      //   case blackking:
+      //     offset = offsets[x][y];
+      //     glUniform3fv(glGetUniformLocation( shader_program, "u_offset" ),1, glm::value_ptr(offset) );
+      //
+      //     selection_color = glm::vec4(0.125*x, 0.125*y, 0, 1);
+      //     glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(selection_color));
+      //
+      //     if(selection_mode)
+      //       glUniform1i(glGetUniformLocation( shader_program, "mode" ), 5);
+      //     else
+      //       glUniform1i(glGetUniformLocation( shader_program, "mode" ), 1);
+      //
+      //     glDrawArrays(GL_LINES, pawn_start, pawn_num);
+      //     break;
+      //
+      //   case whitepawn:
+      //   case whiteknight:
+      //   case whitebishop:
+      //   case whiterook:
+      //   case whitequeen:
+      //   case whiteking:
+      //     offset = offsets[x][y];
+      //     glUniform3fv(glGetUniformLocation( shader_program, "u_offset" ),1, glm::value_ptr(offset) );
+      //
+      //     selection_color = glm::vec4(0.125*x, 0.125*y, 0, 1);
+      //     glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(selection_color));
+      //
+      //     if(selection_mode)
+      //       glUniform1i(glGetUniformLocation( shader_program, "mode" ), 5);
+      //     else
+      //       glUniform1i(glGetUniformLocation( shader_program, "mode" ), 2);
+      //
+      //     glDrawArrays(GL_LINES, pawn_start, pawn_num);
+      //     break;
+      // }
+
+      if(y<2)
       {
-        case blackpawn:
-        case blackknight:
-        case blackbishop:
-        case blackrook:
-        case blackqueen:
-        case blackking:
-          offset = offsets[x][y];
-          glUniform3fv(glGetUniformLocation( shader_program, "u_offset" ),1, glm::value_ptr(offset) );
+        offset = offsets[x][y];
+        glUniform3fv(glGetUniformLocation( shader_program, "u_offset" ),1, glm::value_ptr(offset) );
 
-          selection_color = glm::vec4(0.125*x, 0.125*y, 0, 1);
-          glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(selection_color));
+        selection_color = glm::vec4(0.125*x, 0.125*y, 0, 1);
+        glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(selection_color));
 
-          if(selection_mode)
-            glUniform1i(glGetUniformLocation( shader_program, "mode" ), 5);
-          else
-            glUniform1i(glGetUniformLocation( shader_program, "mode" ), 1);
+        if(selection_mode)
+          glUniform1i(glGetUniformLocation( shader_program, "mode" ), 5);
+        else
+          glUniform1i(glGetUniformLocation( shader_program, "mode" ), 1);
 
-          glDrawArrays(GL_LINES, pawn_start, pawn_num);
-          break;
+        glDrawArrays(GL_LINES, pawn_start, pawn_num);
+      }
 
-        case whitepawn:
-        case whiteknight:
-        case whitebishop:
-        case whiterook:
-        case whitequeen:
-        case whiteking:
-          offset = offsets[x][y];
-          glUniform3fv(glGetUniformLocation( shader_program, "u_offset" ),1, glm::value_ptr(offset) );
 
-          selection_color = glm::vec4(0.125*x, 0.125*y, 0, 1);
-          glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(selection_color));
 
-          if(selection_mode)
-            glUniform1i(glGetUniformLocation( shader_program, "mode" ), 5);
-          else
-            glUniform1i(glGetUniformLocation( shader_program, "mode" ), 2);
 
-          glDrawArrays(GL_LINES, pawn_start, pawn_num);
-          break;
+      if(y>5)
+      {
+        offset = offsets[x][y];
+        glUniform3fv(glGetUniformLocation( shader_program, "u_offset" ),1, glm::value_ptr(offset) );
+
+        selection_color = glm::vec4(0.125*x, 0.125*y, 0, 1);
+        glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(selection_color));
+
+        if(selection_mode)
+          glUniform1i(glGetUniformLocation( shader_program, "mode" ), 5);
+        else
+          glUniform1i(glGetUniformLocation( shader_program, "mode" ), 2);
+
+        glDrawArrays(GL_LINES, pawn_start, pawn_num);
       }
     }
   }
