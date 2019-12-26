@@ -239,6 +239,7 @@ private:
   std::vector<glm::vec3> selection_colors; //represents surface for selection
 
   float rotation_of_board;
+  float rotation_of_light;
 
   // int white_space_start, white_space_num;
   // int black_space_start, black_space_num;
@@ -446,7 +447,8 @@ opengl_container::opengl_container()
   points.push_back(C);  points.push_back(B);  points.push_back(D);
 
 
-  glm::vec3 gold = glm::vec3(0.8, 0.3, 0.05);
+  // glm::vec3 gold = glm::vec3(0.8, 0.3, 0.05);
+  glm::vec3 gold = glm::vec3(0.5,0.17,0.05);
   for(int i = 0; i < 6; i++) colors.push_back(gold);
 
 
@@ -619,6 +621,8 @@ opengl_container::opengl_container()
 
   float rotation_of_board = 0.1*SDL_GetTicks();
   glUniform1fv(glGetUniformLocation(shader_program, "rot"), 1, &rotation_of_board);
+  float rotation_of_light = 0.1*SDL_GetTicks();
+  glUniform1fv(glGetUniformLocation(shader_program, "light_rotation"), 1, &rotation_of_light);
 
 
 
@@ -639,6 +643,10 @@ void opengl_container::update_rotation()
 {
   rotation_of_board = 0.1*SDL_GetTicks();
   glUniform1fv(glGetUniformLocation(shader_program, "rot"), 1, &rotation_of_board);
+
+  rotation_of_light = 0.1*SDL_GetTicks();
+  glUniform1fv(glGetUniformLocation(shader_program, "light_rotation"), 1, &rotation_of_light);
+
 }
 
 bool opengl_container::handle_input()

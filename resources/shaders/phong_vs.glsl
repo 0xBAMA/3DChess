@@ -5,6 +5,7 @@ in vec3 i_normal;                 //input normal
 in vec3 i_color;                  //input color
 in vec3 i_sel_color;              //input selection color
 
+out vec3 v_position;              //position with any rotations applied
 out vec3 v_normal;                //normal with any rotations applied
 out vec4 v_color;                 //output color (will be interpolated across primitive)
 
@@ -54,8 +55,9 @@ void main()
 
     //v_normal = i_normal;            //passthrough, CURRENTLY
     //make sure to transform normal along with the point, when we get there
-    v_normal = (u_projection_matrix*u_view_matrix*rotation(vec3(0,1,0),0.01*rot)*vec4(i_normal,1.0)).xyz;
+    v_normal = (u_projection_matrix*u_view_matrix*rotation(vec3(0,1,0),0.0001*rot)*vec4(i_normal,1.0)).xyz;
 
     //have to add the offset, before model(rotation),view,projection
     gl_Position = u_projection_matrix*u_view_matrix*rotation(vec3(0,1,0),0.001*rot)*vec4( i_position, 1.0 );
+    v_position = gl_Position.xyz;
 }
