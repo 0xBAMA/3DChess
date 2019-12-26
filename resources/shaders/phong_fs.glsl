@@ -33,21 +33,54 @@ void main()
 
   o_color = v_color;
 
-  // if(gl_FrontFacing)
-  // {
-  //   o_color = vec4(1,0,0,1);
-  // }
+
 
   if(mode == 4 && v_color.b > 0.5)
   {
     discard;
   }
+  else
+  {
+    //phong lighting model
 
-  if(mode == 0)
-  { //board
+    //l is norm(vpos - light_position)
+    //v is norm(vpos - eye_position)
+    //r comes from l and normal, using reflect()
+    //n is the normal that's been passed in
 
+    vec3 l = normalize(v_position - light);
+    vec3 v = normalize(v_position - eye);
+    vec3 n = normalize(v_normal);
+    vec3 r = normalize(reflect(l, n));
 
+    //ambient
+    float a = 0.4;
+    //diffuse
+    float d = (1/(pow(0.25*distance(v_position,light),2))) * 0.5 * max(dot(n, l),-0.4);
+    //specular
+    float s = (1/(pow(0.25*distance(v_position,light),2))) * 4.6 * pow(max(dot(r,v),0),19);
+
+    o_color += a * vec4(0.1,0.1,0.1,1);
+    o_color += d * vec4(0.56, 0.3,0.1, 1);
+
+    if(gl_FrontFacing)
+    {
+      if(dot(n,l) > 0)
+        o_color += s * vec4(1,0.3,0,1);
+
+        // o_color = vec4(1,0,0,1);
+
+    }
   }
+
+  // if(mode == 0)
+  // { //board
+  //
+  //
+  //
+  // }
+
+  o_color.a = 1;
 
 }
 

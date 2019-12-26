@@ -438,13 +438,19 @@ opengl_container::opengl_container()
   // C       D
   //  triangle 2 is CBD
 
-  glm::vec3 A = glm::vec3(-0.8, -0.1, 0.8);
-  glm::vec3 B = glm::vec3( 0.8, -0.1, 0.8);
-  glm::vec3 C = glm::vec3(-0.9618, -0.2, 0.9618);
-  glm::vec3 D = glm::vec3(0.9618, -0.2, 0.9618);
+  glm::vec3 A = glm::vec3(-0.8, -0.2, 0.8);
+  glm::vec3 B = glm::vec3( 0.8, -0.2, 0.8);
+  glm::vec3 C = glm::vec3(-0.9618, -0.1, 0.9618);
+  glm::vec3 D = glm::vec3(0.9618, -0.1, 0.9618);
 
-  points.push_back(A);  points.push_back(B);  points.push_back(C);
-  points.push_back(C);  points.push_back(B);  points.push_back(D);
+  points.push_back(A);
+  points.push_back(C);
+    points.push_back(B);
+
+  points.push_back(C);
+  points.push_back(D);
+    points.push_back(B);
+
 
 
   // glm::vec3 gold = glm::vec3(0.8, 0.3, 0.05);
@@ -467,13 +473,19 @@ opengl_container::opengl_container()
 
 
 
-  A = glm::vec3(-0.8, -0.1, -0.8);
-  B = glm::vec3(-0.8, -0.1, 0.8);
-  C = glm::vec3(-0.9618, -0.2, -0.9618);
-  D = glm::vec3(-0.9618, -0.2, 0.9618);
+  A = glm::vec3(-0.8, -0.2, -0.8);
+  B = glm::vec3(-0.8, -0.2, 0.8);
+  C = glm::vec3(-0.9618, -0.1, -0.9618);
+  D = glm::vec3(-0.9618, -0.1, 0.9618);
 
-  points.push_back(A);  points.push_back(B);  points.push_back(C);
-  points.push_back(C);  points.push_back(B);  points.push_back(D);
+  points.push_back(A);
+      points.push_back(C);
+      points.push_back(B);
+
+  points.push_back(C);
+  points.push_back(D);
+    points.push_back(B);
+
 
   for(int i = 0; i < 6; i++) colors.push_back(gold);
 
@@ -489,13 +501,19 @@ opengl_container::opengl_container()
 
 
 
-  A = glm::vec3(0.8, -0.1, 0.8);
-  B = glm::vec3(0.8, -0.1, -0.8);
-  C = glm::vec3(0.9618, -0.2, 0.9618);
-  D = glm::vec3(0.9618, -0.2, -0.9618);
+  A = glm::vec3(0.8, -0.2, 0.8);
+  B = glm::vec3(0.8, -0.2, -0.8);
+  C = glm::vec3(0.9618, -0.1, 0.9618);
+  D = glm::vec3(0.9618, -0.1, -0.9618);
 
-  points.push_back(A);  points.push_back(B);  points.push_back(C);
-  points.push_back(C);  points.push_back(B);  points.push_back(D);
+  points.push_back(A);
+      points.push_back(C);
+      points.push_back(B);
+
+  points.push_back(C);
+      points.push_back(D);
+      points.push_back(B);
+
 
   for(int i = 0; i < 6; i++) colors.push_back(gold);
 
@@ -515,13 +533,19 @@ opengl_container::opengl_container()
 
 
 
-  A = glm::vec3(0.8, -0.1, -0.8);
-  B = glm::vec3(-0.8, -0.1, -0.8);
-  C = glm::vec3(0.9618, -0.2, -0.9618);
-  D = glm::vec3(-0.9618, -0.2, -0.9618);
+  A = glm::vec3(0.8, -0.2, -0.8);
+  B = glm::vec3(-0.8, -0.2, -0.8);
+  C = glm::vec3(0.9618, -0.1, -0.9618);
+  D = glm::vec3(-0.9618, -0.1, -0.9618);
 
-  points.push_back(A);  points.push_back(B);  points.push_back(C);
-  points.push_back(C);  points.push_back(B);  points.push_back(D);
+  points.push_back(A);
+      points.push_back(C);
+      points.push_back(B);
+
+  points.push_back(C);
+      points.push_back(D);
+      points.push_back(B);
+
 
   for(int i = 0; i < 6; i++) colors.push_back(gold);
 
