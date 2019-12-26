@@ -62,7 +62,7 @@ void main()
       break;
 
     case 5://piece selection mode
-      v_color = u_sel_color;
+      v_color = u_color;
       break;
   }
 

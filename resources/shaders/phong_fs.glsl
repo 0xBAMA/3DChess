@@ -35,9 +35,14 @@ void main()
 
 
 
-  if((mode == 4||mode == 2||mode == 3) && v_color.b > 0.5)
+  if((mode == 4) && v_color.b > 0.5)
   {
     discard;
+  }
+
+  if(mode == 5)
+  {
+    o_color = v_color;
   }
 
   if(mode == 0)

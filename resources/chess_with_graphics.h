@@ -321,7 +321,7 @@ opengl_container::opengl_container()
 
 
 
-
+  glLineWidth(15.0);
 
 
 
@@ -565,6 +565,7 @@ opengl_container::opengl_container()
 
 
   points.push_back(glm::vec3(0,0,0));
+  points.push_back(glm::vec3(0,0.2,0));
 
 
 
@@ -854,10 +855,12 @@ void opengl_container::draw_pieces()
         glm::vec4 selection_color = glm::vec4(0.125*x, 0.125*y, 0, 1);
         glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(selection_color));
 
+        if(selection_mode)
+          glUniform1i(glGetUniformLocation( shader_program, "mode" ), 5);
+        else
+          glUniform1i(glGetUniformLocation( shader_program, "mode" ), 1);
 
-        glUniform1i(glGetUniformLocation( shader_program, "mode" ), 1);
-
-        glDrawArrays(GL_POINTS, pawn_start, pawn_num);
+        glDrawArrays(GL_LINES, pawn_start, pawn_num);
       }
 
 
@@ -871,9 +874,12 @@ void opengl_container::draw_pieces()
         glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(selection_color));
 
 
-        glUniform1i(glGetUniformLocation( shader_program, "mode" ), 2);
+        if(selection_mode)
+          glUniform1i(glGetUniformLocation( shader_program, "mode" ), 5);
+        else
+          glUniform1i(glGetUniformLocation( shader_program, "mode" ), 2);
 
-        glDrawArrays(GL_POINTS, pawn_start, pawn_num);
+        glDrawArrays(GL_LINES, pawn_start, pawn_num);
       }
     }
   }
