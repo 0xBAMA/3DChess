@@ -237,6 +237,7 @@ private:
   // int white_space_start, white_space_num;
   // int black_space_start, black_space_num;
   int board_start, board_num;
+  int sel_board_start, sel_board_num;
 
   glm::vec3 white = glm::vec3(1,0.9,0.76);
   glm::vec3 black = glm::vec3(0.1,0.1,0);
@@ -376,8 +377,8 @@ opengl_container::opengl_container()
 //normals + selection colors
     for(int i = 0; i < 6; i++)
     {
-      selection_colors.push_back(glm::vec3(x*0.125, y*0.125, 0));
       normals.push_back(up);
+      selection_colors.push_back(glm::vec3(0.125*x, 0.125*y, 0));
     }
 
 
@@ -415,12 +416,57 @@ opengl_container::opengl_container()
 
   board_num = points.size() - board_start;
 
-  // points_start = points.size();
+  sel_board_start = points.size();
+
+  // for(int i = 0; i < 64; i++)
+  // {
+  //   int x = i % 8;
+  //   int y = i / 8;
+  //
+  //   for(int i = 0; i < 6; i++) colors.push_back(glm::vec3(0.125*x, 0.125*y, 0));
   //
   //
+  // //normals + selection colors
+  //   for(int i = 0; i < 6; i++)
+  //   {
+  //     normals.push_back(up);
+  //   }
   //
-  // points_num = points.size() - points_start;
   //
+  //   //  triangle 1 is ABC
+  //   // A       B
+  //   //  +-----+
+  //   //  | 1 / |
+  //   //  |  /  |
+  //   //  | / 2 |
+  //   //  +-----+
+  //   // C       D
+  //   //  triangle 2 is CBD
+  //
+  //
+  //   //A : (n,n+1,-0.3);
+  //   //B : (n+1,n+1,-0.3);
+  //   //C : (n,n,-0.3);
+  //   //D : (n+1,n,-0.3);
+  //
+  //   glm::vec3 A = glm::vec3(-0.8+1.6*((float)(x)/8.0),-0.3,-0.8+1.6*((float)(y+1)/8.0));
+  //   glm::vec3 B = glm::vec3(-0.8+1.6*((float)(x+1)/8.0),-0.3,-0.8+1.6*((float)(y+1)/8.0));
+  //   glm::vec3 C = glm::vec3(-0.8+1.6*((float)(x)/8.0),-0.3,-0.8+1.6*((float)(y)/8.0));
+  //   glm::vec3 D = glm::vec3(-0.8+1.6*((float)(x+1)/8.0),-0.3,-0.8+1.6*((float)(y)/8.0));
+  //
+  //   offsets[x][y] = (A+B+C+D)/4.0f;
+  //
+  //   points.push_back(A);
+  //   points.push_back(B);
+  //   points.push_back(C);
+  //
+  //   points.push_back(C);
+  //   points.push_back(B);
+  //   points.push_back(D);
+  // }
+
+  sel_board_num = points.size() - sel_board_start;
+
 
 
 
@@ -429,21 +475,21 @@ opengl_container::opengl_container()
 
 
   const GLuint num_bytes_points           = sizeof(glm::vec3) * points.size();
-  cout << endl << num_bytes_points << endl;
+  // cout << endl << num_bytes_points << endl;
 
   const GLuint num_bytes_normals          = sizeof(glm::vec3) * normals.size();
-  cout << num_bytes_normals << endl;
+  // cout << num_bytes_normals << endl;
 
   const GLuint num_bytes_colors           = sizeof(glm::vec3) * colors.size();
-  cout << num_bytes_colors << endl;
+  // cout << num_bytes_colors << endl;
 
   const GLuint num_bytes_selection_colors = sizeof(glm::vec3) * selection_colors.size();
-  cout << num_bytes_selection_colors << endl;
+  // cout << num_bytes_selection_colors << endl;
 
 
 
   GLint num_bytes = num_bytes_points + num_bytes_normals + num_bytes_colors + num_bytes_selection_colors;
-  cout << endl << " " << num_bytes << endl << endl;
+  // cout << endl << " " << num_bytes << endl << endl;
 
   glBufferData(GL_ARRAY_BUFFER, num_bytes, NULL, GL_STATIC_DRAW);
 
@@ -531,15 +577,18 @@ void opengl_container::draw_board()
   // glm::vec4 color = glm::vec4(1,0.9,0.76,1);
   // glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(color));
 
+  glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
   glUniform1i(glGetUniformLocation( shader_program, "mode" ), 0);
   glDrawArrays(GL_TRIANGLES, board_start, board_num);
   SDL_GL_SwapWindow( window );
   SDL_Delay(1000);
 
-
+  glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   glUniform1i(glGetUniformLocation( shader_program, "mode" ), 4);
   glDrawArrays(GL_TRIANGLES, board_start, board_num);
+  // glDrawArrays(GL_TRIANGLES, sel_board_start, sel_board_num);
   SDL_GL_SwapWindow( window );
   SDL_Delay(1000);
 

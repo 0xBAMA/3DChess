@@ -40,15 +40,17 @@ mat4 rotation(vec3 a, float angle)
 
 void main()
 {
-  if(mode == 0)
+  switch(mode)
   {
-    v_color = vec4(i_color,1.0);
+    case 0:
+      v_color = vec4(i_color,1.0);
+      break;
+
+    case 4:
+      v_color = vec4(i_sel_color,1);
+      break;
   }
 
-  if(mode == 4)
-  {
-    v_color = vec4(i_sel_color,1.0);
-  }
 
     //v_normal = i_normal;            //passthrough, CURRENTLY
     //make sure to transform normal along with the point, when we get there
