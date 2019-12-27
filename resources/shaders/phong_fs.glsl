@@ -64,7 +64,7 @@ void main()
     //diffuse
     float d = (1/(pow(0.25*distance(v_position,light),2))) * 0.7 * max(dot(n, l),-0.4);
     //specular
-    float s = (1/(pow(0.25*distance(v_position,light),2))) * 1.6 * pow(max(dot(r,v),0),10);
+    float s = (1/(pow(0.25*distance(v_position,light),2))) * 10.6 * pow(max(dot(r,v),0),100);
 
     o_color += a * vec4(0.4,0.4,0.4,1);
     o_color += d * vec4(0.56, 0.3,0.1, 1);
@@ -73,7 +73,8 @@ void main()
     {
       if(dot(n,l) > 0)
       {
-        o_color += s * vec4(1,0.3,0,1);
+        o_color += s * vec4(1,0.0,0,1);
+        // o_color += s * vec4(1,0.3,0,1);
       }
     }
 

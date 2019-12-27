@@ -240,6 +240,7 @@ private:
   std::vector<glm::vec3> selection_colors; //represents surface for selection
 
   float rotation_of_board;
+  float v_rotation_of_board;
   float rotation_of_light;
 
   // int white_space_start, white_space_num;
@@ -568,6 +569,7 @@ opengl_container::opengl_container()
 
 
 
+
   pawn_num = points.size() - pawn_start;
 
 
@@ -652,6 +654,8 @@ opengl_container::opengl_container()
 
   rotation_of_board = 0.1*SDL_GetTicks();
   glUniform1fv(glGetUniformLocation(shader_program, "rot"), 1, &rotation_of_board);
+  v_rotation_of_board = 0.1*SDL_GetTicks();
+  glUniform1fv(glGetUniformLocation(shader_program, "vrot"), 1, &v_rotation_of_board);
   rotation_of_light = 0.1*SDL_GetTicks();
   glUniform1fv(glGetUniformLocation(shader_program, "light_rotation"), 1, &rotation_of_light);
 
@@ -709,15 +713,25 @@ bool opengl_container::handle_input()
       //switch based on key press
       switch( e.key.keysym.sym )
       {
-        case SDLK_UP:
-          cout << "  up  key pressed";
+        case SDLK_d:
+          cout << "  d  key pressed";
           selection_mode = true;
           break;
 
-        // case SDLK_DOWN:
-        //   cout << "  down  key pressed";
-        //   break;
-        //
+        case SDLK_UP:
+          cout << "  up  key pressed" << v_rotation_of_board;
+          v_rotation_of_board+=30;
+          glUniform1fv(glGetUniformLocation(shader_program, "vrot"), 1, &v_rotation_of_board);
+
+          break;
+
+        case SDLK_DOWN:
+          cout << "  down  key pressed";
+          v_rotation_of_board-=30;
+          glUniform1fv(glGetUniformLocation(shader_program, "vrot"), 1, &v_rotation_of_board);
+
+          break;
+
         case SDLK_LEFT:
           cout << "  left  key pressed";
           rotation_of_board+=30;
@@ -782,8 +796,8 @@ bool opengl_container::handle_input()
 
       switch( e.key.keysym.sym )
       {
-        case SDLK_UP:
-          cout << "  up  key let go";
+        case SDLK_d:
+          cout << "  d  key let go";
           selection_mode = false;
           break;
         default:

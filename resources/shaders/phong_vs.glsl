@@ -25,6 +25,7 @@ uniform vec3 u_offset;             //allows for placement of pieces
 uniform int mode;
 
 uniform float rot;            //allows the user to rotate the board
+uniform float vrot;           // "     " but vertically
 
 mat4 rotation(vec3 a, float angle)
 {//thanks to Neil Mendoza via http://www.neilmendoza.com/glsl-rotation-about-an-arbitrary-axis/
@@ -69,9 +70,14 @@ void main()
 
     //v_normal = i_normal;            //passthrough, CURRENTLY
     //make sure to transform normal along with the point, when we get there
-    v_normal = (u_projection_matrix*u_view_matrix*rotation(vec3(0,1,0),0.0001*rot)*vec4(i_normal,1.0)).xyz;
+
+
+    // mat4 comp = rotation(vec3(0,1,0),0.0001*rot) * rotation(vec3(1,0,0),0.001*vrot);
+    mat4 comp = rotation(vec3(1,0,0),0.0001*vrot) * rotation(vec3(0,1,0),0.001*rot);
+
+    v_normal = (u_projection_matrix*u_view_matrix*comp*vec4(i_normal,1.0)).xyz;
 
     //have to add the offset, before model(rotation),view,projection
-    gl_Position = u_projection_matrix*u_view_matrix*rotation(vec3(0,1,0),0.001*rot)*vec4( i_position+u_offset, 1.0 );
+    gl_Position = u_projection_matrix*u_view_matrix*comp*vec4( i_position+u_offset, 1.0 );
     v_position = gl_Position.xyz;
 }
