@@ -461,7 +461,7 @@ opengl_container::opengl_container()
 
 
   glm::vec3 norm = glm::cross(A-B, B-C);
-  for(int i = 0; i < 6; i++) normals.push_back(norm);
+  for(int i = 0; i < 6; i++) normals.push_back(-norm);
 
 
   glm::vec3 blue = glm::vec3(0.4, 0.5, 0.9);
@@ -492,7 +492,7 @@ opengl_container::opengl_container()
   for(int i = 0; i < 6; i++) colors.push_back(gold);
 
   norm = glm::cross(A-B, B-C);
-  for(int i = 0; i < 6; i++) normals.push_back(norm);
+  for(int i = 0; i < 6; i++) normals.push_back(-norm);
 
   for(int i = 0; i < 6; i++) selection_colors.push_back(blue);
 
@@ -520,7 +520,7 @@ opengl_container::opengl_container()
   for(int i = 0; i < 6; i++) colors.push_back(gold);
 
   norm = glm::cross(A-B, B-C);
-  for(int i = 0; i < 6; i++) normals.push_back(norm);
+  for(int i = 0; i < 6; i++) normals.push_back(-norm);
 
   for(int i = 0; i < 6; i++) selection_colors.push_back(blue);
 
@@ -552,7 +552,7 @@ opengl_container::opengl_container()
   for(int i = 0; i < 6; i++) colors.push_back(gold);
 
   norm = glm::cross(A-B, B-C);
-  for(int i = 0; i < 6; i++) normals.push_back(norm);
+  for(int i = 0; i < 6; i++) normals.push_back(-norm);
 
   for(int i = 0; i < 6; i++) selection_colors.push_back(blue);
 
@@ -638,7 +638,7 @@ opengl_container::opengl_container()
 
 
   glm::mat4 view = glm::lookAt(
-      glm::vec3(-1.3f, 1.0f, -1.7f),
+      glm::vec3(0.0f, 1.2f, -1.9f),
       glm::vec3(0.0f, 0.0f, 0.0f),
       glm::vec3(0.0f, 1.0f, 0.0f)
   );

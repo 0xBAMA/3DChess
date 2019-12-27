@@ -73,7 +73,7 @@ void main()
 
 
     // mat4 comp = rotation(vec3(0,1,0),0.0001*rot) * rotation(vec3(1,0,0),0.001*vrot);
-    mat4 comp = rotation(vec3(1,0,0),0.0001*vrot) * rotation(vec3(0,1,0),0.001*rot);
+    mat4 comp = rotation(vec3(1,0,0),0.001*vrot) * rotation(vec3(0,1,0),0.001*rot);
 
     v_normal = (u_projection_matrix*u_view_matrix*comp*vec4(i_normal,1.0)).xyz;
 
