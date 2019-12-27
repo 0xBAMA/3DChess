@@ -560,17 +560,58 @@ opengl_container::opengl_container()
   board_num = points.size() - board_start;
 
 
+
+
+  std::vector<std::vector<std::vector< glm::vec3 >>> rotated_sections;
+  rotated_sections.clear;
+  rotated_sections.resize(6);   //6 pieces
+
+  //indexing is done with three numbers - [piece][rotated slice][datapoints]
+
+  //rotated_sections[0][0][...] is the original data for the pawn
+  //rotated_sections[0][1][...] is the pawn data rotated by one increment
+  //rotated_sections[0][2][...] is the pawn data rotated by two increments
+  //...
+
+  //so we want, say, 10 stops on the rotation
+  int num_stops = 10;
+
+  for(int i = 0; i < rotated_sections.size(); i++)
+  {
+    rotated_sections[i].resize(10);   //each piece has 10 slices
+  }
+
+
+
+  //push original information into
+  // rotated_sections[...][0][...] because 0 in the second index is the unrotated section
+
+
+
+  for(int i = 0; i < rotated_sections.size(); i++)  //iterating through pieces
+  {
+    for(int j = 1; j < num_stops; j++)            //iterating through slices
+    {
+      //read from the first slice, rotate based on 'j' increments
+    }
+  }
+
+
+
+
+
+
   pawn_start = points.size();
 
-
-
-  points.push_back(glm::vec3(0,0,0));
-  points.push_back(glm::vec3(0,0.3,0));
-
-
-
+  // points.push_back(glm::vec3(0,0,0));
+  // points.push_back(glm::vec3(0,0.3,0));
 
   pawn_num = points.size() - pawn_start;
+
+
+
+
+
 
 
 
