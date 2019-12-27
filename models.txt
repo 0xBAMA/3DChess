@@ -1,0 +1,113 @@
+BASE
+glm::vec3(0.07, 0.02, 0)
+glm::vec3(0.062, 0.017, 0
+glm::vec3(0.074, 0.015, 0)
+glm::vec3(0.071, -0.007, 0)
+glm::vec3(0.064, -0.01, 0)
+
+PAWN
+glm::vec3(0.0, 0.14, 0)
+glm::vec3(0.02, 0.135, 0)
+glm::vec3(0.03, 0.12, 0)
+glm::vec3(0.023, 0.10, 0)
+glm::vec3(0.018, 0.097, 0)
+glm::vec3(0.025, 0.095, 0)
+glm::vec3(0.03, 0.09, 0)
+glm::vec3(0.027, 0.085, 0)
+glm::vec3(0.017, 0.08, 0)
+glm::vec3(0.02, 0.05, 0)
+glm::vec3(0.05, 0.05, 0)
+
+KNIGHT
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(0.05, 0.05, 0)
+
+
+
+BISHOP
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(0.05, 0.05, 0)
+
+
+
+ROOK
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(0.05, 0.05, 0)
+
+
+
+QUEEN
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(0.05, 0.05, 0)
+
+
+KING
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(,,)
+glm::vec3(0.05, 0.05, 0)
