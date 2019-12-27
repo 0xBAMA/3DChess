@@ -245,8 +245,15 @@ private:
 
   // int white_space_start, white_space_num;
   // int black_space_start, black_space_num;
+
   int board_start, board_num;
+
   int pawn_start, pawn_num;
+  int knight_start, knight_num;
+  int bishop_start, bishop_num;
+  int rook_start, rook_num;
+  int queen_start, queen_num;
+  int king_start, king_num;
 
   glm::vec3 white = glm::vec3(1,0.9,0.76);
   glm::vec3 black = glm::vec3(0.1,0.1,0);
@@ -724,7 +731,7 @@ opengl_container::opengl_container()
   {
     for(int j = 1; j < num_stops; j++)            //iterating through slices
     {
-      //read from the first slice, rotate based on 'j' increments, put in index j
+      //read from the first slice, rotate based on 'j' increments, put back in index [piece][j][...]
     }
   }
 
