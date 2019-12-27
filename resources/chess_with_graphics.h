@@ -581,10 +581,142 @@ opengl_container::opengl_container()
     rotated_sections[i].resize(10);   //each piece has 10 slices
   }
 
-
+  //order is:
+    //  PAWN(0), KNIGHT(1), BISHOP(2), ROOK(3), QUEEN(4), KING(5)
 
   //push original information into
-  // rotated_sections[...][0][...] because 0 in the second index is the unrotated section
+  // rotated_sections[piece][0][...] because 0 in the second index is the unrotated section
+
+//pawn points
+  rotated_sections[0][0].push_back(glm::vec3(0.0, 0.14, 0));
+  rotated_sections[0][0].push_back(glm::vec3(0.02, 0.135, 0));
+  rotated_sections[0][0].push_back(glm::vec3(0.03, 0.12, 0));
+  rotated_sections[0][0].push_back(glm::vec3(0.023, 0.10, 0));
+  rotated_sections[0][0].push_back(glm::vec3(0.018, 0.097, 0));
+  rotated_sections[0][0].push_back(glm::vec3(0.025, 0.095, 0));
+  rotated_sections[0][0].push_back(glm::vec3(0.03, 0.09, 0));
+  rotated_sections[0][0].push_back(glm::vec3(0.027, 0.085, 0));
+  rotated_sections[0][0].push_back(glm::vec3(0.017, 0.08, 0));
+  rotated_sections[0][0].push_back(glm::vec3(0.02, 0.05, 0));
+  rotated_sections[0][0].push_back(glm::vec3(0.05, 0.05, 0));
+  rotated_sections[0][0].push_back(glm::vec3(0.07, 0.02, 0));
+  rotated_sections[0][0].push_back(glm::vec3(0.062, 0.017, 0));
+  rotated_sections[0][0].push_back(glm::vec3(0.074, 0.015, 0));
+  rotated_sections[0][0].push_back(glm::vec3(0.071, -0.007, 0));
+  rotated_sections[0][0].push_back(glm::vec3(0.064, -0.01, 0));
+
+
+//knight points
+  rotated_sections[1][0].push_back(glm::vec3(0.0, 0.18, 0));
+  rotated_sections[1][0].push_back(glm::vec3(0.037, 0.175, 0));
+  rotated_sections[1][0].push_back(glm::vec3(0.045, 0.17, 0));
+  rotated_sections[1][0].push_back(glm::vec3(0.038, 0.14, 0));
+  rotated_sections[1][0].push_back(glm::vec3(0.022, 0.135, 0));
+  rotated_sections[1][0].push_back(glm::vec3(0.017, 0.13, 0));
+  rotated_sections[1][0].push_back(glm::vec3(0.03, 0.11, 0));
+  rotated_sections[1][0].push_back(glm::vec3(0.032, 0.104, 0));
+  rotated_sections[1][0].push_back(glm::vec3(0.035, 0.10, 0));
+  rotated_sections[1][0].push_back(glm::vec3(0.04, 0.07, 0));
+  rotated_sections[1][0].push_back(glm::vec3(0.05, 0.05, 0));
+  rotated_sections[1][0].push_back(glm::vec3(0.07, 0.02, 0));
+  rotated_sections[1][0].push_back(glm::vec3(0.062, 0.017, 0);
+  rotated_sections[1][0].push_back(glm::vec3(0.074, 0.015, 0));
+  rotated_sections[1][0].push_back(glm::vec3(0.071, -0.007, 0));
+  rotated_sections[1][0].push_back(glm::vec3(0.064, -0.01, 0));
+
+//bishop points
+  rotated_sections[2][0].push_back(glm::vec3(0.0, 0.21, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.01, 0.2, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.009, 0.194, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.02, 0.18, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.019, 0.178, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.024, 0.17, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.03, 0.15, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.03, 0.14, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.024, 0.13, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.026, 0.125, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.025, 0.122, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.0187, 0.12, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.027, 0.115, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.028, 0.113, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.04, 0.107, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.019 , 0.098, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.05, 0.05, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.07, 0.02, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.062, 0.017, 0);
+  rotated_sections[2][0].push_back(glm::vec3(0.074, 0.015, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.071, -0.007, 0));
+  rotated_sections[2][0].push_back(glm::vec3(0.064, -0.01, 0));
+
+//rook points
+  rotated_sections[3][0].push_back(glm::vec3(0.0, 0.15, 0));
+  rotated_sections[3][0].push_back(glm::vec3(0.03, 0.15, 0));
+  rotated_sections[3][0].push_back(glm::vec3(0.03, 0.16, 0));
+  rotated_sections[3][0].push_back(glm::vec3(0.04, 0.16, 0));
+  rotated_sections[3][0].push_back(glm::vec3(0.04, 0.14, 0));
+  rotated_sections[3][0].push_back(glm::vec3(0.03, 0.135, 0));
+  rotated_sections[3][0].push_back(glm::vec3(0.024, 0.12, 0));
+  rotated_sections[3][0].push_back(glm::vec3(0.03, 0.06, 0));
+  rotated_sections[3][0].push_back(glm::vec3(0.05, 0.05, 0));
+  rotated_sections[3][0].push_back(glm::vec3(0.07, 0.02, 0));
+  rotated_sections[3][0].push_back(glm::vec3(0.062, 0.017, 0);
+  rotated_sections[3][0].push_back(glm::vec3(0.074, 0.015, 0));
+  rotated_sections[3][0].push_back(glm::vec3(0.071, -0.007, 0));
+  rotated_sections[3][0].push_back(glm::vec3(0.064, -0.01, 0));
+
+//queen points
+  rotated_sections[4][0].push_back(glm::vec3(0.0, 0.24, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.015, 0.239, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.03, 0.24, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.035, 0.23, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.027, 0.22, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.025, 0.19, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.027, 0.187, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.025, 0.185, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.023, 0.17, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.032, 0.164, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.035, 0.16, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.042, 0.155, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.039, 0.148, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.017, 0.145, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.029, 0.065, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.034, 0.06, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.05, 0.05, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.07, 0.02, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.062, 0.017, 0);
+  rotated_sections[4][0].push_back(glm::vec3(0.074, 0.015, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.071, -0.007, 0));
+  rotated_sections[4][0].push_back(glm::vec3(0.064, -0.01, 0));
+
+//king points
+  rotated_sections[5][0].push_back(glm::vec3(0.0, 0.31, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.01, 0.3, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.01, 0.29, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.02, 0.29, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.02, 0.27, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.015, 0.27, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.015, 0.257, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.017, 0.256, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.017, 0.254, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.019, 0.251, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.039, 0.25, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.041, 0.24, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.031, 0.2, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.034, 0.19, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.032, 0.185, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.04, 0.17, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.04, 0.165, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.054, 0.161, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.02, 0.15, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.035, 0.07, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.047, 0.065, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.049, 0.06, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.05, 0.05, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.07, 0.02, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.062, 0.017, 0);
+  rotated_sections[5][0].push_back(glm::vec3(0.074, 0.015, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.071, -0.007, 0));
+  rotated_sections[5][0].push_back(glm::vec3(0.064, -0.01, 0));
 
 
 
@@ -592,7 +724,7 @@ opengl_container::opengl_container()
   {
     for(int j = 1; j < num_stops; j++)            //iterating through slices
     {
-      //read from the first slice, rotate based on 'j' increments
+      //read from the first slice, rotate based on 'j' increments, put in index j
     }
   }
 
