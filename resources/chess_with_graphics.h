@@ -276,6 +276,8 @@ private:
 opengl_container::opengl_container()
 {
 
+  cout<<endl<<endl<<my_game.return_contents_at(1,1)<<endl;
+
   SDL_Init( SDL_INIT_VIDEO );
   SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
   SDL_GL_SetAttribute( SDL_GL_ACCELERATED_VISUAL, 1 );
@@ -570,7 +572,7 @@ opengl_container::opengl_container()
 
 
   std::vector<std::vector<std::vector< glm::vec3 >>> rotated_sections;
-  rotated_sections.clear;
+  rotated_sections.clear();
   rotated_sections.resize(6);   //6 pieces
 
   //indexing is done with three numbers - [piece][rotated slice][datapoints]
@@ -626,7 +628,7 @@ opengl_container::opengl_container()
   rotated_sections[1][0].push_back(glm::vec3(0.04, 0.07, 0));
   rotated_sections[1][0].push_back(glm::vec3(0.05, 0.05, 0));
   rotated_sections[1][0].push_back(glm::vec3(0.07, 0.02, 0));
-  rotated_sections[1][0].push_back(glm::vec3(0.062, 0.017, 0);
+  rotated_sections[1][0].push_back(glm::vec3(0.062, 0.017, 0));
   rotated_sections[1][0].push_back(glm::vec3(0.074, 0.015, 0));
   rotated_sections[1][0].push_back(glm::vec3(0.071, -0.007, 0));
   rotated_sections[1][0].push_back(glm::vec3(0.064, -0.01, 0));
@@ -650,7 +652,7 @@ opengl_container::opengl_container()
   rotated_sections[2][0].push_back(glm::vec3(0.019 , 0.098, 0));
   rotated_sections[2][0].push_back(glm::vec3(0.05, 0.05, 0));
   rotated_sections[2][0].push_back(glm::vec3(0.07, 0.02, 0));
-  rotated_sections[2][0].push_back(glm::vec3(0.062, 0.017, 0);
+  rotated_sections[2][0].push_back(glm::vec3(0.062, 0.017, 0));
   rotated_sections[2][0].push_back(glm::vec3(0.074, 0.015, 0));
   rotated_sections[2][0].push_back(glm::vec3(0.071, -0.007, 0));
   rotated_sections[2][0].push_back(glm::vec3(0.064, -0.01, 0));
@@ -666,7 +668,7 @@ opengl_container::opengl_container()
   rotated_sections[3][0].push_back(glm::vec3(0.03, 0.06, 0));
   rotated_sections[3][0].push_back(glm::vec3(0.05, 0.05, 0));
   rotated_sections[3][0].push_back(glm::vec3(0.07, 0.02, 0));
-  rotated_sections[3][0].push_back(glm::vec3(0.062, 0.017, 0);
+  rotated_sections[3][0].push_back(glm::vec3(0.062, 0.017, 0));
   rotated_sections[3][0].push_back(glm::vec3(0.074, 0.015, 0));
   rotated_sections[3][0].push_back(glm::vec3(0.071, -0.007, 0));
   rotated_sections[3][0].push_back(glm::vec3(0.064, -0.01, 0));
@@ -690,7 +692,7 @@ opengl_container::opengl_container()
   rotated_sections[4][0].push_back(glm::vec3(0.034, 0.06, 0));
   rotated_sections[4][0].push_back(glm::vec3(0.05, 0.05, 0));
   rotated_sections[4][0].push_back(glm::vec3(0.07, 0.02, 0));
-  rotated_sections[4][0].push_back(glm::vec3(0.062, 0.017, 0);
+  rotated_sections[4][0].push_back(glm::vec3(0.062, 0.017, 0));
   rotated_sections[4][0].push_back(glm::vec3(0.074, 0.015, 0));
   rotated_sections[4][0].push_back(glm::vec3(0.071, -0.007, 0));
   rotated_sections[4][0].push_back(glm::vec3(0.064, -0.01, 0));
@@ -720,7 +722,7 @@ opengl_container::opengl_container()
   rotated_sections[5][0].push_back(glm::vec3(0.049, 0.06, 0));
   rotated_sections[5][0].push_back(glm::vec3(0.05, 0.05, 0));
   rotated_sections[5][0].push_back(glm::vec3(0.07, 0.02, 0));
-  rotated_sections[5][0].push_back(glm::vec3(0.062, 0.017, 0);
+  rotated_sections[5][0].push_back(glm::vec3(0.062, 0.017, 0));
   rotated_sections[5][0].push_back(glm::vec3(0.074, 0.015, 0));
   rotated_sections[5][0].push_back(glm::vec3(0.071, -0.007, 0));
   rotated_sections[5][0].push_back(glm::vec3(0.064, -0.01, 0));
