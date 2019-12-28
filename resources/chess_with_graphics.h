@@ -268,6 +268,9 @@ private:
 
   bool selection_mode = false;
 
+  static const int windowwidth = 1200;
+  static const int windowheight = 700;
+
 
 };
 
@@ -291,10 +294,9 @@ opengl_container::opengl_container()
   SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 5 );
   SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
 
-  static const int width = 1200;
-  static const int height = 700;
 
-  window = SDL_CreateWindow( "OpenGL Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN );
+
+  window = SDL_CreateWindow( "OpenGL Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, windowwidth, windowheight, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN );
   context = SDL_GL_CreateContext( window );
 
 
@@ -306,8 +308,6 @@ opengl_container::opengl_container()
   glDebugMessageCallback( MessageCallback, 0 );
 
 
-  // static const int width = 1200;
-  // static const int height = 700;
 
   Shader s("resources/shaders/phong_vs.glsl", "resources/shaders/phong_fs.glsl");
   shader_program = s.Program;
@@ -570,7 +570,7 @@ opengl_container::opengl_container()
 
 
   std::vector<std::vector<std::vector< glm::vec3 >>> rotated_sections;
-  rotated_sections.clear;
+  rotated_sections.clear();
   rotated_sections.resize(6);   //6 pieces
 
   //indexing is done with three numbers - [piece][rotated slice][datapoints]
@@ -593,6 +593,7 @@ opengl_container::opengl_container()
 
   //push original information into
   // rotated_sections[piece][0][...] because 0 in the second index is the unrotated section
+
 
 //pawn points
   rotated_sections[0][0].push_back(glm::vec3(0.0, 0.14, 0));
@@ -626,10 +627,11 @@ opengl_container::opengl_container()
   rotated_sections[1][0].push_back(glm::vec3(0.04, 0.07, 0));
   rotated_sections[1][0].push_back(glm::vec3(0.05, 0.05, 0));
   rotated_sections[1][0].push_back(glm::vec3(0.07, 0.02, 0));
-  rotated_sections[1][0].push_back(glm::vec3(0.062, 0.017, 0);
+  rotated_sections[1][0].push_back(glm::vec3(0.062, 0.017, 0));
   rotated_sections[1][0].push_back(glm::vec3(0.074, 0.015, 0));
   rotated_sections[1][0].push_back(glm::vec3(0.071, -0.007, 0));
   rotated_sections[1][0].push_back(glm::vec3(0.064, -0.01, 0));
+
 
 //bishop points
   rotated_sections[2][0].push_back(glm::vec3(0.0, 0.21, 0));
@@ -650,10 +652,11 @@ opengl_container::opengl_container()
   rotated_sections[2][0].push_back(glm::vec3(0.019 , 0.098, 0));
   rotated_sections[2][0].push_back(glm::vec3(0.05, 0.05, 0));
   rotated_sections[2][0].push_back(glm::vec3(0.07, 0.02, 0));
-  rotated_sections[2][0].push_back(glm::vec3(0.062, 0.017, 0);
+  rotated_sections[2][0].push_back(glm::vec3(0.062, 0.017, 0));
   rotated_sections[2][0].push_back(glm::vec3(0.074, 0.015, 0));
   rotated_sections[2][0].push_back(glm::vec3(0.071, -0.007, 0));
   rotated_sections[2][0].push_back(glm::vec3(0.064, -0.01, 0));
+
 
 //rook points
   rotated_sections[3][0].push_back(glm::vec3(0.0, 0.15, 0));
@@ -666,10 +669,11 @@ opengl_container::opengl_container()
   rotated_sections[3][0].push_back(glm::vec3(0.03, 0.06, 0));
   rotated_sections[3][0].push_back(glm::vec3(0.05, 0.05, 0));
   rotated_sections[3][0].push_back(glm::vec3(0.07, 0.02, 0));
-  rotated_sections[3][0].push_back(glm::vec3(0.062, 0.017, 0);
+  rotated_sections[3][0].push_back(glm::vec3(0.062, 0.017, 0));
   rotated_sections[3][0].push_back(glm::vec3(0.074, 0.015, 0));
   rotated_sections[3][0].push_back(glm::vec3(0.071, -0.007, 0));
   rotated_sections[3][0].push_back(glm::vec3(0.064, -0.01, 0));
+
 
 //queen points
   rotated_sections[4][0].push_back(glm::vec3(0.0, 0.24, 0));
@@ -690,10 +694,11 @@ opengl_container::opengl_container()
   rotated_sections[4][0].push_back(glm::vec3(0.034, 0.06, 0));
   rotated_sections[4][0].push_back(glm::vec3(0.05, 0.05, 0));
   rotated_sections[4][0].push_back(glm::vec3(0.07, 0.02, 0));
-  rotated_sections[4][0].push_back(glm::vec3(0.062, 0.017, 0);
+  rotated_sections[4][0].push_back(glm::vec3(0.062, 0.017, 0));
   rotated_sections[4][0].push_back(glm::vec3(0.074, 0.015, 0));
   rotated_sections[4][0].push_back(glm::vec3(0.071, -0.007, 0));
   rotated_sections[4][0].push_back(glm::vec3(0.064, -0.01, 0));
+
 
 //king points
   rotated_sections[5][0].push_back(glm::vec3(0.0, 0.31, 0));
@@ -720,7 +725,7 @@ opengl_container::opengl_container()
   rotated_sections[5][0].push_back(glm::vec3(0.049, 0.06, 0));
   rotated_sections[5][0].push_back(glm::vec3(0.05, 0.05, 0));
   rotated_sections[5][0].push_back(glm::vec3(0.07, 0.02, 0));
-  rotated_sections[5][0].push_back(glm::vec3(0.062, 0.017, 0);
+  rotated_sections[5][0].push_back(glm::vec3(0.062, 0.017, 0));
   rotated_sections[5][0].push_back(glm::vec3(0.074, 0.015, 0));
   rotated_sections[5][0].push_back(glm::vec3(0.071, -0.007, 0));
   rotated_sections[5][0].push_back(glm::vec3(0.064, -0.01, 0));
@@ -740,10 +745,15 @@ opengl_container::opengl_container()
 
 
 
+
   pawn_start = points.size();
 
-  // points.push_back(glm::vec3(0,0,0));
-  // points.push_back(glm::vec3(0,0.3,0));
+  points.push_back(glm::vec3( 0,    0,    0));
+  points.push_back(glm::vec3( 0,    0.3,  0));
+  points.push_back(glm::vec3(-0.05, 0.2,  0));
+  points.push_back(glm::vec3( 0.05, 0.2,  0));
+  points.push_back(glm::vec3( 0.0,  0.2, -0.05));
+  points.push_back(glm::vec3( 0.0,  0.2,  0.05));
 
   pawn_num = points.size() - pawn_start;
 
@@ -994,6 +1004,12 @@ bool opengl_container::handle_input()
       {
         case SDL_BUTTON_LEFT:
           cout << "left click at x:" << e.button.x << " y:" << e.button.y;
+
+          unsigned char pixel[4];
+          glReadPixels(e.button.x, windowheight - e.button.y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, pixel);
+
+          cout << endl << endl << " " << (int)pixel[0] << " " << (int)pixel[1] << " " << (int)pixel[2] << " " << (int)pixel[3] << endl << endl;
+
           break;
 
         case SDL_BUTTON_MIDDLE:
@@ -1045,11 +1061,6 @@ void opengl_container::draw_selection_board()
 
 void opengl_container::draw_pieces()
 {
-
-
-
-
-
 
   std::random_device rd;
   std::mt19937 mt(rd());
