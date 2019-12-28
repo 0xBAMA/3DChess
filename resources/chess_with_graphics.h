@@ -1010,7 +1010,7 @@ bool opengl_container::handle_input()
           unsigned char pixel[4];
           glReadPixels(e.button.x, windowheight - e.button.y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, pixel);
 
-          cout << endl << endl << " " << (int)pixel[0] << " " << (int)pixel[1] << " " << (int)pixel[2] << " " << (int)pixel[3] << endl << endl;
+          cout << endl << endl << " clicked on:  r:" << (int)pixel[0] << " g:" << (int)pixel[1] << " b:" << (int)pixel[2] << " a:" << (int)pixel[3] << endl << endl;
 
           break;
 
@@ -1032,6 +1032,12 @@ bool opengl_container::handle_input()
       {
         case SDL_BUTTON_LEFT:
           cout << "left click released at x:" << e.button.x << " y:" << e.button.y;
+
+          unsigned char pixel[4];
+          glReadPixels(e.button.x, windowheight - e.button.y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, pixel);
+
+          cout << endl << endl << " released on:  r:" << (int)pixel[0] << " g:" << (int)pixel[1] << " b:" << (int)pixel[2] << " a:" << (int)pixel[3] << endl << endl;
+
           break;
 
         case SDL_BUTTON_MIDDLE:
