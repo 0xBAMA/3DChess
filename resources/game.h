@@ -21,6 +21,8 @@ public:
 
     result play();
 
+    contents return_contents_at(int x, int y);
+
 private:
 
     void make_move(chess_move m);
@@ -45,6 +47,9 @@ void game::make_move(chess_move m)
 
 }
 
+contents game::return_contents_at(int x, int y){
 
+  return c.get_space_at(x,y).get_contents();
+}
 
 #endif

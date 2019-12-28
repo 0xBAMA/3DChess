@@ -279,6 +279,8 @@ private:
 opengl_container::opengl_container()
 {
 
+  cout<<endl<<endl<<my_game.return_contents_at(1,1)<<endl;
+
   SDL_Init( SDL_INIT_VIDEO );
   SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
   SDL_GL_SetAttribute( SDL_GL_ACCELERATED_VISUAL, 1 );

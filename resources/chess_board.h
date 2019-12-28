@@ -33,9 +33,13 @@ space chess_board::get_space_at(int x, int y)
 {
   space temp;
 
-  //todo
+  if(x >= 0 && x <= 7 && y >= 0 && y <= 7){
 
-  return temp;
+    return board[(8*y) + x];
+
+  }else{
+    return temp;
+  }
 }
 
 chess_board::chess_board()
@@ -225,50 +229,50 @@ void chess_board::terminal_output(contents c)
 
 
 
-    // case whitepawn:    cout << T_RED << " pa ";    break;
-    // case blackpawn:    cout << T_MAGENTA << " pa ";   break;
-    //
-    // case whiteknight:  cout << T_RED << " kn ";    break;
-    // case blackknight:  cout << T_MAGENTA << " kn ";   break;
-    //
-    // case whitebishop:  cout << T_RED << " bi ";    break;
-    // case blackbishop:  cout << T_MAGENTA << " bi ";   break;
-    //
-    // case whiterook:    cout << T_RED << " ro ";    break;
-    // case blackrook:    cout << T_MAGENTA << " ro ";   break;
-    //
-    // case whitequeen:   cout << T_RED << " Qu ";    break;
-    // case blackqueen:   cout << T_MAGENTA << " Qu ";   break;
-    //
-    // case whiteking:    cout << T_RED << " Ki ";    break;
-    // case blackking:    cout << T_MAGENTA << " Ki ";   break;
-
-
-
-
-
-
-
-
-
-
     case whitepawn:    cout << T_RED << " pa ";    break;
-    case blackpawn:    cout << T_BLUE << " pa ";   break;
+    case blackpawn:    cout << T_MAGENTA << " pa ";   break;
 
     case whiteknight:  cout << T_RED << " kn ";    break;
-    case blackknight:  cout << T_BLUE << " kn ";   break;
+    case blackknight:  cout << T_MAGENTA << " kn ";   break;
 
     case whitebishop:  cout << T_RED << " bi ";    break;
-    case blackbishop:  cout << T_BLUE << " bi ";   break;
+    case blackbishop:  cout << T_MAGENTA << " bi ";   break;
 
     case whiterook:    cout << T_RED << " ro ";    break;
-    case blackrook:    cout << T_BLUE << " ro ";   break;
+    case blackrook:    cout << T_MAGENTA << " ro ";   break;
 
     case whitequeen:   cout << T_RED << " Qu ";    break;
-    case blackqueen:   cout << T_BLUE << " Qu ";   break;
+    case blackqueen:   cout << T_MAGENTA << " Qu ";   break;
 
     case whiteking:    cout << T_RED << " Ki ";    break;
-    case blackking:    cout << T_BLUE << " Ki ";   break;
+    case blackking:    cout << T_MAGENTA << " Ki ";   break;
+
+
+
+
+
+
+
+
+
+
+    // case whitepawn:    cout << T_RED << " pa ";    break;
+    // case blackpawn:    cout << T_BLUE << " pa ";   break;
+    //
+    // case whiteknight:  cout << T_RED << " kn ";    break;
+    // case blackknight:  cout << T_BLUE << " kn ";   break;
+    //
+    // case whitebishop:  cout << T_RED << " bi ";    break;
+    // case blackbishop:  cout << T_BLUE << " bi ";   break;
+    //
+    // case whiterook:    cout << T_RED << " ro ";    break;
+    // case blackrook:    cout << T_BLUE << " ro ";   break;
+    //
+    // case whitequeen:   cout << T_RED << " Qu ";    break;
+    // case blackqueen:   cout << T_BLUE << " Qu ";   break;
+    //
+    // case whiteking:    cout << T_RED << " Ki ";    break;
+    // case blackking:    cout << T_BLUE << " Ki ";   break;
 
     default:           //cout << " " << c << " ";
       break;
