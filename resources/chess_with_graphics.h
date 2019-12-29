@@ -256,7 +256,7 @@ private:
   int king_start, king_num;
 
   glm::vec3 white = glm::vec3(1,0.9,0.76);
-  glm::vec3 black = glm::vec3(0.1,0.1,0);
+  glm::vec3 black = glm::vec3(0.25,0.25,0);
 
 
   glm::vec3 offsets[8][8];  //used to place pieces more simply
@@ -1510,12 +1510,16 @@ void opengl_container::draw_pieces()
         glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(selection_color));
 
         if(selection_mode)
+        {
           glUniform1i(glGetUniformLocation( shader_program, "mode" ), 5);
+        }
         else
+        {
           glUniform1i(glGetUniformLocation( shader_program, "mode" ), 1);
+        }
 
-          // glDrawArrays(GL_LINES, pawn_start, pawn_num);
-          glDrawArrays(GL_TRIANGLES, pawn_start, pawn_num);
+        // glDrawArrays(GL_TRIANGLES, pawn_start, pawn_num);
+        glDrawArrays(GL_TRIANGLES, king_start, king_num);
       }
 
 
@@ -1530,12 +1534,15 @@ void opengl_container::draw_pieces()
         glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(selection_color));
 
         if(selection_mode)
+        {
           glUniform1i(glGetUniformLocation( shader_program, "mode" ), 5);
+        }
         else
+        {
           glUniform1i(glGetUniformLocation( shader_program, "mode" ), 2);
+        }
 
-          // glDrawArrays(GL_LINES, pawn_start, pawn_num);
-          glDrawArrays(GL_TRIANGLES, pawn_start, pawn_num);
+        glDrawArrays(GL_TRIANGLES, pawn_start, pawn_num);
 
       }
     }

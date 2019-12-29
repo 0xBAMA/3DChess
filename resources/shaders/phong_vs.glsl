@@ -53,7 +53,7 @@ void main()
       break;
 
     case 2://displaying black pieces
-      v_color = vec4(0.1,0.1,0,1);
+      v_color = vec4(0.25,0.25,0,1);
       break;
 
 
