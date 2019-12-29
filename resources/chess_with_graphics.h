@@ -788,7 +788,8 @@ opengl_container::opengl_container()
     }
   }
 
-  for(int j = 1; j < rotated_sections[0][rotated_sections[0].size()-1].size(); j++)    //iterate through points
+  //this is the last bit to stitch up the seam
+  for(int j = 1; j < rotated_sections[0][rotated_sections[0].size()-1].size(); j++)
   {
     glm::vec3 A, B, C, D, N;
     A = rotated_sections[0][rotated_sections[0].size()-1][j-1];
@@ -826,6 +827,60 @@ opengl_container::opengl_container()
 
   knight_start = points.size();
   //knight points
+
+  //points and computed normals
+  for(int i = 1; i < rotated_sections[1].size(); i++)         //iterate through slices
+  {
+    for(int j = 1; j < rotated_sections[1][i].size(); j++)    //iterate through points
+    {
+      glm::vec3 A, B, C, D, N;
+      A = rotated_sections[1][i-1][j-1];
+      B = rotated_sections[1][i][j-1];
+      C = rotated_sections[1][i-1][j];
+      D = rotated_sections[1][i][j];
+
+      points.push_back(A);
+      points.push_back(B);
+      points.push_back(C);
+
+      points.push_back(C);
+      points.push_back(B);
+      points.push_back(D);
+
+      N = glm::cross(A-B, B-D);
+
+      for(int k = 0; k < 6; k++)
+      {
+        normals.push_back(N);
+      }
+    }
+  }
+
+  //this is the last bit to stitch up the seam
+  for(int j = 1; j < rotated_sections[1][rotated_sections[1].size()-1].size(); j++)
+  {
+    glm::vec3 A, B, C, D, N;
+    A = rotated_sections[1][rotated_sections[1].size()-1][j-1];
+    B = rotated_sections[1][0][j-1];
+    C = rotated_sections[1][rotated_sections[1].size()-1][j];
+    D = rotated_sections[1][0][j];
+
+    points.push_back(A);
+    points.push_back(B);
+    points.push_back(C);
+
+    points.push_back(C);
+    points.push_back(B);
+    points.push_back(D);
+
+    N = glm::cross(A-B, B-D);
+
+    for(int k = 0; k < 6; k++)
+    {
+      normals.push_back(N);
+    }
+  }
+
   knight_num = points.size() - knight_start;
   cout << endl << "knight consists of " << knight_num << " points" << endl << endl;
 
@@ -834,6 +889,60 @@ opengl_container::opengl_container()
 
   bishop_start = points.size();
   //bishop points
+
+  //points and computed normals
+  for(int i = 1; i < rotated_sections[2].size(); i++)         //iterate through slices
+  {
+    for(int j = 1; j < rotated_sections[2][i].size(); j++)    //iterate through points
+    {
+      glm::vec3 A, B, C, D, N;
+      A = rotated_sections[2][i-1][j-1];
+      B = rotated_sections[2][i][j-1];
+      C = rotated_sections[2][i-1][j];
+      D = rotated_sections[2][i][j];
+
+      points.push_back(A);
+      points.push_back(B);
+      points.push_back(C);
+
+      points.push_back(C);
+      points.push_back(B);
+      points.push_back(D);
+
+      N = glm::cross(A-B, B-D);
+
+      for(int k = 0; k < 6; k++)
+      {
+        normals.push_back(N);
+      }
+    }
+  }
+
+  //this is the last bit to stitch up the seam
+  for(int j = 1; j < rotated_sections[2][rotated_sections[2].size()-1].size(); j++)
+  {
+    glm::vec3 A, B, C, D, N;
+    A = rotated_sections[2][rotated_sections[2].size()-1][j-1];
+    B = rotated_sections[2][0][j-1];
+    C = rotated_sections[2][rotated_sections[2].size()-1][j];
+    D = rotated_sections[2][0][j];
+
+    points.push_back(A);
+    points.push_back(B);
+    points.push_back(C);
+
+    points.push_back(C);
+    points.push_back(B);
+    points.push_back(D);
+
+    N = glm::cross(A-B, B-D);
+
+    for(int k = 0; k < 6; k++)
+    {
+      normals.push_back(N);
+    }
+  }
+
   bishop_num = points.size() - bishop_start;
   cout << endl << "bishop consists of " << bishop_num << " points" << endl << endl;
 
@@ -841,6 +950,59 @@ opengl_container::opengl_container()
 
   rook_start = points.size();
   //rook points
+
+  //points and computed normals
+  for(int i = 1; i < rotated_sections[3].size(); i++)         //iterate through slices
+  {
+    for(int j = 1; j < rotated_sections[3][i].size(); j++)    //iterate through points
+    {
+      glm::vec3 A, B, C, D, N;
+      A = rotated_sections[3][i-1][j-1];
+      B = rotated_sections[3][i][j-1];
+      C = rotated_sections[3][i-1][j];
+      D = rotated_sections[3][i][j];
+
+      points.push_back(A);
+      points.push_back(B);
+      points.push_back(C);
+
+      points.push_back(C);
+      points.push_back(B);
+      points.push_back(D);
+
+      N = glm::cross(A-B, B-D);
+
+      for(int k = 0; k < 6; k++)
+      {
+        normals.push_back(N);
+      }
+    }
+  }
+
+  //this is the last bit to stitch up the seam
+  for(int j = 1; j < rotated_sections[3][rotated_sections[3].size()-1].size(); j++)
+  {
+    glm::vec3 A, B, C, D, N;
+    A = rotated_sections[3][rotated_sections[3].size()-1][j-1];
+    B = rotated_sections[3][0][j-1];
+    C = rotated_sections[3][rotated_sections[3].size()-1][j];
+    D = rotated_sections[3][0][j];
+
+    points.push_back(A);
+    points.push_back(B);
+    points.push_back(C);
+
+    points.push_back(C);
+    points.push_back(B);
+    points.push_back(D);
+
+    N = glm::cross(A-B, B-D);
+
+    for(int k = 0; k < 6; k++)
+    {
+      normals.push_back(N);
+    }
+  }
   rook_num = points.size() - rook_start;
   cout << endl << "rook consists of " << rook_num << " points" << endl << endl;
 
@@ -848,6 +1010,60 @@ opengl_container::opengl_container()
 
   queen_start = points.size();
   //queen points
+
+  //points and computed normals
+  for(int i = 1; i < rotated_sections[4].size(); i++)         //iterate through slices
+  {
+    for(int j = 1; j < rotated_sections[4][i].size(); j++)    //iterate through points
+    {
+      glm::vec3 A, B, C, D, N;
+      A = rotated_sections[4][i-1][j-1];
+      B = rotated_sections[4][i][j-1];
+      C = rotated_sections[4][i-1][j];
+      D = rotated_sections[4][i][j];
+
+      points.push_back(A);
+      points.push_back(B);
+      points.push_back(C);
+
+      points.push_back(C);
+      points.push_back(B);
+      points.push_back(D);
+
+      N = glm::cross(A-B, B-D);
+
+      for(int k = 0; k < 6; k++)
+      {
+        normals.push_back(N);
+      }
+    }
+  }
+
+  //this is the last bit to stitch up the seam
+  for(int j = 1; j < rotated_sections[4][rotated_sections[4].size()-1].size(); j++)
+  {
+    glm::vec3 A, B, C, D, N;
+    A = rotated_sections[4][rotated_sections[4].size()-1][j-1];
+    B = rotated_sections[4][0][j-1];
+    C = rotated_sections[4][rotated_sections[4].size()-1][j];
+    D = rotated_sections[4][0][j];
+
+    points.push_back(A);
+    points.push_back(B);
+    points.push_back(C);
+
+    points.push_back(C);
+    points.push_back(B);
+    points.push_back(D);
+
+    N = glm::cross(A-B, B-D);
+
+    for(int k = 0; k < 6; k++)
+    {
+      normals.push_back(N);
+    }
+  }
+
   queen_num = points.size() - queen_start;
   cout << endl << "queen consists of " << queen_num << " points" << endl << endl;
 
@@ -855,6 +1071,59 @@ opengl_container::opengl_container()
 
   king_start = points.size();
   //king points
+
+  //points and computed normals
+  for(int i = 1; i < rotated_sections[5].size(); i++)         //iterate through slices
+  {
+    for(int j = 1; j < rotated_sections[5][i].size(); j++)    //iterate through points
+    {
+      glm::vec3 A, B, C, D, N;
+      A = rotated_sections[5][i-1][j-1];
+      B = rotated_sections[5][i][j-1];
+      C = rotated_sections[5][i-1][j];
+      D = rotated_sections[5][i][j];
+
+      points.push_back(A);
+      points.push_back(B);
+      points.push_back(C);
+
+      points.push_back(C);
+      points.push_back(B);
+      points.push_back(D);
+
+      N = glm::cross(A-B, B-D);
+
+      for(int k = 0; k < 6; k++)
+      {
+        normals.push_back(N);
+      }
+    }
+  }
+
+  //this is the last bit to stitch up the seam
+  for(int j = 1; j < rotated_sections[5][rotated_sections[5].size()-1].size(); j++)
+  {
+    glm::vec3 A, B, C, D, N;
+    A = rotated_sections[5][rotated_sections[5].size()-1][j-1];
+    B = rotated_sections[5][0][j-1];
+    C = rotated_sections[5][rotated_sections[5].size()-1][j];
+    D = rotated_sections[5][0][j];
+
+    points.push_back(A);
+    points.push_back(B);
+    points.push_back(C);
+
+    points.push_back(C);
+    points.push_back(B);
+    points.push_back(D);
+
+    N = glm::cross(A-B, B-D);
+
+    for(int k = 0; k < 6; k++)
+    {
+      normals.push_back(N);
+    }
+  }
   king_num = points.size() - king_start;
   cout << endl << "king consists of " << king_num << " points" << endl << endl;
 

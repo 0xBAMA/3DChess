@@ -46,7 +46,7 @@ void main()
     o_color = v_color;
   }
 
-  if(mode == 0)
+  if(mode == 0 || mode == 1 || mode == 2)
   {
     //phong lighting model
 
