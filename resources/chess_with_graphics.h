@@ -759,16 +759,60 @@ opengl_container::opengl_container()
 
   pawn_start = points.size();
 
-  for(int i = 0; i < rotated_sections[5].size(); i++)
+
+  //points and computed normals
+  for(int i = 1; i < rotated_sections[0].size(); i++)         //iterate through slices
   {
-    for(int j = 0; j < rotated_sections[5][i].size(); j++)
+    for(int j = 1; j < rotated_sections[0][i].size(); j++)    //iterate through points
     {
-      points.push_back(rotated_sections[5][i][j]);
+      glm::vec3 A, B, C, D, N;
+      A = rotated_sections[0][i-1][j-1];
+      B = rotated_sections[0][i][j-1];
+      C = rotated_sections[0][i-1][j];
+      D = rotated_sections[0][i][j];
+
+      points.push_back(A);
+      points.push_back(B);
+      points.push_back(C);
+
+      points.push_back(C);
+      points.push_back(B);
+      points.push_back(D);
+
+      N = glm::cross(A-B, B-D);
+
+      for(int k = 0; k < 6; k++)
+      {
+        normals.push_back(N);
+      }
+    }
+  }
+
+  for(int j = 1; j < rotated_sections[0][rotated_sections[0].size()-1].size(); j++)    //iterate through points
+  {
+    glm::vec3 A, B, C, D, N;
+    A = rotated_sections[0][rotated_sections[0].size()-1][j-1];
+    B = rotated_sections[0][0][j-1];
+    C = rotated_sections[0][rotated_sections[0].size()-1][j];
+    D = rotated_sections[0][0][j];
+
+    points.push_back(A);
+    points.push_back(B);
+    points.push_back(C);
+
+    points.push_back(C);
+    points.push_back(B);
+    points.push_back(D);
+
+    N = glm::cross(A-B, B-D);
+
+    for(int k = 0; k < 6; k++)
+    {
+      normals.push_back(N);
     }
   }
 
 
-  //then compute normals
 
   pawn_num = points.size() - pawn_start;
 
@@ -1202,7 +1246,7 @@ void opengl_container::draw_pieces()
           glUniform1i(glGetUniformLocation( shader_program, "mode" ), 1);
 
           // glDrawArrays(GL_LINES, pawn_start, pawn_num);
-          glDrawArrays(GL_POINTS, pawn_start, pawn_num);
+          glDrawArrays(GL_TRIANGLES, pawn_start, pawn_num);
       }
 
 
@@ -1222,7 +1266,8 @@ void opengl_container::draw_pieces()
           glUniform1i(glGetUniformLocation( shader_program, "mode" ), 2);
 
           // glDrawArrays(GL_LINES, pawn_start, pawn_num);
-          glDrawArrays(GL_POINTS, pawn_start, pawn_num);
+          glDrawArrays(GL_TRIANGLES, pawn_start, pawn_num);
+
       }
     }
   }
