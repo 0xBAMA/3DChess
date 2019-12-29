@@ -5,6 +5,14 @@
 #include "move.h"
 #include "chess_board.h"
 
+typedef enum game_state_t{
+
+    b_initial_state;
+    b_selected_state;
+    w_initial_state;
+    w_selected_state;
+}game_state;
+
 typedef enum result
 {
     BLACK_SUCCESS,
@@ -23,8 +31,12 @@ public:
 
     contents return_contents_at(int x, int y);
 
-private:
+    bool is_legal( chess_move mv );
 
+    void handle_click(int red, int green);
+
+private:
+    game_state my_state;
     void make_move(chess_move m);
     chess_board c;
 
@@ -52,4 +64,19 @@ contents game::return_contents_at(int x, int y){
   return c.get_space_at(x,y).get_contents();
 }
 
+
+void game::handle_click(int green, int red){
+
+    switch(my_state){
+        
+        case(b_initial_state):
+
+        case(b_selected_state):
+
+        case(w_initial_state):
+
+        case(w_slected_state):
+        
+    }
+}
 #endif

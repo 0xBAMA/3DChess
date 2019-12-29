@@ -1028,6 +1028,8 @@ bool opengl_container::handle_input()
 
           unsigned char pixel[4];
           glReadPixels(e.button.x, windowheight - e.button.y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, pixel);
+          int x = e.button.x; 
+          //my_game.handle_click();
 
           cout << endl << endl << " clicked on:  r:" << (int)pixel[0] << " g:" << (int)pixel[1] << " b:" << (int)pixel[2] << " a:" << (int)pixel[3] << endl << endl;
 

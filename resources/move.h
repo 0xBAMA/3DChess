@@ -14,9 +14,10 @@ public:
     int score;
 };
 
-chess_move::chess_move(/* args */)
+chess_move::chess_move(space source, space destination)
 {
-
+    source = source;
+    destination = destination;
 }
 
 chess_move::~chess_move()
