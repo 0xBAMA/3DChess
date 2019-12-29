@@ -7,7 +7,7 @@ class chess_move
 private:
     /* data */
 public:
-    chess_move(/* args */);
+    chess_move(space source, space destination);
     ~chess_move();
 
     space source, destination;
@@ -22,7 +22,7 @@ chess_move::chess_move(space source, space destination)
 
 chess_move::~chess_move()
 {
-    
+
 }
 
 #endif

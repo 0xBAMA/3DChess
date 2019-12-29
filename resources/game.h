@@ -7,11 +7,11 @@
 
 typedef enum game_state_t{
 
-    b_initial_state;
-    b_selected_state;
-    w_initial_state;
-    w_selected_state;
-}game_state;
+    b_initial_state,
+    b_selected_state,
+    w_initial_state,
+    w_selected_state
+} game_state;
 
 typedef enum result
 {
@@ -59,24 +59,33 @@ void game::make_move(chess_move m)
 
 }
 
-contents game::return_contents_at(int x, int y){
+contents game::return_contents_at(int x, int y)
+{
 
   return c.get_space_at(x,y).get_contents();
 }
 
 
-void game::handle_click(int green, int red){
+void game::handle_click(int green, int red)
+{
 
     switch(my_state){
-        
-        case(b_initial_state):
 
-        case(b_selected_state):
+        case b_initial_state:
+          break;
 
-        case(w_initial_state):
+        case b_selected_state:
+          break;
 
-        case(w_slected_state):
-        
+        case w_initial_state:
+          break;
+
+        case w_selected_state:
+          break;
+
+        default:
+          break;
+
     }
 }
 #endif

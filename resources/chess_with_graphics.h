@@ -759,24 +759,61 @@ opengl_container::opengl_container()
 
   pawn_start = points.size();
 
-  // points.push_back(glm::vec3( 0,    0,    0));
-  // points.push_back(glm::vec3( 0,    0.3,  0));
-  // points.push_back(glm::vec3(-0.05, 0.2,  0));
-  // points.push_back(glm::vec3( 0.05, 0.2,  0));
-  // points.push_back(glm::vec3( 0.0,  0.2, -0.05));
-  // points.push_back(glm::vec3( 0.0,  0.2,  0.05));
-
-  for(int i = 0; i < rotated_sections[0].size(); i++)
+  for(int i = 0; i < rotated_sections[5].size(); i++)
   {
-    for(int j = 0; j < rotated_sections[0][i].size(); j++)
+    for(int j = 0; j < rotated_sections[5][i].size(); j++)
     {
-      points.push_back(rotated_sections[0][i][j]);
+      points.push_back(rotated_sections[5][i][j]);
     }
   }
+
+
+  //then compute normals
 
   pawn_num = points.size() - pawn_start;
 
   cout << endl << "pawn consists of " << pawn_num << " points" << endl << endl;
+
+
+
+
+
+
+
+  knight_start = points.size();
+  //knight points
+  knight_num = points.size() - knight_start;
+  cout << endl << "knight consists of " << knight_num << " points" << endl << endl;
+
+
+
+
+  bishop_start = points.size();
+  //bishop points
+  bishop_num = points.size() - bishop_start;
+  cout << endl << "bishop consists of " << bishop_num << " points" << endl << endl;
+
+
+
+  rook_start = points.size();
+  //rook points
+  rook_num = points.size() - rook_start;
+  cout << endl << "rook consists of " << rook_num << " points" << endl << endl;
+
+
+
+  queen_start = points.size();
+  //queen points
+  queen_num = points.size() - queen_start;
+  cout << endl << "queen consists of " << queen_num << " points" << endl << endl;
+
+
+
+  king_start = points.size();
+  //king points
+  king_num = points.size() - king_start;
+  cout << endl << "king consists of " << king_num << " points" << endl << endl;
+
 
 
 
@@ -1028,7 +1065,7 @@ bool opengl_container::handle_input()
 
           unsigned char pixel[4];
           glReadPixels(e.button.x, windowheight - e.button.y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, pixel);
-          int x = e.button.x; 
+          // int x = e.button.x;  //crosses initialization
           //my_game.handle_click();
 
           cout << endl << endl << " clicked on:  r:" << (int)pixel[0] << " g:" << (int)pixel[1] << " b:" << (int)pixel[2] << " a:" << (int)pixel[3] << endl << endl;
