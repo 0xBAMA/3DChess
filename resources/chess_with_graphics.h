@@ -738,7 +738,16 @@ opengl_container::opengl_container()
   {
     for(int j = 1; j < num_stops; j++)            //iterating through slices
     {
-      //read from the first slice, rotate based on 'j' increments, put back in index [piece][j][...]
+      //this stop will have as many points in it as the first list of points
+      rotated_sections[i][j].resize(rotated_sections[i][0].size());
+
+      //read from the first slice, rotate based on 'j' increments, put back in index [i][j][...]
+      for(int k = 0; k < rotated_sections[i][j].size(); k++)
+      {
+        //need to look at glm::rotate functions
+
+          // rotated_sections[i][j][k] =     // rotate the value from rotated_sections[i][0][k] by (360/num_stops)*k
+      }
     }
   }
 
