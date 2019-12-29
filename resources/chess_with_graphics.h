@@ -334,7 +334,8 @@ opengl_container::opengl_container()
 
 
 
-  glPointSize(16.0f);
+  // glPointSize(16.0f);
+  glPointSize(2.0f);
 
   glClearColor( 0.2, 0.1, 0.0, 0.0 );
 
@@ -587,7 +588,7 @@ opengl_container::opengl_container()
 
   for(int i = 0; i < rotated_sections.size(); i++)
   {
-    rotated_sections[i].resize(10);   //each piece has 10 slices
+    rotated_sections[i].resize(num_stops);   //each piece has num_stops slices
   }
 
   //order is:
@@ -744,9 +745,8 @@ opengl_container::opengl_container()
       //read from the first slice, rotate based on 'j' increments, put back in index [i][j][...]
       for(int k = 0; k < rotated_sections[i][j].size(); k++)
       {
-        //need to look at glm::rotate functions
-
-          // rotated_sections[i][j][k] =     // rotate the value from rotated_sections[i][0][k] by (360/num_stops)*k
+        // rotate the value from rotated_sections[i][0][k] by (360/num_stops)*k
+        rotated_sections[i][j][k] = (glm::rotate(glm::radians(360.0f/((float)num_stops)*(float)j), glm::vec3(0,1,0)) * glm::vec4(rotated_sections[i][0][k], 1)).xyz();
       }
     }
   }
@@ -759,14 +759,24 @@ opengl_container::opengl_container()
 
   pawn_start = points.size();
 
-  points.push_back(glm::vec3( 0,    0,    0));
-  points.push_back(glm::vec3( 0,    0.3,  0));
-  points.push_back(glm::vec3(-0.05, 0.2,  0));
-  points.push_back(glm::vec3( 0.05, 0.2,  0));
-  points.push_back(glm::vec3( 0.0,  0.2, -0.05));
-  points.push_back(glm::vec3( 0.0,  0.2,  0.05));
+  // points.push_back(glm::vec3( 0,    0,    0));
+  // points.push_back(glm::vec3( 0,    0.3,  0));
+  // points.push_back(glm::vec3(-0.05, 0.2,  0));
+  // points.push_back(glm::vec3( 0.05, 0.2,  0));
+  // points.push_back(glm::vec3( 0.0,  0.2, -0.05));
+  // points.push_back(glm::vec3( 0.0,  0.2,  0.05));
+
+  for(int i = 0; i < rotated_sections[0].size(); i++)
+  {
+    for(int j = 0; j < rotated_sections[0][i].size(); j++)
+    {
+      points.push_back(rotated_sections[0][i][j]);
+    }
+  }
 
   pawn_num = points.size() - pawn_start;
+
+  cout << endl << "pawn consists of " << pawn_num << " points" << endl << endl;
 
 
 
@@ -1152,7 +1162,8 @@ void opengl_container::draw_pieces()
         else
           glUniform1i(glGetUniformLocation( shader_program, "mode" ), 1);
 
-        glDrawArrays(GL_LINES, pawn_start, pawn_num);
+          // glDrawArrays(GL_LINES, pawn_start, pawn_num);
+          glDrawArrays(GL_POINTS, pawn_start, pawn_num);
       }
 
 
@@ -1171,7 +1182,8 @@ void opengl_container::draw_pieces()
         else
           glUniform1i(glGetUniformLocation( shader_program, "mode" ), 2);
 
-        glDrawArrays(GL_LINES, pawn_start, pawn_num);
+          // glDrawArrays(GL_LINES, pawn_start, pawn_num);
+          glDrawArrays(GL_POINTS, pawn_start, pawn_num);
       }
     }
   }
