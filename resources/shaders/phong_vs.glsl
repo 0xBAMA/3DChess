@@ -69,7 +69,7 @@ void main()
 
     mat4 comp = rotation(vec3(1,0,0),0.001*vrot) * rotation(vec3(0,1,0),0.001*rot);
 
-    v_normal = (u_projection_matrix*u_view_matrix*comp*vec4(i_normal,1.0)).xyz;
+    v_normal = normalize((u_projection_matrix*u_view_matrix*comp*vec4(i_normal,1.0)).xyz);
 
     //have to add the offset, before model(rotation),view,projection
     gl_Position = u_projection_matrix*u_view_matrix*comp*vec4( i_position+u_offset, 1.0 );

@@ -83,8 +83,10 @@ MessageCallback( GLenum source,
     fprintf( stderr, "        GL CALLBACK: %s type = 0x%x, severity = GL_DEBUG_SEVERITY_NOTIFICATION, message = %s\n",
            ( type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : "" ),
             type, message );
-}
 
+  // SDL_Delay(1000);
+
+}
 
 
 
@@ -470,7 +472,7 @@ opengl_container::opengl_container()
   for(int i = 0; i < 6; i++) colors.push_back(gold);
 
 
-  glm::vec3 norm = glm::cross(A-B, B-C);
+  glm::vec3 norm = glm::normalize(glm::cross(A-B, B-C));
   for(int i = 0; i < 6; i++) normals.push_back(-norm);
 
 
@@ -501,7 +503,7 @@ opengl_container::opengl_container()
 
   for(int i = 0; i < 6; i++) colors.push_back(gold);
 
-  norm = glm::cross(A-B, B-C);
+  norm = glm::normalize(glm::cross(A-B, B-C));
   for(int i = 0; i < 6; i++) normals.push_back(-norm);
 
   for(int i = 0; i < 6; i++) selection_colors.push_back(blue);
@@ -529,7 +531,7 @@ opengl_container::opengl_container()
 
   for(int i = 0; i < 6; i++) colors.push_back(gold);
 
-  norm = glm::cross(A-B, B-C);
+  norm = glm::normalize(glm::cross(A-B, B-C));
   for(int i = 0; i < 6; i++) normals.push_back(-norm);
 
   for(int i = 0; i < 6; i++) selection_colors.push_back(blue);
@@ -561,7 +563,7 @@ opengl_container::opengl_container()
 
   for(int i = 0; i < 6; i++) colors.push_back(gold);
 
-  norm = glm::cross(A-B, B-C);
+  norm = glm::normalize(glm::cross(A-B, B-C));
   for(int i = 0; i < 6; i++) normals.push_back(-norm);
 
   for(int i = 0; i < 6; i++) selection_colors.push_back(blue);
@@ -772,14 +774,14 @@ opengl_container::opengl_container()
       D = rotated_sections[0][i][j];
 
       points.push_back(A);
-      points.push_back(B);
       points.push_back(C);
+      points.push_back(B);
 
-      points.push_back(C);
       points.push_back(B);
+      points.push_back(C);
       points.push_back(D);
 
-      N = glm::cross(A-B, B-D);
+      N = glm::normalize(glm::cross(A-B, B-D));
 
       for(int k = 0; k < 6; k++)
       {
@@ -798,14 +800,14 @@ opengl_container::opengl_container()
     D = rotated_sections[0][0][j];
 
     points.push_back(A);
-    points.push_back(B);
     points.push_back(C);
+    points.push_back(B);
 
-    points.push_back(C);
     points.push_back(B);
+    points.push_back(C);
     points.push_back(D);
 
-    N = glm::cross(A-B, B-D);
+    N = glm::normalize(glm::cross(A-B, B-D));
 
     for(int k = 0; k < 6; k++)
     {
@@ -813,10 +815,7 @@ opengl_container::opengl_container()
     }
   }
 
-
-
   pawn_num = points.size() - pawn_start;
-
   cout << endl << "pawn consists of " << pawn_num << " points" << endl << endl;
 
 
@@ -840,14 +839,14 @@ opengl_container::opengl_container()
       D = rotated_sections[1][i][j];
 
       points.push_back(A);
-      points.push_back(B);
       points.push_back(C);
+      points.push_back(B);
 
-      points.push_back(C);
       points.push_back(B);
+      points.push_back(C);
       points.push_back(D);
 
-      N = glm::cross(A-B, B-D);
+      N = glm::normalize(glm::cross(A-B, B-D));
 
       for(int k = 0; k < 6; k++)
       {
@@ -866,14 +865,15 @@ opengl_container::opengl_container()
     D = rotated_sections[1][0][j];
 
     points.push_back(A);
-    points.push_back(B);
     points.push_back(C);
+    points.push_back(B);
 
-    points.push_back(C);
     points.push_back(B);
+    points.push_back(C);
     points.push_back(D);
 
-    N = glm::cross(A-B, B-D);
+    N = glm::normalize(glm::cross(A-B, B-D));
+    cout << N[0] << " " << N[1] << " " << N[2] << endl;
 
     for(int k = 0; k < 6; k++)
     {
@@ -902,14 +902,14 @@ opengl_container::opengl_container()
       D = rotated_sections[2][i][j];
 
       points.push_back(A);
-      points.push_back(B);
       points.push_back(C);
+      points.push_back(B);
 
-      points.push_back(C);
       points.push_back(B);
+      points.push_back(C);
       points.push_back(D);
 
-      N = glm::cross(A-B, B-D);
+      N = glm::normalize(glm::cross(A-B, B-D));
 
       for(int k = 0; k < 6; k++)
       {
@@ -928,14 +928,14 @@ opengl_container::opengl_container()
     D = rotated_sections[2][0][j];
 
     points.push_back(A);
-    points.push_back(B);
     points.push_back(C);
+    points.push_back(B);
 
-    points.push_back(C);
     points.push_back(B);
+    points.push_back(C);
     points.push_back(D);
 
-    N = glm::cross(A-B, B-D);
+    N = glm::normalize(glm::cross(A-B, B-D));
 
     for(int k = 0; k < 6; k++)
     {
@@ -963,14 +963,15 @@ opengl_container::opengl_container()
       D = rotated_sections[3][i][j];
 
       points.push_back(A);
-      points.push_back(B);
       points.push_back(C);
+      points.push_back(B);
 
-      points.push_back(C);
       points.push_back(B);
+      points.push_back(C);
       points.push_back(D);
 
-      N = glm::cross(A-B, B-D);
+      N = glm::normalize(glm::cross(A-B, B-D));
+
 
       for(int k = 0; k < 6; k++)
       {
@@ -989,14 +990,14 @@ opengl_container::opengl_container()
     D = rotated_sections[3][0][j];
 
     points.push_back(A);
-    points.push_back(B);
     points.push_back(C);
+    points.push_back(B);
 
-    points.push_back(C);
     points.push_back(B);
+    points.push_back(C);
     points.push_back(D);
 
-    N = glm::cross(A-B, B-D);
+    N = glm::normalize(glm::cross(A-B, B-D));
 
     for(int k = 0; k < 6; k++)
     {
@@ -1023,14 +1024,14 @@ opengl_container::opengl_container()
       D = rotated_sections[4][i][j];
 
       points.push_back(A);
-      points.push_back(B);
       points.push_back(C);
+      points.push_back(B);
 
-      points.push_back(C);
       points.push_back(B);
+      points.push_back(C);
       points.push_back(D);
 
-      N = glm::cross(A-B, B-D);
+      N = glm::normalize(glm::cross(A-B, B-D));
 
       for(int k = 0; k < 6; k++)
       {
@@ -1049,14 +1050,14 @@ opengl_container::opengl_container()
     D = rotated_sections[4][0][j];
 
     points.push_back(A);
-    points.push_back(B);
     points.push_back(C);
+    points.push_back(B);
 
-    points.push_back(C);
     points.push_back(B);
+    points.push_back(C);
     points.push_back(D);
 
-    N = glm::cross(A-B, B-D);
+    N = glm::normalize(glm::cross(A-B, B-D));
 
     for(int k = 0; k < 6; k++)
     {
@@ -1084,14 +1085,14 @@ opengl_container::opengl_container()
       D = rotated_sections[5][i][j];
 
       points.push_back(A);
-      points.push_back(B);
       points.push_back(C);
+      points.push_back(B);
 
-      points.push_back(C);
       points.push_back(B);
+      points.push_back(C);
       points.push_back(D);
 
-      N = glm::cross(A-B, B-D);
+      N = glm::normalize(glm::cross(A-B, B-D));
 
       for(int k = 0; k < 6; k++)
       {
@@ -1110,14 +1111,14 @@ opengl_container::opengl_container()
     D = rotated_sections[5][0][j];
 
     points.push_back(A);
-    points.push_back(B);
     points.push_back(C);
+    points.push_back(B);
 
-    points.push_back(C);
     points.push_back(B);
+    points.push_back(C);
     points.push_back(D);
 
-    N = glm::cross(A-B, B-D);
+    N = glm::normalize(glm::cross(A-B, B-D));
 
     for(int k = 0; k < 6; k++)
     {
@@ -1128,7 +1129,13 @@ opengl_container::opengl_container()
   cout << endl << "king consists of " << king_num << " points" << endl << endl;
 
 
+  for(int i = 0; i < normals.size(); i++)
+  {
+    if(normals[i] == glm::vec3(0,0,0) || glm::all(glm::isnan(normals[i])))
+      normals[i] = glm::vec3(0,1,0);
 
+    cout << normals[i][0]  << " " << normals[i][1] << " " << normals[i][2] << endl;
+  }
 
 
 
@@ -1446,8 +1453,6 @@ void opengl_container::draw_pieces()
   std::uniform_int_distribution<int> dist(0,14);
 
 
-
-
   glm::vec3 offset;
   glm::vec4 selection_color;
 
@@ -1519,7 +1524,7 @@ void opengl_container::draw_pieces()
         }
 
         // glDrawArrays(GL_TRIANGLES, pawn_start, pawn_num);
-        glDrawArrays(GL_TRIANGLES, king_start, king_num);
+        glDrawArrays(GL_TRIANGLES, bishop_start, bishop_num);
       }
 
 
@@ -1552,6 +1557,7 @@ void opengl_container::draw_pieces()
 
   glm::vec3 default_offset = glm::vec3(0,0,0);
   glUniform3fv(glGetUniformLocation( shader_program, "u_offset" ),1, glm::value_ptr(default_offset) );
+
 }
 
 void opengl_container::main_loop()
