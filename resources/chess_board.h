@@ -135,10 +135,10 @@ void chess_board::populate_with_pieces()
   board[61].set_contents(whitebishop);
 
   //king
-  board[60].set_contents(whiteking);
+  board[59].set_contents(whiteking);
 
   //queen
-  board[59].set_contents(whitequeen);
+  board[60].set_contents(whitequeen);
 }
 
 
