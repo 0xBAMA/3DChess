@@ -30,7 +30,7 @@ uniform float light_rotation;
 
 void main()
 {
-  vec3 light = (rotation(vec3(0,1,0),-0.001*light_rotation)*vec4(0.0, 0.5+0.1*sin(0.01*light_rotation), 0.0, 1)).xyz;
+  vec3 light = (rotation(vec3(0,1,0),-0.001*light_rotation)*vec4(0.2, 0.5+0.1*sin(0.01*light_rotation), 0.0, 1)).xyz;
 
   o_color = v_color;
 
@@ -58,17 +58,17 @@ void main()
     vec3 l = normalize(v_position - light);
     vec3 v = normalize(v_position - eye);
     vec3 n;
-    if(gl_FrontFacing)
-    {
-      n = normalize(v_normal);
-    }
-    else
-    {
-      n = normalize(-v_normal);
-
-      if(mode == 1 || mode == 2)
-        n = normalize(v_normal);
-    }
+    // if(gl_FrontFacing)
+    // {
+    //   n = normalize(v_normal);
+    // }
+    // else
+    // {
+    //   n = normalize(-v_normal);
+    //
+    //   if(mode == 1 || mode == 2)
+    //     n = normalize(v_normal);
+    // }
     vec3 r = normalize(reflect(l, n));
 
     //ambient

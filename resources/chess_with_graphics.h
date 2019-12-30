@@ -472,7 +472,7 @@ opengl_container::opengl_container()
   for(int i = 0; i < 6; i++) colors.push_back(gold);
 
 
-  glm::vec3 norm = glm::normalize(glm::cross(A-B, B-C));
+  glm::vec3 norm = -glm::normalize(glm::cross(A-B, B-C));
   for(int i = 0; i < 6; i++) normals.push_back(-norm);
 
 
@@ -503,7 +503,7 @@ opengl_container::opengl_container()
 
   for(int i = 0; i < 6; i++) colors.push_back(gold);
 
-  norm = glm::normalize(glm::cross(A-B, B-C));
+  norm = -glm::normalize(glm::cross(A-B, B-C));
   for(int i = 0; i < 6; i++) normals.push_back(-norm);
 
   for(int i = 0; i < 6; i++) selection_colors.push_back(blue);
@@ -531,7 +531,7 @@ opengl_container::opengl_container()
 
   for(int i = 0; i < 6; i++) colors.push_back(gold);
 
-  norm = glm::normalize(glm::cross(A-B, B-C));
+  norm = -glm::normalize(glm::cross(A-B, B-C));
   for(int i = 0; i < 6; i++) normals.push_back(-norm);
 
   for(int i = 0; i < 6; i++) selection_colors.push_back(blue);
@@ -563,7 +563,7 @@ opengl_container::opengl_container()
 
   for(int i = 0; i < 6; i++) colors.push_back(gold);
 
-  norm = glm::normalize(glm::cross(A-B, B-C));
+  norm = -glm::normalize(glm::cross(A-B, B-C));
   for(int i = 0; i < 6; i++) normals.push_back(-norm);
 
   for(int i = 0; i < 6; i++) selection_colors.push_back(blue);
@@ -781,7 +781,7 @@ opengl_container::opengl_container()
       points.push_back(C);
       points.push_back(D);
 
-      N = glm::normalize(glm::cross(A-B, B-D));
+      N = -glm::normalize(glm::cross(A-B, B-D));
 
       for(int k = 0; k < 6; k++)
       {
@@ -807,7 +807,7 @@ opengl_container::opengl_container()
     points.push_back(C);
     points.push_back(D);
 
-    N = glm::normalize(glm::cross(A-B, B-D));
+    N = -glm::normalize(glm::cross(A-B, B-D));
 
     for(int k = 0; k < 6; k++)
     {
@@ -846,7 +846,7 @@ opengl_container::opengl_container()
       points.push_back(C);
       points.push_back(D);
 
-      N = glm::normalize(glm::cross(A-B, B-D));
+      N = -glm::normalize(glm::cross(A-B, B-D));
 
       for(int k = 0; k < 6; k++)
       {
@@ -872,7 +872,7 @@ opengl_container::opengl_container()
     points.push_back(C);
     points.push_back(D);
 
-    N = glm::normalize(glm::cross(A-B, B-D));
+    N = -glm::normalize(glm::cross(A-B, B-D));
     cout << N[0] << " " << N[1] << " " << N[2] << endl;
 
     for(int k = 0; k < 6; k++)
@@ -909,7 +909,7 @@ opengl_container::opengl_container()
       points.push_back(C);
       points.push_back(D);
 
-      N = glm::normalize(glm::cross(A-B, B-D));
+      N = -glm::normalize(glm::cross(A-B, B-D));
 
       for(int k = 0; k < 6; k++)
       {
@@ -935,7 +935,7 @@ opengl_container::opengl_container()
     points.push_back(C);
     points.push_back(D);
 
-    N = glm::normalize(glm::cross(A-B, B-D));
+    N = -glm::normalize(glm::cross(A-B, B-D));
 
     for(int k = 0; k < 6; k++)
     {
@@ -970,7 +970,7 @@ opengl_container::opengl_container()
       points.push_back(C);
       points.push_back(D);
 
-      N = glm::normalize(glm::cross(A-B, B-D));
+      N = -glm::normalize(glm::cross(A-B, B-D));
 
 
       for(int k = 0; k < 6; k++)
@@ -997,7 +997,7 @@ opengl_container::opengl_container()
     points.push_back(C);
     points.push_back(D);
 
-    N = glm::normalize(glm::cross(A-B, B-D));
+    N = -glm::normalize(glm::cross(A-B, B-D));
 
     for(int k = 0; k < 6; k++)
     {
@@ -1031,7 +1031,7 @@ opengl_container::opengl_container()
       points.push_back(C);
       points.push_back(D);
 
-      N = glm::normalize(glm::cross(A-B, B-D));
+      N = -glm::normalize(glm::cross(A-B, B-D));
 
       for(int k = 0; k < 6; k++)
       {
@@ -1057,7 +1057,7 @@ opengl_container::opengl_container()
     points.push_back(C);
     points.push_back(D);
 
-    N = glm::normalize(glm::cross(A-B, B-D));
+    N = -glm::normalize(glm::cross(A-B, B-D));
 
     for(int k = 0; k < 6; k++)
     {
@@ -1092,7 +1092,7 @@ opengl_container::opengl_container()
       points.push_back(C);
       points.push_back(D);
 
-      N = glm::normalize(glm::cross(A-B, B-D));
+      N = -glm::normalize(glm::cross(A-B, B-D));
 
       for(int k = 0; k < 6; k++)
       {
@@ -1118,7 +1118,7 @@ opengl_container::opengl_container()
     points.push_back(C);
     points.push_back(D);
 
-    N = glm::normalize(glm::cross(A-B, B-D));
+    N = -glm::normalize(glm::cross(A-B, B-D));
 
     for(int k = 0; k < 6; k++)
     {
