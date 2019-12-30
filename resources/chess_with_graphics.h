@@ -586,7 +586,7 @@ opengl_container::opengl_container()
   //...
 
   //so we want, say, 10 stops on the rotation
-  int num_stops = 10;
+  int num_stops = 100;
 
   for(int i = 0; i < rotated_sections.size(); i++)
   {
@@ -1462,6 +1462,128 @@ void opengl_container::draw_pieces()
     for(int y = 0; y < 8; y++)
     {
 
+      switch(my_game.return_contents_at(x, y))
+      {
+          case blackpawn:
+          case blackknight:
+          case blackbishop:
+          case blackrook:
+          case blackqueen:
+          case blackking:
+              offset = offsets[x][y];
+              glUniform3fv(glGetUniformLocation( shader_program, "u_offset" ),1, glm::value_ptr(offset) );
+
+              selection_color = glm::vec4(0.125*x, 0.125*y, 0, 1);
+              glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(selection_color));
+
+              if(selection_mode)
+                glUniform1i(glGetUniformLocation( shader_program, "mode" ), 5);
+              else
+                glUniform1i(glGetUniformLocation( shader_program, "mode" ), 1);
+            break;
+
+
+          case whitepawn:
+          case whiteknight:
+          case whitebishop:
+          case whiterook:
+          case whitequeen:
+          case whiteking:
+              offset = offsets[x][y];
+              glUniform3fv(glGetUniformLocation( shader_program, "u_offset" ),1, glm::value_ptr(offset) );
+
+              selection_color = glm::vec4(0.125*x, 0.125*y, 0, 1);
+              glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(selection_color));
+
+              if(selection_mode)
+                glUniform1i(glGetUniformLocation( shader_program, "mode" ), 5);
+              else
+                glUniform1i(glGetUniformLocation( shader_program, "mode" ), 2);
+            break;
+      }
+
+
+
+
+
+
+      switch(my_game.return_contents_at(x, y))
+      {
+        case whitepawn:
+        case blackpawn:
+          glDrawArrays(GL_TRIANGLES, pawn_start, pawn_num);
+          break;
+
+        case whiteknight:
+        case blackknight:
+          glDrawArrays(GL_TRIANGLES, knight_start, knight_num);
+          break;
+
+        case whitebishop:
+        case blackbishop:
+          glDrawArrays(GL_TRIANGLES, bishop_start, bishop_num);
+          break;
+
+        case whiterook:
+        case blackrook:
+          glDrawArrays(GL_TRIANGLES, rook_start, rook_num);
+          break;
+
+        case whitequeen:
+        case blackqueen:
+          glDrawArrays(GL_TRIANGLES, queen_start, queen_num);
+          break;
+
+        case whiteking:
+        case blackking:
+          glDrawArrays(GL_TRIANGLES, king_start, king_num);
+          break;
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       // switch(dist(mt))
       // {
@@ -1506,50 +1628,69 @@ void opengl_container::draw_pieces()
       //     break;
       // }
 
-      if(y<2)
-      {
-        offset = offsets[x][y];
-        glUniform3fv(glGetUniformLocation( shader_program, "u_offset" ),1, glm::value_ptr(offset) );
-
-        selection_color = glm::vec4(0.125*x, 0.125*y, 0, 1);
-        glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(selection_color));
-
-        if(selection_mode)
-        {
-          glUniform1i(glGetUniformLocation( shader_program, "mode" ), 5);
-        }
-        else
-        {
-          glUniform1i(glGetUniformLocation( shader_program, "mode" ), 1);
-        }
-
-        // glDrawArrays(GL_TRIANGLES, pawn_start, pawn_num);
-        glDrawArrays(GL_TRIANGLES, bishop_start, bishop_num);
-      }
 
 
 
 
-      if(y>5)
-      {
-        offset = offsets[x][y];
-        glUniform3fv(glGetUniformLocation( shader_program, "u_offset" ),1, glm::value_ptr(offset) );
 
-        selection_color = glm::vec4(0.125*x, 0.125*y, 0, 1);
-        glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(selection_color));
 
-        if(selection_mode)
-        {
-          glUniform1i(glGetUniformLocation( shader_program, "mode" ), 5);
-        }
-        else
-        {
-          glUniform1i(glGetUniformLocation( shader_program, "mode" ), 2);
-        }
 
-        glDrawArrays(GL_TRIANGLES, pawn_start, pawn_num);
 
-      }
+
+
+
+
+
+
+
+
+
+
+
+      // if(y<2)
+      // {
+      //   offset = offsets[x][y];
+      //   glUniform3fv(glGetUniformLocation( shader_program, "u_offset" ),1, glm::value_ptr(offset) );
+      //
+      //   selection_color = glm::vec4(0.125*x, 0.125*y, 0, 1);
+      //   glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(selection_color));
+      //
+      //   if(selection_mode)
+      //   {
+      //     glUniform1i(glGetUniformLocation( shader_program, "mode" ), 5);
+      //   }
+      //   else
+      //   {
+      //     glUniform1i(glGetUniformLocation( shader_program, "mode" ), 1);
+      //   }
+      //
+      //   // glDrawArrays(GL_TRIANGLES, pawn_start, pawn_num);
+      //   glDrawArrays(GL_TRIANGLES, bishop_start, bishop_num);
+      // }
+      //
+      //
+      //
+      //
+      // if(y>5)
+      // {
+      //   offset = offsets[x][y];
+      //   glUniform3fv(glGetUniformLocation( shader_program, "u_offset" ),1, glm::value_ptr(offset) );
+      //
+      //   selection_color = glm::vec4(0.125*x, 0.125*y, 0, 1);
+      //   glUniform4fv(glGetUniformLocation(shader_program, "u_color"), 1, glm::value_ptr(selection_color));
+      //
+      //   if(selection_mode)
+      //   {
+      //     glUniform1i(glGetUniformLocation( shader_program, "mode" ), 5);
+      //   }
+      //   else
+      //   {
+      //     glUniform1i(glGetUniformLocation( shader_program, "mode" ), 2);
+      //   }
+      //
+      //   glDrawArrays(GL_TRIANGLES, pawn_start, pawn_num);
+      //
+      // }
     }
   }
 
