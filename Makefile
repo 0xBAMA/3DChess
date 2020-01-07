@@ -5,7 +5,7 @@ DEBUG=-Wall -pedantic -Werror -Wshadow -Wstrict-aliasing -Wstrict-overflow
 LODEPNG_FLAGS = resources/LodePNG/lodepng.cpp -ansi -O3 -std=c++11
 
 INCLUDE_SDL_TTF=-I /usr/local/lib
-GL_FLAGS = -lglut -lGLEW -lGL -lGLU
+GL_FLAGS = -lGLEW -lGL -lGLU
 
 .PHONY: all msg clean fullclean
 
@@ -19,7 +19,7 @@ msg:
 ### ${CXX} ${CXXFLAGS} main.cc `sdl2-config --libs --cflags` -lGL -Wall
 
 main: main.cc resources/*.h
-	${CXX} ${CXXFLAGS} ${GL_FLAGS} -O3 -lSDL2  -o $@ $< ${SDL2FLAGS} $(LODEPNG_FLAGS)
+	${CXX} -O3 -lSDL2  -o $@ $< ${SDL2FLAGS} $(LODEPNG_FLAGS) ${GL_FLAGS}
 
 
 run: msg main
