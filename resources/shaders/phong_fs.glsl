@@ -65,17 +65,17 @@ void main()
     vec3 n2;
 
 
-    // if(gl_FrontFacing)
-    // {
-    //   n = normalize(v_normal);
-    // }
-    // else
-    // {
-    //   n = normalize(-v_normal);
-    //
-    //   if(mode == 1 || mode == 2)
-    //     n = normalize(v_normal);
-    // }
+     if(gl_FrontFacing)
+     {
+       n = normalize(v_normal);
+     }
+     else
+     {
+       n = normalize(-v_normal);
+
+       if(mode == 1 || mode == 2)
+         n = normalize(v_normal);
+     }
 
 
     vec3 r = normalize(reflect(l, n));
@@ -100,7 +100,7 @@ void main()
       o_color.xyz += s2 * vec3(1,0.0,0);
     }
 
-    // o_color.xyz /= 0.5*gl_FragCoord.z;
+    o_color.xyz /= 0.5*gl_FragCoord.z;
     o_color.b*=0.3;
   }
 
