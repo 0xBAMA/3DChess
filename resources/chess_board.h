@@ -52,7 +52,8 @@ bool chess_board::is_legal(std::string input_move)
       // the knight is the only piece which does not need to consider the pieces in its path. That is to say, it can jump over pieces, and others can not.
       // consider which color piece is being moved, and which direction that color moves.
       // a piece cannot capture a piece of the same color.
-      // castling - if the move is attempting to castle, has the king moved? check black_king_moved/white_king_moved
+      // castling - if the move is attempting to castle, has the king moved? check black_king_moved/white_king_moved. 
+      // You can tell that a move is trying to castle if the king is trying to move more than one space in a move, and the relevant flag black_king_moved/white_king_moved is set to false.
       // king can not move into check
       // if the king is in check, this fact must be resolved - that is to say, if the king is in check, no move involving any other piece will be legal, unless it resolves the fact that the king is in check
       // pawns can only move two spaces if they are located in their starting positions - ignore the en passant rule, as it would require a retained board state
