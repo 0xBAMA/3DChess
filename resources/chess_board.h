@@ -3,6 +3,7 @@
 
 
 #include <iostream>
+#include <string>
 #include "board_space.h"
 #include "colors.h"
 
@@ -14,6 +15,7 @@ public:
   chess_board();
 
   space get_space_at(int x, int y);
+  bool is_legal(std::string input_move);
 
   void dump();
 
@@ -24,20 +26,51 @@ private:
 
   void terminal_output(contents c);
 
+  // castling is not allowed if the king has made a move
+  bool white_king_moved = false;
+  bool black_king_moved = false;
+  
   space board[64];
 
 };
+
+bool chess_board::is_legal(std::string input_move)
+{
+  // function takes an input move in the following notation:
+    // four characters - [source x][source y][destination x][destination y]
+  
+  // consider the following:
+  
+    // input validation:
+      // is input_move valid?
+      // is it four characters long
+      // are both source and destination valid board spaces
+      // does source contain a piece, you have functions to check this
+      // ... other considerations?
+    
+    // piece moves:
+      // the knight is the only piece which does not need to consider the pieces in its path. That is to say, it can jump over pieces, and others can not.
+      // consider which color piece is being moved, and which direction that color moves.
+      // a piece cannot capture a piece of the same color.
+      // castling - if the move is attempting to castle, has the king moved? check black_king_moved/white_king_moved
+      // king can not move into check
+      // if the king is in check, it must be moved - that is to say, if the king is in check, no move involving any other piece will be legal, unless it resolves the fact that the king is in check
+      // pawns can only move two spaces if they are located in their starting positions - ignore the en passant rule, as it would require a retained board state
+      // this is by no means an exhaustive list of considerations, for more information, check this https://en.wikipedia.org/wiki/Rules_of_chess
+  
+}
 
 
 space chess_board::get_space_at(int x, int y)
 {
   space temp;
 
-  if(x >= 0 && x <= 7 && y >= 0 && y <= 7){
-
+  if(x >= 0 && x <= 7 && y >= 0 && y <= 7)
+  {
     return board[(8*y) + x];
-
-  }else{
+  }
+  else
+  {
     return temp;
   }
 }
@@ -204,31 +237,6 @@ void chess_board::terminal_output(contents c)
 {
   switch(c)
   {
-    // case whitepawn:    cout << T_CYAN << " pa ";    break;
-    // case blackpawn:    cout << T_BLUE << " pa ";   break;
-    //
-    // case whiteknight:  cout << T_CYAN << " kn ";    break;
-    // case blackknight:  cout << T_BLUE << " kn ";   break;
-    //
-    // case whitebishop:  cout << T_CYAN << " bi ";    break;
-    // case blackbishop:  cout << T_BLUE << " bi ";   break;
-    //
-    // case whiterook:    cout << T_CYAN << " ro ";    break;
-    // case blackrook:    cout << T_BLUE << " ro ";   break;
-    //
-    // case whitequeen:   cout << T_CYAN << " Qu ";    break;
-    // case blackqueen:   cout << T_BLUE << " Qu ";   break;
-    //
-    // case whiteking:    cout << T_CYAN << " Ki ";    break;
-    // case blackking:    cout << T_BLUE << " Ki ";   break;
-
-
-
-
-
-
-
-
     case whitepawn:    cout << T_RED << " pa ";    break;
     case blackpawn:    cout << T_MAGENTA << " pa ";   break;
 
@@ -246,33 +254,6 @@ void chess_board::terminal_output(contents c)
 
     case whiteking:    cout << T_RED << " Ki ";    break;
     case blackking:    cout << T_MAGENTA << " Ki ";   break;
-
-
-
-
-
-
-
-
-
-
-    // case whitepawn:    cout << T_RED << " pa ";    break;
-    // case blackpawn:    cout << T_BLUE << " pa ";   break;
-    //
-    // case whiteknight:  cout << T_RED << " kn ";    break;
-    // case blackknight:  cout << T_BLUE << " kn ";   break;
-    //
-    // case whitebishop:  cout << T_RED << " bi ";    break;
-    // case blackbishop:  cout << T_BLUE << " bi ";   break;
-    //
-    // case whiterook:    cout << T_RED << " ro ";    break;
-    // case blackrook:    cout << T_BLUE << " ro ";   break;
-    //
-    // case whitequeen:   cout << T_RED << " Qu ";    break;
-    // case blackqueen:   cout << T_BLUE << " Qu ";   break;
-    //
-    // case whiteking:    cout << T_RED << " Ki ";    break;
-    // case blackking:    cout << T_BLUE << " Ki ";   break;
 
     default:           //cout << " " << c << " ";
       break;
