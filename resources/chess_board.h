@@ -45,7 +45,7 @@ bool chess_board::is_legal(std::string input_move)
       // is input_move valid?
       // is it four characters long
       // are both source and destination valid board spaces
-      // does source contain a piece, you have functions to check this
+      // consider the board state - does source contain a piece, you have functions to check this
       // ... other considerations?
     
     // piece moves:
@@ -54,7 +54,7 @@ bool chess_board::is_legal(std::string input_move)
       // a piece cannot capture a piece of the same color.
       // castling - if the move is attempting to castle, has the king moved? check black_king_moved/white_king_moved
       // king can not move into check
-      // if the king is in check, it must be moved - that is to say, if the king is in check, no move involving any other piece will be legal, unless it resolves the fact that the king is in check
+      // if the king is in check, this fact must be resolved - that is to say, if the king is in check, no move involving any other piece will be legal, unless it resolves the fact that the king is in check
       // pawns can only move two spaces if they are located in their starting positions - ignore the en passant rule, as it would require a retained board state
       // this is by no means an exhaustive list of considerations, for more information, check this https://en.wikipedia.org/wiki/Rules_of_chess
   
